@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  understory-staging: &django
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: understory-staging
+    # restart: always  # Don't enable while originally configuring.
+    container_name: understory-staging
+    volumes:
+      - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
+    ports:
+      - "8004:8000"
+    command: /code/start
+    # command: tail -f /dev/null  # Keep container running when diagnosing gunicorn crash issues.

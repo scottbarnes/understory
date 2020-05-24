@@ -14,6 +14,9 @@ RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /code/
 COPY . /code/
+RUN sed -i 's/\r$//g' /code/start
+RUN chmod +x /code/start
+
 # Set the working directory to /code/
 WORKDIR /code/
 
@@ -23,5 +26,6 @@ RUN useradd wagtail
 RUN chown -R wagtail /code
 USER wagtail
 
-EXPOSE 8000
-CMD exec gunicorn understory.wsgi:application --bind 0.0.0.0:8004 --workers 3
+# Handle from docker-compose.yml and 'start'
+# EXPOSE 8000
+# CMD exec gunicorn understory.wsgi:application --bind 0.0.0.0:8004 --workers 3
