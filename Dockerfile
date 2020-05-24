@@ -14,7 +14,6 @@ RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /code/
 COPY . /code/
-COPY ./static/ /code/understory/static/
 RUN sed -i 's/\r$//g' /code/start
 RUN chmod +x /code/start
 
@@ -22,6 +21,7 @@ RUN chmod +x /code/start
 WORKDIR /code/
 
 RUN python manage.py migrate
+RUN python manage.py collectstatic --noinput
 
 RUN useradd wagtail
 RUN chown -R wagtail /code
