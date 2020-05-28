@@ -24,9 +24,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'article',
+    'blog',
     'home',
     'search',
-    'blog',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
 
+    'crispy_forms',
     'modelcluster',
     'taggit',
 
@@ -161,3 +163,8 @@ WAGTAIL_SITE_NAME = "understory"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+
+# Custom settings
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
