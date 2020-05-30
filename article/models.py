@@ -43,12 +43,14 @@ class Article(models.Model):
     email = models.EmailField(max_length=255)
     twitter = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(max_length=255, blank=True, null=True)
-    byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
-    # links = models.CharField(max_length=255, blank=True, null=True)
+    # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
     story_title = models.CharField(max_length=255)
     body = models.TextField(max_length=9999)
     # Not displayed on the submission form.
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
+
+    def __str__(self):
+        return self.name
 
 
 class ArticleSubmitPage(Page):
@@ -56,10 +58,12 @@ class ArticleSubmitPage(Page):
     intro = RichTextField(blank=True)
     thank_you_page_title = models.CharField(
         max_length=255, help_text="Thank you for your submission.")
+    thank_you = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname='full'),
         FieldPanel('thank_you_page_title'),
+        FieldPanel('thank_you', classname='full'),
     ]
 
     def serve(self, request):

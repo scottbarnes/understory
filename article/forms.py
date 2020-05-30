@@ -17,13 +17,13 @@ class ArticleSubmitForm(forms.ModelForm):
             'email',
             'twitter',
             'website',
-            'byline',
+            # 'byline',
             'story_title',
             'body',
         )
         widgets = {
             # 'links': forms.MultipleChoiceField(choices=LINK_CHOICES, widget=forms.CheckboxSelectMultiple()),
-            'byline': forms.CheckboxSelectMultiple(),
+            # 'byline': forms.CheckboxSelectMultiple(),
             'body': forms.Textarea(),
         }
         labels = {

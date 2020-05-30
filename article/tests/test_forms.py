@@ -12,17 +12,8 @@ class ArticleFormTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-
-    def test_form_renders_with_content(self):
-        """ Note: does not test crispy forms. """
-        form = ArticleSubmitForm()
-        self.assertIn('input type="text" name="name"', form.as_p())
-
-    def test_form_renders_bootstrap_with_a_get(self):
-        """
-        For this to work I need to create the page in the test environment?
-        Source: https://stackoverflow.com/questions/42649732/testing-wagtail-page-views-using-client-get
-        """
+        # Create a page since they exist in the database and therefore don't exist in the test DB
+        # Source: https://stackoverflow.com/questions/42649732/testing-wagtail-page-views-using-client-get
         parent = Page.objects.get(url_path='/home/')
         page = ArticleSubmitPage(
             title='Article submission page',
@@ -32,9 +23,23 @@ class ArticleFormTest(TestCase):
         )
         parent.add_child(instance=page)
 
+    def test_form_renders_with_content(self):
+        """ Note: does not test crispy forms. """
+        form = ArticleSubmitForm()
+        self.assertIn('input type="text" name="name"', form.as_p())
+
+    def test_form_renders_bootstrap_with_a_get(self):
         response = self.client.get('/submit/')
         self.assertIn(b'class="textinput textInput form-control"', response.content)
 
-
     def test_can_submit_article_form(self):
-        pass
+        response = self.client.post('/submit/', {
+            'name': 'Tester McTest',
+            'email': 'test@example.com',
+            'twitter': '',
+            'story_title': 'Test story title',
+            'body': 'This is the test story body',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Article.objects.count(), 1)
+        self.assertEqual(Article.objects.last().name, 'Tester McTest')

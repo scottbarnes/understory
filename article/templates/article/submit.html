@@ -3,9 +3,10 @@
 {% load wagtailcore_tags %}
 {% load crispy_forms_tags %}
 
-{% block body_class %}template-article-submission{% endblock %}
+{% block body_class %}template-submit{% endblock %}
 
 {% block content %}
+    <main role="main">
     <div class="container">
     <h1>{{ page.title }}</h1>
     {{ page.intro | richtext }}
@@ -16,4 +17,5 @@
     </form>
     <br />
     </div>
+    </main>
 {% endblock %}
