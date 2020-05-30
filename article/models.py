@@ -7,7 +7,8 @@ from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 
 
-LINK_CHOICES = (
+BYLINE_CHOICES = (
+    ('name', 'Name'),
     ('email', 'Email'),
     ('twitter', 'Twitter'),
     ('website', 'Website'),
@@ -18,6 +19,7 @@ ARTICLE_STATUS = (
     ('review_in_progress', 'In progress'),
     ('review_complete', 'Review complete'),
 )
+
 
 class Article(models.Model):
     """
@@ -41,12 +43,12 @@ class Article(models.Model):
     email = models.EmailField(max_length=255)
     twitter = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(max_length=255, blank=True, null=True)
-    # links = models.CharField(max_length=255, blank=True, null=True, choices=LINK_CHOICES)
-    links = models.CharField(max_length=255, blank=True, null=True)
+    byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
+    # links = models.CharField(max_length=255, blank=True, null=True)
     story_title = models.CharField(max_length=255)
     body = models.TextField(max_length=9999)
     # Not displayed on the submission form.
-    status = models.CharField(max_length=255, blank=True, null=True, choices=ARTICLE_STATUS)
+    status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
 
 
 class ArticleSubmitPage(Page):
@@ -66,17 +68,10 @@ class ArticleSubmitPage(Page):
         if request.method == 'POST':
             form = ArticleSubmitForm(request.POST)
             if form.is_valid():
-                name = form.cleaned_data['name']
-                email = form.cleaned_data['email']
-                twitter = form.cleaned_data['twitter']
-                website = form.cleaned_data['website']
-                links = form.cleaned_data['links']
-                story_title = form.cleaned_data['story_title']
-                
                 article = form.save()
                 return render(request, 'article/thank_you.html', {
-                    'page': self,
                     'article': article,
+                    'page': self,
                 })
         else:
             form = ArticleSubmitForm()

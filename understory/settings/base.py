@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'wagtail.core',
 
     'crispy_forms',
+    'django_extensions',
     'modelcluster',
     'taggit',
 
