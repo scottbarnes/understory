@@ -56,6 +56,27 @@ ARTICLE_STATUS = (
 #         return self.name
 
 
+class ArticleIndexPage(Page):
+    """
+    The main article index page model.
+    """
+    intro = RichTextField(blank=True)
+
+    def get_context(self, request):
+        """
+        Modify QuerySet to return posts in reverse chronological order and only return articles
+        that are published.
+        """
+        context = super().get_context(request)
+        articlepages = self.get_children().live().order_by('-first_published_at')
+        context['articlepages'] = articlepages
+        return context
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname='full')
+    ]
+
+
 class ArticlePage(Page):
     """
     Article page model. Formed from form input from ArticleSubmitPage and ArticleSubmitForm.
@@ -110,7 +131,7 @@ class ArticleSubmitPage(Page):
                 body = form.cleaned_data['body']
 
                 # Set up the parent/child relationship between HomePage and ArticlePage
-                home = HomePage.objects.all()[0]  # Need at least one page.
+                index = ArticleIndexPage.objects.all()[0]  # Need at least one page.
                 article = ArticlePage(
                     name=name,
                     email=email,
@@ -120,8 +141,9 @@ class ArticleSubmitPage(Page):
                     title=story_title,
                     body=body,
                 )
-                home.add_child(instance=article)
-                home.save()
+                article.live = False  # Ensure articles do not go live by default.
+                index.add_child(instance=article)
+                index.save()
                 return render(request, 'article/thank_you.html', {
                     'page': self,
                     'article': article,

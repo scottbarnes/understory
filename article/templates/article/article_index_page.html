@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-articleindexpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for article in articlepages %}
+        {% with article=article.specific %}
+            <h2><a href="{% pageurl article %}">{{ article.title }}</a></h2>
+
+            {% comment %}
+            {% with post.main_page as main_image %}
+                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+            {% endwith %}
+            {% endcomment %}
+
+            <p>{{ article.date }}</p>
+            <p>{{ article.intro }}</p>
+            {{ article.body|richtext }}
+        {% endwith %}
+    {% endfor %}
+
+{% endblock %}

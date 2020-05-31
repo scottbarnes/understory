@@ -5,7 +5,7 @@ from django.shortcuts import reverse
 from wagtail.core.models import Page
 
 from ..forms import ArticleSubmitForm
-from ..models import ArticlePage, ArticleSubmitPage
+from ..models import ArticlePage, ArticleSubmitPage, ArticleIndexPage
 
 
 class ArticleFormTest(TestCase):
@@ -15,6 +15,7 @@ class ArticleFormTest(TestCase):
         # Create a page since they exist in the database and therefore don't exist in the test DB
         # Source: https://stackoverflow.com/questions/42649732/testing-wagtail-page-views-using-client-get
         parent = Page.objects.get(url_path='/home/')
+        # parent = ArticleIndexPage.objects.get(url_path='/articles/')
         page = ArticleSubmitPage(
             title='Article submission page',
             slug='submit',
