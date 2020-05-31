@@ -5,8 +5,15 @@
 {% block body_class %}template-articlepage{% endblock %}
 
 {% block content %}
+    <main role="main">
+    <div class="container">
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
+        {% if page.date %}
+            <p class="meta">{{ page.date }}</p>
+        {% endif %}
+        {% if page.name %}
+            <p class="meta">By: {{ page.name }}</p>
+        {% endif %}
 
     <div class="intro">{{ page.intro }}</div>
 
@@ -27,4 +34,6 @@
     <p><a href="{{ page.get_parent_url }}">Return to the Understory article</a></p>
     {% endcomment %}
     <p><a href="../">Return to the Understory article list</a></p>
+    </div>
+    </main>
 {% endblock %}

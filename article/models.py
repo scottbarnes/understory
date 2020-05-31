@@ -3,10 +3,11 @@ from django.db import models
 from django.shortcuts import render
 
 # from autoslug import AutoSlugField
-from django_extensions.db.fields import AutoSlugField
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import Page
+# from django_extensions.db.fields import AutoSlugField
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
+from wagtail.search import index
 
 from home.models import HomePage
 
@@ -88,7 +89,7 @@ class ArticlePage(Page):
     # Maybe the byline should be done similar to the blog categories with another model?
     # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
     # story_title = models.CharField(max_length=255)
-    body = models.TextField(max_length=9999)
+    body = RichTextField(blank=True)
     # Not displayed on the submission form.
     # slug = AutoSlugField(populate_from='body', editable=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
@@ -100,6 +101,22 @@ class ArticlePage(Page):
 
     # def save(self):
     #     self.slug = AutoSlugField(populate_from=self.title, editable=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField('title'),
+        index.SearchField('body'),
+    ]
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('name'),
+            FieldPanel('email'),
+            FieldPanel('twitter'),
+            FieldPanel('website'),
+        ], heading='Contact information'),
+        FieldPanel('body'),
+        FieldPanel('status'),
+    ]
 
 
 class ArticleSubmitPage(Page):

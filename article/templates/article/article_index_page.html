@@ -5,6 +5,8 @@
 {% block body_class %}template-articleindexpage{% endblock %}
 
 {% block content %}
+    <main role="main">
+    <div class="container">
     <h1>{{ page.title }}</h1>
 
     <div class="intro">{{ page.intro|richtext }}</div>
@@ -19,10 +21,16 @@
             {% endwith %}
             {% endcomment %}
 
-            <p>{{ article.date }}</p>
-            <p>{{ article.intro }}</p>
+            {% if article.date %}
+                <p class="meta">{{ article.date }}</p>
+            {% endif %}
+            {% if article.name %}
+                <p class="meta">By: {{ article.name }}</p>
+            {% endif %}
             {{ article.body|richtext }}
+            <br />
         {% endwith %}
     {% endfor %}
-
+    </div>
+    </main>
 {% endblock %}
