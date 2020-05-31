@@ -4,12 +4,14 @@ from django.shortcuts import render
 
 # from autoslug import AutoSlugField
 # from django_extensions.db.fields import AutoSlugField
+from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.search import index
 
 from home.models import HomePage
+from issue.models import IssuePage
 
 BYLINE_CHOICES = (
     ('name', 'Name'),
@@ -95,6 +97,8 @@ class ArticlePage(Page):
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
+                        blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -115,6 +119,7 @@ class ArticlePage(Page):
             FieldPanel('website'),
         ], heading='Contact information'),
         FieldPanel('body'),
+        FieldPanel('issue'),
         FieldPanel('status'),
     ]
 

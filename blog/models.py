@@ -4,14 +4,14 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+
+from taggit.models import TaggedItemBase
 
 
 class BlogIndexPage(Page):
@@ -116,7 +116,6 @@ class BlogPage(Page):
             FieldPanel('tags'),
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading='Blog information'),
-        FieldPanel('date'),
         FieldPanel('intro'),
         FieldPanel('body'),
         InlinePanel('gallery_images', label='Gallery images'),
