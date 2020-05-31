@@ -45,7 +45,7 @@ class IssuePage(Page):
         Modify QuerySet to return only published articles within the issue.
         """
         context = super().get_context(request)
-        articlepages = self.articles.live()
+        articlepages = self.articles.live()  # Why is PyCharm flagging this?
         context['articlepages'] = articlepages
         return context
 
