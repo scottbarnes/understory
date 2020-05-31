@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-articlepage{% endblock %}
+
+{% block content %}
+    <main role="main">
+    <div class="container">
+    <h1>{{ page.title }}</h1>
+        {% if page.date %}
+            <p class="meta">{{ page.date }}</p>
+        {% endif %}
+        {% if page.name %}
+            <p class="meta">By: {{ page.name }}</p>
+        {% endif %}
+
+    <div class="intro">{{ page.intro }}</div>
+
+    {{ page.body|richtext }}
+
+    {% comment %}
+    {% if page.tags.all.count %}
+        <div class="tags">
+            <h3>Tags</h3>
+            {% for tag in page.tags.all %}
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endcomment %}
+
+    {% comment %}
+    <p><a href="{{ page.get_parent_url }}">Return to the Understory article</a></p>
+    {% endcomment %}
+    <p><a href="../">Return to the Understory article list</a></p>
+    </div>
+    </main>
+{% endblock %}
