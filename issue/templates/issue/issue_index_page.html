@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-issueindexpage{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <h1>{{ page.title }}</h1>
+
+            <div class="intro">{{ page.intro|richtext }}</div>
+
+            {% for issue in issuepages %}
+                {% with issue=issue.specific %}
+                    <h2><a href="{% pageurl issue %}">{{ issue.title }}</a></h2>
+
+                    {% if issue.date %}
+                        <p class="meta">{{ issue.date }}</p>
+                    {% endif %}
+                    {% if issue.name %}
+                        <p class="meta">By: {{ issue.name }}</p>
+                    {% endif %}
+                    {{ issue.body|richtext }}
+                    <br />
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

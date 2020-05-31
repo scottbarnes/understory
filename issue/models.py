@@ -40,6 +40,15 @@ class IssuePage(Page):
     body = RichTextField(blank=True)
     # Todo add tags?
 
+    def get_context(self, request):
+        """
+        Modify QuerySet to return only published articles within the issue.
+        """
+        context = super().get_context(request)
+        articlepages = self.articles.live()
+        context['articlepages'] = articlepages
+        return context
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('date')
