@@ -183,34 +183,3 @@ class ArticleSubmitPage(Page):
             'form': form,
         })
 
-# class ArticleSubmitPage(Page):
-#     """ Wagtail page view for article submission. """
-#     intro = RichTextField(blank=True)
-#     thank_you_page_title = models.CharField(
-#         max_length=255, help_text="Thank you for your submission.")
-#     thank_you = RichTextField(blank=True)
-#
-#     content_panels = Page.content_panels + [
-#         FieldPanel('intro', classname='full'),
-#         FieldPanel('thank_you_page_title'),
-#         FieldPanel('thank_you', classname='full'),
-#     ]
-#
-#     def serve(self, request):
-#         """ Serve the submit form view. """
-#         from .forms import ArticleSubmitForm  # Avoid circular import.
-#         if request.method == 'POST':
-#             form = ArticleSubmitForm(request.POST)
-#             if form.is_valid():
-#                 article = form.save()
-#                 return render(request, 'article/thank_you.html', {
-#                     'article': article,
-#                     'page': self,
-#                 })
-#         else:
-#             form = ArticleSubmitForm()
-#
-#         return render(request, 'article/submit.html', {
-#             'page': self,
-#             'form': form,
-#         })
