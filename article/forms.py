@@ -27,7 +27,7 @@ class ArticleSubmitForm(forms.Form):
     body = forms.CharField(label='Article body (just paste it all here)', widget=forms.Textarea)
 
 
-    # class ArticleSubmitForm(forms.ModelForm):
+# class ArticleSubmitForm(forms.ModelForm):
 #     """
 #     Form to submit articles
 #     """

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-issuepage{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <h1>{{ page.title }}</h1>
+            {% if page.date %}
+                <p class="meta">{{ page.date }}</p>
+            {% endif %}
+            {% if page.name %}
+                <p class="meta">By: {{ page.name }}</p>
+            {% endif %}
+
+            <div class="intro">{{ page.intro }}</div>
+
+            {{ page.body|richtext }}
+
+            {# Articles #}
+            {% for article in articlepages %}
+                {% with article=article.specific %}
+                    <h2><a href="{% pageurl article %}">{{ article.title }}</a></h2>
+                    {% if article.date %}
+                        <p class="meta">{{ article.date }}</p>
+                    {% endif %}
+                    {% if article.name %}
+                        <p class="meta">By: {{ article.name }}</p>
+                    {% endif %}
+                    {{ article.body|richtext }}
+                    <br />
+                {% endwith %}
+            {% endfor %}
+
+            <p><a href="../">Return to the Understory issue list</a></p>
+        </div>
+    </main>
+{% endblock %}

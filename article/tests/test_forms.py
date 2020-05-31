@@ -30,6 +30,7 @@ class ArticleFormTest(TestCase):
         self.assertIn('input type="text" name="name"', form.as_p())
 
     def test_form_renders_bootstrap_with_a_get(self):
+        """ Note: does test crispy forms. """
         response = self.client.get('/submit/')
         self.assertIn(b'class="textinput textInput form-control"', response.content)
 
