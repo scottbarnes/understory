@@ -5,7 +5,7 @@ from django.shortcuts import reverse
 from wagtail.core.models import Page
 
 from ..forms import ArticleSubmitForm
-from ..models import Article, ArticleSubmitPage
+from ..models import ArticlePage, ArticleSubmitPage
 
 
 class ArticleFormTest(TestCase):
@@ -41,5 +41,5 @@ class ArticleFormTest(TestCase):
             'body': 'This is the test story body',
         })
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Article.objects.count(), 1)
-        self.assertEqual(Article.objects.last().name, 'Tester McTest')
+        self.assertEqual(ArticlePage.objects.count(), 1)
+        self.assertEqual(ArticlePage.objects.last().name, 'Tester McTest')
