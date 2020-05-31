@@ -27,7 +27,7 @@
             {% if article.name %}
                 <p class="meta">By: {{ article.name }}</p>
             {% endif %}
-            {{ article.body|richtext }}
+            {{ article.intro | richtext }}
             <br />
         {% endwith %}
     {% endfor %}

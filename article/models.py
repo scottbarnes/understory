@@ -95,6 +95,8 @@ class ArticlePage(Page):
     # Not displayed on the submission form.
     # slug = AutoSlugField(populate_from='body', editable=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
+    date = models.DateField('Post date', null=True, blank=True)
+    intro = RichTextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
@@ -118,6 +120,8 @@ class ArticlePage(Page):
             FieldPanel('twitter'),
             FieldPanel('website'),
         ], heading='Contact information'),
+        FieldPanel('date'),
+        FieldPanel('intro'),
         FieldPanel('body'),
         FieldPanel('issue'),
         FieldPanel('status'),
@@ -165,7 +169,8 @@ class ArticleSubmitPage(Page):
                 )
                 article.live = False  # Ensure articles do not go live by default.
                 index.add_child(instance=article)
-                index.save()
+                article.save_revision()  # Save a revision so CMS user can compare to it.
+                # index.save()
                 return render(request, 'article/thank_you.html', {
                     'page': self,
                     'article': article,
