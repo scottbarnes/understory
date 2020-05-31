@@ -2,9 +2,9 @@
 from django.db import models
 from django.shortcuts import render
 
-# from autoslug import AutoSlugField
-# from django_extensions.db.fields import AutoSlugField
 from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
@@ -27,41 +27,38 @@ ARTICLE_STATUS = (
 )
 
 
-# class Article(models.Model):
-#     """
-#     Article submission.
-#     name: the applicant's name
-#     email: the applicant's email. This will be validated for the form of a valid email address.
-#     twitter: the applicant's twitter handle. No validation.
-#     website: a website to which the applicant would like to link. Validation as to form.
-#     links: a multi-select of 'links' the applicant would like to display with the byline:
-#         - email, twitter, and website url.
-#     story_title: the applicant's proposed story article.
-#     body: the entire body of the applicant's article.
-#     status: only for editors. Indicator of where the article is in the overall process. Statuses are:
-#         - Not reviewed, In progress, and Review complete.
-#
-#     TODO:
-#     - Add tags (for editors only?)
-#     """
-#
-#     name = models.CharField(max_length=255)
-#     email = models.EmailField(max_length=255)
-#     twitter = models.CharField(max_length=255, blank=True, null=True)
-#     website = models.URLField(max_length=255, blank=True, null=True)
-#     # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
-#     story_title = models.CharField(max_length=255)
-#     body = models.TextField(max_length=9999)
-#     # Not displayed on the submission form.
-#     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
-#
-#     def __str__(self):
-#         return self.name
+class ArticleTagIndexPage(Page):
+    """
+    Model for the article tags.
+    """
+    def get_context(self, request):
+        """ Specify a QuerySet to return. """
+        # Filter by tag
+        tag = request.GET.get('tag')
+        articlepages = ArticlePage.objects.live().filter(tags__name=tag)
+
+        # Update the template context
+        context = super().get_context(request)
+        context['articlepages'] = articlepages
+
+        return context
+
+
+class ArticleTagPage(TaggedItemBase):
+    """
+    Support for tagging individual articles.
+    """
+    content_object = ParentalKey(
+        'ArticlePage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
 
 
 class ArticleIndexPage(Page):
     """
     The main article index page model.
+    Location: /articles
     """
     intro = RichTextField(blank=True)
 
@@ -83,6 +80,7 @@ class ArticleIndexPage(Page):
 class ArticlePage(Page):
     """
     Article page model. Formed from form input from ArticleSubmitPage and ArticleSubmitForm.
+    Location: /articles/<article-slug>
     """
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
@@ -93,7 +91,7 @@ class ArticlePage(Page):
     # story_title = models.CharField(max_length=255)
     body = RichTextField(blank=True)
     # Not displayed on the submission form.
-    # slug = AutoSlugField(populate_from='body', editable=True)
+    tags = ClusterTaggableManager(through=ArticleTagPage, blank=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
     date = models.DateField('Post date', null=True, blank=True)
     intro = RichTextField(blank=True)
@@ -104,9 +102,6 @@ class ArticlePage(Page):
 
     def __str__(self):
         return self.name
-
-    # def save(self):
-    #     self.slug = AutoSlugField(populate_from=self.title, editable=True)
 
     search_fields = Page.search_fields + [
         index.SearchField('title'),
@@ -120,16 +115,24 @@ class ArticlePage(Page):
             FieldPanel('twitter'),
             FieldPanel('website'),
         ], heading='Contact information'),
-        FieldPanel('date'),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-        FieldPanel('issue'),
-        FieldPanel('status'),
+        FieldPanel('tags'),
+        MultiFieldPanel([
+            FieldPanel('intro'),
+            FieldPanel('body'),
+        ], heading='Article content'),
+        MultiFieldPanel([
+            FieldPanel('date'),
+            FieldPanel('issue'),
+            FieldPanel('status'),
+        ], heading='Editorial information'),
     ]
 
 
 class ArticleSubmitPage(Page):
-    """ Wagtail page view for article submission. """
+    """
+    Wagtail page view for article submission.
+    Location: /submit
+    """
     intro = RichTextField(blank=True)
     thank_you_page_title = models.CharField(
         max_length=255, help_text="Thank you for your submission.")
@@ -182,4 +185,15 @@ class ArticleSubmitPage(Page):
             'page': self,
             'form': form,
         })
+
+
+
+
+
+
+
+
+
+
+
 

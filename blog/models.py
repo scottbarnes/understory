@@ -43,7 +43,7 @@ class BlogTagIndexPage(Page):
         """ Specify a QuerySet to return. """
         # Filter by tag
         tag = request.GET.get('tag')
-        blogpages = BlogPage.objects.filter(tags__name=tag)
+        blogpages = BlogPage.objects.live().filter(tags__name=tag)
 
         # Update template context
         context = super().get_context(request)

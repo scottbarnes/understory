@@ -1,8 +1,6 @@
 """ understory.article.forms.py """
 from django import forms
 
-from .models import ArticlePage
-
 
 class ArticleSubmitForm(forms.Form):
     """

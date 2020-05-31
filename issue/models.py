@@ -6,9 +6,6 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
 
-# from article.models import ArticlePage
-
-
 class IssueIndexPage(Page):
     """
     Main issue index page.
