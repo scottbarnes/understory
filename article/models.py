@@ -35,7 +35,7 @@ class ArticleTagIndexPage(Page):
         """ Specify a QuerySet to return. """
         # Filter by tag
         tag = request.GET.get('tag')
-        articlepages = ArticlePage.objects.live().filter(tags__name=tag)
+        articlepages = ArticlePage.objects.live().public().filter(tags__name=tag)
 
         # Update the template context
         context = super().get_context(request)
@@ -68,7 +68,7 @@ class ArticleIndexPage(Page):
         that are published.
         """
         context = super().get_context(request)
-        articlepages = self.get_children().live().order_by('-first_published_at')
+        articlepages = self.get_children().live().public().order_by('-first_published_at')
         context['articlepages'] = articlepages
         return context
 

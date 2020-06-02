@@ -18,7 +18,7 @@ class IssueIndexPage(Page):
         Modify QuerySet to return, in reverse chronological order, published issues.
         """
         context = super().get_context(request)
-        issuepages = self.get_children().live().order_by('-first_published_at')
+        issuepages = self.get_children().live().public().order_by('-first_published_at')
         context['issuepages'] = issuepages
         return context
 
@@ -41,8 +41,10 @@ class IssuePage(Page):
         """
         Modify QuerySet to return only published articles within the issue.
         """
+        from article.models import ArticlePage  # Avoid circular import.
         context = super().get_context(request)
-        articlepages = self.articles.live()  # Why is PyCharm flagging this?
+        # articlepages = self.articles.live()  # Why is PyCharm flagging this?
+        articlepages = ArticlePage.objects.filter(issue__id=self.id).live().public()
         context['articlepages'] = articlepages
         return context
 
