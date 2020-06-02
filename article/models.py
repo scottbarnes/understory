@@ -27,24 +27,27 @@ ARTICLE_STATUS = (
 )
 
 
-class ArticleTagIndexPage(Page):
+class TagIndexPage(Page):
     """
     Model for the article tags.
     """
     def get_context(self, request):
         """ Specify a QuerySet to return. """
+        from blog.models import BlogPage  # Avoid circular import
         # Filter by tag
         tag = request.GET.get('tag')
         articlepages = ArticlePage.objects.live().public().filter(tags__name=tag)
+        blogpages = BlogPage.objects.live().public().filter(tags__name=tag)
 
         # Update the template context
         context = super().get_context(request)
         context['articlepages'] = articlepages
+        context['blogpages'] = blogpages
 
         return context
 
 
-class ArticleTagPage(TaggedItemBase):
+class TagPage(TaggedItemBase):
     """
     Support for tagging individual articles.
     """
@@ -91,7 +94,7 @@ class ArticlePage(Page):
     # story_title = models.CharField(max_length=255)
     body = RichTextField(blank=True)
     # Not displayed on the submission form.
-    tags = ClusterTaggableManager(through=ArticleTagPage, blank=True)
+    tags = ClusterTaggableManager(through=TagPage, blank=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
     date = models.DateField('Post date', null=True, blank=True)
     intro = RichTextField(blank=True)
