@@ -59,6 +59,7 @@
 
 <nav class="navbar navbar-light fixed-top bg-light">
     <div class="mx-auto order-0">
+        {# Show an Understory/home link on the navbar everywhere but the homepage. #}
         {% slugurl 'home' as the_url %}
         {% if request.get_full_path == the_url %}
         {% else %}
@@ -106,8 +107,8 @@
 
 <footer class="container">
     <p>
-        Privacy policy <br />
-        Terms of use<br />
+        Privacy policy <br/>
+        Terms of use<br/>
         &copy; Understory 2020
     </p>
 </footer>
