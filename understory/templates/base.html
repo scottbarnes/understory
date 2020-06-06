@@ -59,7 +59,11 @@
 
 <nav class="navbar navbar-light fixed-top bg-light">
     <div class="mx-auto order-0">
-    <a class="navbar-brand" href="{% slugurl 'home' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Understory</a>
+        {% slugurl 'home' as the_url %}
+        {% if request.get_full_path == the_url %}
+        {% else %}
+            <a class="navbar-brand" href="{% slugurl 'home' %}">Understory</a>
+        {% endif %}
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">

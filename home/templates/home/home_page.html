@@ -24,14 +24,14 @@
                 {% for issue in issuepages %}
                     {% with issue=issue.specific %}
                         <div class="col-md-4">
-                        <li>
-                            <a href="{% pageurl issue %}">
-                            <figure>
-                                {% image issue.image fill-430x254-c100 %}
-                            </figure>
-                            <h4>{{ issue.title }}</h4>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{% pageurl issue %}">
+                                    <figure>
+                                        {% image issue.image fill-430x254-c100 %}
+                                    </figure>
+                                    <h4>{{ issue.title }}</h4>
+                                </a>
+                            </li>
                         </div>
                     {% endwith %}
                 {% endfor %}
@@ -44,7 +44,8 @@
                         <div class="col-md-4">
                             <h4>{{ article.title }}</h4>
                             <p>{{ article.intro | richtext }}</p>
-                            <p><a class="btn btn-secondary" href="{% pageurl article %}" role="button">Read more &raquo;</a></p>
+                            <p><a class="btn btn-secondary" href="{% pageurl article %}" role="button">Read more
+                                &raquo;</a></p>
                         </div>
                     {% endwith %}
                 {% endfor %}
