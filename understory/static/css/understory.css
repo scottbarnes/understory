@@ -1,0 +1,40 @@
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: left;
+}
+
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+  padding-top: 3.5rem;
+  font-family: 'Lato', sans-serif;
+}
+
+p {
+  font-family: 'Lato', sans-serif;
+}
+
+/* Issue images */
+.featured-issues h4 {
+  text-align: center;
+  margin: 20px;
+}
+
+.featured-issues figure {
+  background-color: #eb7400;
+  margin: 0;
+  overflow: hidden;
+}
+
+.featured-issues li {
+  list-style: none;
+}
+
+.featured-issues li:hover img {
+  opacity: 0.3;
+}
+
