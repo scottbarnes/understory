@@ -4,6 +4,7 @@ from django.db import models
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class IssueIndexPage(Page):
@@ -34,6 +35,14 @@ class IssuePage(Page):
     """
     date = models.DateField('Post date')
     intro = models.CharField(max_length=255)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Landscape only; horizontal width between 1000px and 3000px.'
+    )
     body = RichTextField(blank=True)
     # Todo add tags?
 
@@ -53,6 +62,7 @@ class IssuePage(Page):
             FieldPanel('date')
         ], heading='Issue information'),
         FieldPanel('intro'),
+        ImageChooserPanel('image'),
         FieldPanel('body'),
         InlinePanel('articles', label='Issue articles'),
     ]

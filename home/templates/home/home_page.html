@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailcore_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -20,13 +20,18 @@
         <div class="container">
             {# Latest issues #}
             <div style="text-align: center;"><h2>Issues</h2></div>
-            <div class="row">
+            <div class="featured-issues row">
                 {% for issue in issuepages %}
                     {% with issue=issue.specific %}
                         <div class="col-md-4">
+                        <li>
+                            <a href="{% pageurl issue %}">
+                            <figure>
+                                {% image issue.image fill-430x254-c100 %}
+                            </figure>
                             <h4>{{ issue.title }}</h4>
-                            <p>{{ issue.intro | richtext }}</p>
-                            <p><a class="btn btn-secondary" href="{% pageurl issue %}" role="button">Read more &raquo;</a></p>
+                            </a>
+                        </li>
                         </div>
                     {% endwith %}
                 {% endfor %}
