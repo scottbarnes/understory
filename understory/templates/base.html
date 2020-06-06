@@ -58,18 +58,25 @@
 {% wagtailuserbar %}
 
 <nav class="navbar navbar-light fixed-top bg-light">
-    <div class="mx-auto order-0">
-        {# Show an Understory/home link on the navbar everywhere but the homepage. #}
-        {% slugurl 'home' as the_url %}
-        {% if request.get_full_path == the_url %}
-        {% else %}
-            <a class="navbar-brand" href="{% slugurl 'home' %}">Understory</a>
-        {% endif %}
-    </div>
+    {# First is left #}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    {# Center #}
+    <div class="mx-auto order-0">
+        {# Show an Understory/home link on the navbar everywhere but the homepage. #}
+        {% slugurl 'home' as the_url %}
+        {% if request.get_full_path == the_url %}
+            {# pass #}
+        {% else %}
+            <a class="navbar-brand" href="{% slugurl 'home' %}">Understory</a>
+        {% endif %}
+    </div>
+    {# Right #}
+    <div class="navbar-nav ml-auto">
+        
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
