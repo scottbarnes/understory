@@ -1,5 +1,6 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailfontawesome %}
 {% load static wagtailuserbar %}
+{% fontawesome_css %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +64,12 @@
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    {# Second item from left #}
+    <div class="navbar-nav">
+        <h4>
+            &nbsp;<a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+        </h4>
+    </div>
     {# Center #}
     <div class="mx-auto order-0">
         {# Show an Understory/home link on the navbar everywhere but the homepage. #}
@@ -75,7 +82,11 @@
     </div>
     {# Right #}
     <div class="navbar-nav ml-auto">
-        
+        <h4>
+            <a href="https://twitter.com/"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="https://facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+            <a href="https://instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        </h4>
     </div>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -100,11 +111,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% slugurl 'about' %}">About</a>
-            </li>
-            <li>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                </form>
             </li>
         </ul>
     </div>
