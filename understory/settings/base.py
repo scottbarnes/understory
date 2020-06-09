@@ -171,3 +171,4 @@ BASE_URL = 'http://example.com'
 # Custom settings
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

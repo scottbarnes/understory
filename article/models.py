@@ -107,8 +107,10 @@ class ArticlePage(Page):
         return self.name
 
     search_fields = Page.search_fields + [
-        index.SearchField('title'),
+        # index.SearchField('title'),  # This is redundant and causes an error.
         index.SearchField('body'),
+        index.SearchField('name'),
+        index.SearchField('email'),
     ]
 
     content_panels = Page.content_panels + [

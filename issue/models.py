@@ -5,6 +5,7 @@ from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 
 
 class IssueIndexPage(Page):
@@ -56,6 +57,12 @@ class IssuePage(Page):
         articlepages = ArticlePage.objects.filter(issue__id=self.id).live().public()
         context['articlepages'] = articlepages
         return context
+
+    search_fields = Page.search_fields + [
+        # index.SearchField('title'),  # This is redundant and causes an error.
+        index.SearchField('body'),
+        index.SearchField('intro'),
+    ]
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
