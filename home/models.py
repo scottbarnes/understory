@@ -1,11 +1,14 @@
 from django.db import models
+from django.shortcuts import render
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.models import Page
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.core.fields import RichTextField
+from wagtail.search.models import Query
 
 
-class HomePage(Page):
+class HomePage(RoutablePageMixin, Page):
     """ The home page. """
     body = RichTextField(blank=True)
 
@@ -32,6 +35,23 @@ class HomePage(Page):
 
         return context
 
+    @route(r'^s/$', name='s')
+    def post_search(self, request, *args, **kwargs):
+        """ Search for the site. """
+        search_query = request.GET.get('q', '')  # Blank search box
+        if search_query:
+            search_results = Page.objects.live().public().search(search_query)
+            # Log the query so Wagtail can suggest promoted results
+            Query.get(search_query).add_hit()
+        else:
+            search_results = Page.objects.none()
+
+        # Render template
+        return render(request, 'home/search_results.html', {
+            'search_query': search_query,
+            'search_results': search_results,
+        })
+
 
 class AboutPage(Page):
     """ The About page. """
@@ -39,4 +59,8 @@ class AboutPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('body', classname='full'),
     ]
+
+
+
+
 

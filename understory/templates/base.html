@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailfontawesome %}
+{% load wagtailcore_tags wagtailfontawesome wagtailroutablepage_tags %}
 {% load static wagtailuserbar %}
 {% fontawesome_css %}
 
@@ -60,15 +60,28 @@
 
 <nav class="navbar navbar-light fixed-top bg-light">
     {# First is left #}
+    <h5>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    {# Second item from left #}
+    </h5>
+    {# Second item from left: search #}
     <div class="navbar-nav">
-        <h4>
-            &nbsp;<a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-        </h4>
+        <h5>
+            <a href="/s/"><i class="fa fa-search" aria-hidden="true"></i></a>
+        </h5>
+        {% comment %}
+        {# This doesn't format well on mobile. #}
+        <form class="form-inline my-2 my-lg-0" action="/s/">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q"
+                   value="{{ search_query }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        {% endcomment %}
+    </div>
     </div>
     {# Center #}
     <div class="mx-auto order-0">
@@ -82,11 +95,11 @@
     </div>
     {# Right #}
     <div class="navbar-nav ml-auto">
-        <h4>
+        <h5>
             <a href="https://twitter.com/"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             <a href="https://facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
             <a href="https://instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-        </h4>
+        </h5>
     </div>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
