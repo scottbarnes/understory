@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
     <main role="main">
@@ -10,7 +10,6 @@
             {% endif %}
 
             {% for articlepage in articlepages %}
-
                 <p>
                     <strong><a href="{% pageurl articlepage %}">
                         {{ articlepage.title }}
@@ -31,7 +30,6 @@
             {% endif %}
 
             {% for blogpage in blogpages %}
-
                 <p>
                     <strong><a href="{% pageurl blogpage %}">
                         {{ blogpage.title }}
@@ -40,6 +38,22 @@
                     {% if blogpage.author %}
                         <p>By {{ blogpage.author.profile }}</p>
                     {% endif %}
+                </p>
+            {% empty %}
+                No pages found with that tag.
+                <br />
+                <br />
+            {% endfor %}
+
+            {% if request.GET.tag|length %}
+                <h4>All images tagged "{{ request.GET.tag }}"</h4>
+            {% endif %}
+
+            {% for imagepage in imagepages %}
+                <p>
+                    <strong><a href="{% image_url imagepage 'original' %}">
+                        {{ imagepage.title }}
+                    </a></strong><br/>
                 </p>
             {% empty %}
                 No pages found with that tag.
