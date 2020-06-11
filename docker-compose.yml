@@ -13,7 +13,9 @@ services:
     # restart: always  # Don't enable while originally configuring.
     container_name: understory-staging
     volumes:
-      - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
+      # - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
+      - ./static:/code/static  # Ensure UID 1000 on the local system has r/w on ./static.
+      - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
     ports:
       - "8004:8000"
     command: bash -c "sleep 15 && /code/start"

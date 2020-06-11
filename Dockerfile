@@ -22,7 +22,7 @@ RUN chmod +x /code/start
 WORKDIR /code/
 
 RUN python manage.py migrate
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 RUN useradd wagtail
 RUN chown -R wagtail /code
