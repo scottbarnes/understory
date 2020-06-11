@@ -2,15 +2,38 @@ version: '3'
 
 services:
   understory-staging: &django
+    depends_on:
+      - elasticsearch
     build:
       context: .
       dockerfile: ./Dockerfile
     image: understory-staging
+    env_file:
+      - ./.envs/django
     # restart: always  # Don't enable while originally configuring.
     container_name: understory-staging
     volumes:
       - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
     ports:
       - "8004:8000"
-    command: /code/start
+    command: bash -c "sleep 15 && /code/start"
     # command: tail -f /dev/null  # Keep container running when diagnosing gunicorn crash issues.
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
+    # image: launcher.gcr.io/google/elasticsearch2
+    expose:
+      - "9200"
+      - "9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    environment:
+     - discovery.type=single-node  # Bypass checks and just run a single node.
+#      - network.host=0.0.0.0  # Allow connections from all host.
+#      - network.bind_host=localhost
+#      - network.publish_host=0.0.0.0
+
+volumes:
+  esdata:
+    driver: local
+
