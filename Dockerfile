@@ -14,7 +14,7 @@ RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /code/
 COPY . /code/
-COPY ./static/ /code/understory/static/
+# COPY ./static/ /code/understory/static/
 RUN sed -i 's/\r$//g' /code/start
 RUN chmod +x /code/start
 
