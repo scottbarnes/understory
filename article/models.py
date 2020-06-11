@@ -8,10 +8,12 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
+from wagtail.images.models import Image
 from wagtail.search import index
 
 from home.models import HomePage
 from issue.models import IssuePage
+
 
 BYLINE_CHOICES = (
     ('name', 'Name'),
@@ -38,11 +40,13 @@ class TagIndexPage(Page):
         tag = request.GET.get('tag')
         articlepages = ArticlePage.objects.live().public().filter(tags__name=tag)
         blogpages = BlogPage.objects.live().public().filter(tags__name=tag)
+        imagepages = Image.objects.filter(tags__name=tag)
 
         # Update the template context
         context = super().get_context(request)
         context['articlepages'] = articlepages
         context['blogpages'] = blogpages
+        context['imagepages'] = imagepages
 
         return context
 
