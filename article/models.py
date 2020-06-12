@@ -104,8 +104,10 @@ class ArticlePage(Page):
     intro = RichTextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
-                        blank=True, null=True)
+    # issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
+    #                     blank=True, null=True)
+    issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles')
+
 
     def __str__(self):
         return self.name

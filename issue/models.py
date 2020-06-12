@@ -3,7 +3,7 @@ from django.db import models
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
@@ -71,5 +71,6 @@ class IssuePage(Page):
         FieldPanel('intro'),
         ImageChooserPanel('image'),
         FieldPanel('body'),
-        InlinePanel('articles', label='Issue articles'),
+        # InlinePanel('articles', label='Issue articles'),
     ]
+

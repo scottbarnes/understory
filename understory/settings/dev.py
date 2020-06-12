@@ -24,6 +24,20 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+# DATABASES
+# ------------------------------------------------------------------------------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('db_name'),
+        'USER': env('db_user'),
+        'PASSWORD': env('db_pass'),
+        'HOST': env('db_host'),
+        'PORT': env('db_port'),
+    }
+}
+
+
 
 try:
     from .local import *

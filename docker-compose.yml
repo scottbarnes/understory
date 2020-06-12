@@ -9,7 +9,7 @@ services:
       dockerfile: ./Dockerfile
     image: understory-staging
     env_file:
-      - ./.envs/django
+      - ./.envs/production/.env
     # restart: always  # Don't enable while originally configuring.
     container_name: understory-staging
     volumes:
