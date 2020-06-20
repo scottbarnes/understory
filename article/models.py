@@ -108,7 +108,6 @@ class ArticlePage(Page):
     #                     blank=True, null=True)
     issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles')
 
-
     def __str__(self):
         return self.name
 
