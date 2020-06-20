@@ -83,6 +83,14 @@ class ArticleIndexPage(Page):
         FieldPanel('intro', classname='full')
     ]
 
+    subpage_types = [
+        'article.ArticlePage',
+    ]
+
+    parent_page_type = [
+        'wagtailcore.page',
+    ]
+
 
 class ArticlePage(Page):
     """

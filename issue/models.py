@@ -24,6 +24,14 @@ class IssueIndexPage(Page):
         context['issuepages'] = issuepages
         return context
 
+    subpage_types = [
+        'issue.IssuePage',
+    ]
+
+    parent_page_type = [
+        'wagtailcore.page',
+    ]
+
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname='full'),
     ]

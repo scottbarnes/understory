@@ -30,6 +30,14 @@ class BlogIndexPage(Page):
         context['blogpages'] = blogpages
         return context
 
+    subpage_types = [
+        'blog.BlogPage',
+    ]
+
+    parent_page_type = [
+        'wagtailcore.page',
+    ]
+
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname='full')
     ]
