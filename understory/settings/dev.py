@@ -33,7 +33,7 @@ DATABASES = {
         'USER': env('db_user', default='none'),
         'PASSWORD': env('db_pass', default='none'),
         'HOST': env('db_host', default='none'),
-        'PORT': env('db_port', default='none'),
+        'PORT': env('db_port', default='5432'),
     }
 }
 
