@@ -32,7 +32,7 @@ DATABASES = {
         'NAME': env('db_name', default='none'),
         'USER': env('db_user', default='none'),
         'PASSWORD': env('db_pass', default='none'),
-        'HOST': env('db_host', default='none'),
+        'HOST': env('db_host', default='localhost'),
         'PORT': env('db_port', default='5432'),
     }
 }
