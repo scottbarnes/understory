@@ -29,11 +29,11 @@ WAGTAILSEARCH_BACKENDS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('db_name'),
-        'USER': env('db_user'),
-        'PASSWORD': env('db_pass'),
-        'HOST': env('db_host'),
-        'PORT': env('db_port'),
+        'NAME': env('db_name', default='none'),
+        'USER': env('db_user', default='none'),
+        'PASSWORD': env('db_pass', default='none'),
+        'HOST': env('db_host', default='none'),
+        'PORT': env('db_port', default='none'),
     }
 }
 
