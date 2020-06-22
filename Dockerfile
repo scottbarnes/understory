@@ -18,6 +18,9 @@ COPY . /code/
 RUN sed -i 's/\r$//g' /code/start
 RUN chmod +x /code/start
 
+# Set environment such that the understory/settings/production.py is used.
+ENV DJANGO_SETTINGS_MODULE=understory.settings.production
+
 # Set the working directory to /code/
 WORKDIR /code/
 

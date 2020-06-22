@@ -10,6 +10,8 @@ services:
     image: understory-staging
     env_file:
       - ./.envs/production/.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=understory.settings.production
     # restart: always  # Don't enable while originally configuring.
     container_name: understory-staging
     volumes:

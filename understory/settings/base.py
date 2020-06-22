@@ -11,14 +11,22 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from pathlib import Path
 import os
 import environ
+
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 # django-environ
 env = environ.Env()
 
 # reading .env file
 environ.Env.read_env()
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(ROOT_DIR / ".env"))
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -179,6 +187,4 @@ BASE_URL = 'http://example.com'
 # Custom settings
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-
 
