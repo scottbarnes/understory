@@ -12,6 +12,7 @@
 body {
   padding-top: 3.1rem;
   font-family: 'Lato', sans-serif;
+  background: rgba(254, 254, 250, 1);
 }
 
 p {
@@ -24,6 +25,11 @@ title {
 
 h1 {
   font-family: 'Arvo', serif;
+}
+
+h2 {
+    font-family: 'Abril Fatface', serif;
+    color: #000;
 }
 
 h4 {
@@ -63,3 +69,25 @@ h5 {
     box-shadow: none;
 }
 
+.jumbotron {
+ background: url("../img/understory-bg-blank.jpg") fixed center no-repeat;
+ background-size: 100% 100%;
+ border-radius: 0 !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar.transparent.navbar-inverse .navbar-inner {
+   background: rgba(0,0,0,0.4);
+}
+
+/* navbar icon color */
+.fa-bars {
+    color: blue;
+}
+.fa-search {
+    color: blue;
+}

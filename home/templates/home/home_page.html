@@ -5,6 +5,7 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
 {% endblock %}
 {% block content %}
     <main role="main">
@@ -12,8 +13,16 @@
         <!-- Main jumbotron -->
         <div class="jumbotron">
             <div class="container" style="text-align: center;">
-                <h1 class="display-5">Understory</h1>
+                {% comment %}
+                <div class="col-md-6">
+                    <img src="../../static/img/understory-logo.png" class="img-fluid">
+                </div>
+                {% endcomment %}
+                {% comment %}
+                <h2 class="display-5">UNDERSTORY</h2>
                 <h5 class="display-5">Stories without a home</h5>
+                {% endcomment %}
+                <img src="../../static/img/understory-logo-text-smaller.png" class="img-fluid" alt="Understory: stories without a home">
             </div>
         </div>
 
@@ -24,19 +33,18 @@
                 {% for issue in issuepages %}
                     {% with issue=issue.specific %}
                         <div class="col-md-4">
-                            <li>
                                 <a href="{% pageurl issue %}">
                                     <figure>
                                         {% image issue.image fill-430x254-c100 %}
                                     </figure>
                                     <h4>{{ issue.title }}</h4>
                                 </a>
-                            </li>
                         </div>
                     {% endwith %}
                 {% endfor %}
             </div>
             {# Latest articles #}
+            {% comment %}
             <div style="text-align: center;"><h2>Articles</h2></div>
             <div class="row">
                 {% for article in articlepages %}
@@ -50,10 +58,12 @@
                     {% endwith %}
                 {% endfor %}
             </div>
+            {% endcomment %}
             <!-- Resources -->
+            <br />
             <div class="row justify-content-center">
                 <div class="col-md-4">
-                    <h2>Resources</h2>
+                    <div style="text-align: center;"><h2>Resources</h2></div>
                 </div>
             </div>
 

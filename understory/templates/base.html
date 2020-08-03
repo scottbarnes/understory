@@ -49,7 +49,7 @@
     {# Global stylesheets #}
     <link rel="stylesheet" type="text/css" href="{% static 'css/understory.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 
     {% block extra_css %}
         {# Overwrite font #}
@@ -60,15 +60,15 @@
 <body class="{% block body_class %}{% endblock %}">
 {% wagtailuserbar %}
 
-<nav class="navbar navbar-light fixed-top bg-light py-1 h5">
+{# <div class="navbar transparent navbar-inverse navbar-fixed-top py-1 h5"> #}
+<nav class="navbar fixed-top py-1 h5 transparent">
     {# First is left #}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="fa fa-bars"></span>
     </button>
     {# Second item from left: search #}
     <div class="navbar-nav h5">
-            <a href="/s/"><i class="fa fa-search" aria-hidden="true"></i></a>
         {% comment %}
         {# This doesn't format well on mobile. #}
         <form class="form-inline my-2 my-lg-0" action="/s/">
@@ -90,11 +90,17 @@
             <a class="navbar-brand" href="{% slugurl 'home' %}">Understory</a>
         {% endif %}
     </div>
-    {# Right #}
+    {# Right social media #}
+    {% comment %}
     <div class="navbar-nav ml-auto h5">
             <a href="https://twitter.com/"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             <a href="https://facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
             <a href="https://instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+    </div>
+    {% endcomment %}
+    {# Right side menu items #}
+    <div class="navbar-nav ml-auto h5">
+        <a href="/s/"><i class="fa fa-search" aria-hidden="true"></i></a>
     </div>
     {# Menu #}
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -123,6 +129,7 @@
         </ul>
     </div>
 </nav>
+</div>
 {# Content #}
 {% block content %}{% endblock %}
 
