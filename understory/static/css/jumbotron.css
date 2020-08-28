@@ -3,3 +3,10 @@ body {
   padding-top: 0rem;
 }
 
+/* navbar icon color on all pages but jumbotron */
+.fa-bars {
+  color: white;
+}
+.fa-search {
+  color: white;
+}

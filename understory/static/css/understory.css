@@ -84,10 +84,10 @@ h5 {
    background: rgba(0,0,0,0.4);
 }
 
-/* navbar icon color */
+/* navbar icon color on all pages but jumbotron */
 .fa-bars {
-    color: white;
+    color: blue;
 }
 .fa-search {
-    color: white;
+    color: blue;
 }
