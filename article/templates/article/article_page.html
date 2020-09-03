@@ -7,12 +7,14 @@
 {% block content %}
     <main role="main">
     <div class="container">
-    <h1>{{ page.title }}</h1>
+    <h2>{{ page.title }}</h2>
+        {% comment %}
         {% if page.date %}
             <p class="meta">{{ page.date }}</p>
         {% endif %}
+        {% endcomment %}
         {% if page.name %}
-            <p class="meta">By: {{ page.name }}</p>
+            <h3>{{ page.name }}</h3>
         {% endif %}
 
     {{ page.body|richtext }}
