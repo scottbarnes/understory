@@ -8,9 +8,9 @@
   text-align: left;
 }
 
-/* Move down content because we have a fixed navbar that is 3.5rem tall */
+/* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
-  padding-top: 3.1rem;
+  padding-top: 0rem; /* this was 3.1, or 3.5 */
   font-family: 'Lato', sans-serif;
   background: rgba(254, 254, 250, 1);
 }
@@ -79,19 +79,87 @@ h5 {
  border-radius: 0 !important;
 }
 
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
-
 .navbar.transparent.navbar-inverse .navbar-inner {
    background: rgba(0,0,0,0.4);
 }
 
 /* navbar icon color on all pages but jumbotron */
 .fa-bars {
-    color: blue;
+    color: black;
 }
 .fa-search {
-    color: blue;
+    color: black;
+}
+
+/* set a max-width for horizontal fluid layout and make it centered */
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 600px; /* articles_page.html uses a fluid container + this to limit the viewport to 600px */
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* css for the StreamField blocks */
+
+/* css for quotations */
+blockquote {
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+}
+
+blockquote:before {
+  color: #ccc;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+}
+blockquote p {
+  display: inline;
+}
+
+.quote {
+  -webkit-transition: all 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+}
+
+.line {
+  -webkit-transition: width 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 0px;
+  height: 1px;
+  background: #000;
+  margin: auto;
+}
+
+.quote.active {
+  opacity: 1;
+}
+
+.quote.active .line {
+  width: 100px;
+}
+
+@-webkit-keyframes adjustHue {
+  50% {
+    -webkit-filter: saturate(150%) hue-rotate(-35deg);
+  }
+}
+
+@-moz-keyframes adjustHue {
+  50% {
+    -moz-filter: saturate(150%) hue-rotate(-35deg);
+  }
+}
+
+@keyframes adjustHue {
+  50% {
+    filter: saturate(150%) hue-rotate(-35deg);
+  }
 }

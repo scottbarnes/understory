@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailuserbar %}
 
 {% block body_class %}template-articlepage{% endblock %}
 
 {% block content %}
     <main role="main">
-    <div class="container">
+    <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
+    <center>
     <h2>{{ page.title }}</h2>
         {% comment %}
         {% if page.date %}
@@ -14,17 +16,42 @@
         {% endif %}
         {% endcomment %}
         {% if page.name %}
-            <h3>{{ page.name }}</h3>
+            <h5>{{ page.name }}</h5>
         {% endif %}
+    </center>
 
+    {% comment %}
     {{ page.body|richtext }}
+    {% endcomment %}
+
+    {% comment %}
+    {% include_block page.body %}
+    {% endcomment %}
+    {% for block in page.body %}
+        {% if block.block_type == 'image' %}
+            {% image block.value width-600 class="img-fluid" alt="Responsive image" %}
+        {% elif block.block_type == 'image_text' %}
+            <p><small><i>{{ block.value }}</i></small></p>
+        {% elif block.block_type == 'paragraph' %}
+            <p>{{ block.value }}</p>
+        {% elif block.block_type == 'heading' %}
+            <h2>{{ block.value }}</h2>
+        {% elif block.block_type == 'quote' %}
+            <div class="quote">
+                <div class="line"></div>
+                <blockquote>{{ block.value }}</blockquote>
+                <div class="line"></div>
+            </div>
+        {% elif block.block_type == 'embeded_item' %}
+            <p><center>{{ block.value }}</center></p>
+        {% endif %}
+    {% endfor %}
 
 
     {% if page.tags.all.count %}
         <div class="tags">
-            <h3>Tags</h3>
             {% for tag in page.tags.all %}
-                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
             {% endfor %}
         </div>
     {% endif %}
@@ -32,7 +59,9 @@
     {% comment %}
     <p><a href="{{ page.get_parent_url }}">Return to the Understory article</a></p>
     {% endcomment %}
+    <br />
     <p><a href="../">Return to the Understory article list</a></p>
+    </div>
     </div>
     </main>
 {% endblock %}

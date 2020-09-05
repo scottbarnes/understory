@@ -5,9 +5,12 @@ from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.core import blocks
 from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
 from wagtail.search import index
 
@@ -104,7 +107,15 @@ class ArticlePage(Page):
     # Maybe the byline should be done similar to the blog categories with another model?
     # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
     # story_title = models.CharField(max_length=255)
-    body = RichTextField(blank=True)
+    # body = RichTextField(blank=True)
+    body = StreamField([
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('quote', blocks.BlockQuoteBlock()),
+        ('image', ImageChooserBlock()),
+        ('image_text', blocks.RichTextBlock()),
+        ('embeded_item', blocks.RawHTMLBlock()),
+    ])
     # Not displayed on the submission form.
     tags = ClusterTaggableManager(through=TagPage, blank=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
@@ -134,10 +145,7 @@ class ArticlePage(Page):
             FieldPanel('website'),
         ], heading='Contact information'),
         FieldPanel('tags'),
-        MultiFieldPanel([
-            FieldPanel('intro'),
-            FieldPanel('body'),
-        ], heading='Article content'),
+        StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('issue'),

@@ -62,15 +62,20 @@
 {% wagtailuserbar %}
 
 {# <div class="navbar transparent navbar-inverse navbar-fixed-top py-1 h5"> #}
+{% comment %}
 <nav class="navbar fixed-top py-1 h5 transparent">
+{% endcomment %}
+<nav class="navbar h5"> {# bg-light makes the navbar white. remove and it's transparent #}
     {# First is left #}
+    <div class="navbar-nav h5">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span>
     </button>
+    </div>
     {# Second item from left: search #}
-    <div class="navbar-nav h5">
         {% comment %}
+    <div class="navbar-nav h5">
         {# This doesn't format well on mobile. #}
         <form class="form-inline my-2 my-lg-0" action="/s/">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q"
@@ -79,16 +84,16 @@
                 <i class="fa fa-search"></i>
             </button>
         </form>
-        {% endcomment %}
     </div>
+        {% endcomment %}
     {# Center #}
-    <div class="mx-auto order-0 h5">
+    <div class="navbar-nav h5">
         {# Show an Understory/home link on the navbar everywhere but the homepage. #}
         {% slugurl 'home' as the_url %}
         {% if request.get_full_path == the_url %}
             {# pass #}
         {% else %}
-            <a class="navbar-brand" href="{% slugurl 'home' %}">Understory</a>
+            <a class="navbar-nav h2" href="{% slugurl 'home' %}">Understory</a>
         {% endif %}
     </div>
     {# Right social media #}
@@ -100,7 +105,7 @@
     </div>
     {% endcomment %}
     {# Right side menu items #}
-    <div class="navbar-nav ml-auto h5">
+    <div class="navbar-nav h5">
         <a href="/s/"><i class="fa fa-search" aria-hidden="true"></i></a>
     </div>
     {# Menu #}
@@ -130,7 +135,6 @@
         </ul>
     </div>
 </nav>
-</div>
 {# Content #}
 {% block content %}{% endblock %}
 
