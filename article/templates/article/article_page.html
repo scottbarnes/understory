@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load wagtailuserbar %}
+{% load social_share %}
 
 {% block body_class %}template-articlepage{% endblock %}
 
@@ -48,17 +49,32 @@
     {% endfor %}
 
 
-    {% if page.tags.all.count %}
-        <div class="tags">
-            {% for tag in page.tags.all %}
-                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
-            {% endfor %}
-        </div>
-    {% endif %}
 
     {% comment %}
     <p><a href="{{ page.get_parent_url }}">Return to the Understory article</a></p>
     {% endcomment %}
+    <br />
+    {# Social media sharing via django_social_share #}
+    <center>
+        {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
+        {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
+        {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
+        {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
+        {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
+        {% comment %}
+        {% post_to_linkedin object_or_url %}
+        {% endcomment %}
+    </center>
+    <br />
+    {% if page.tags.all.count %}
+        <div class="tags">
+            <center>
+                {% for tag in page.tags.all %}
+                    <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
+                {% endfor %}
+            </center>
+        </div>
+    {% endif %}
     <br />
     <p><a href="../">Return to the Understory article list</a></p>
     </div>

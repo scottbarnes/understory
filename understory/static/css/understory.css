@@ -91,6 +91,23 @@ h5 {
     color: black;
 }
 
+/* social media icons */
+.fa-facebook-square {
+    color: black;
+}
+.fa-twitter-square {
+    color: black;
+}
+.fa-envelope-square {
+    color: black;
+}
+.fa-telegram {
+    color: black;
+}
+.fa-whatsapp {
+    color: black;
+}
+
 /* set a max-width for horizontal fluid layout and make it centered */
 .container-fluid {
   margin-right: auto;
