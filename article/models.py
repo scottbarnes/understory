@@ -12,6 +12,7 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 from home.models import HomePage
@@ -104,6 +105,13 @@ class ArticlePage(Page):
     email = models.EmailField(max_length=255)
     twitter = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(max_length=255, blank=True, null=True)
+    lead_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     # Maybe the byline should be done similar to the blog categories with another model?
     # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
     # story_title = models.CharField(max_length=255)
@@ -144,6 +152,7 @@ class ArticlePage(Page):
             FieldPanel('twitter'),
             FieldPanel('website'),
         ], heading='Contact information'),
+        ImageChooserPanel('lead_image'),
         FieldPanel('tags'),
         StreamFieldPanel('body'),
         MultiFieldPanel([

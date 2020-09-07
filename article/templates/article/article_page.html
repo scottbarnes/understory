@@ -9,17 +9,23 @@
 {% block content %}
     <main role="main">
     <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
-    <center>
-    <h2>{{ page.title }}</h2>
+    <div style="text-align: center;">
+        {# Lead with the lead image #}
+        {% if page.lead_image %}
+            {% image page.lead_image width-600 class="img-fluid" alt="Article lead image" %}
+        {% endif %}
+        {% if page.title %}
+            <div class="hed">{{ page.title }}</div>
+        {% endif %}
         {% comment %}
         {% if page.date %}
             <p class="meta">{{ page.date }}</p>
         {% endif %}
         {% endcomment %}
         {% if page.name %}
-            <h5>{{ page.name }}</h5>
+            <div class="byline">{{ page.name }}</div>
         {% endif %}
-    </center>
+    </div>
 
     {% comment %}
     {{ page.body|richtext }}

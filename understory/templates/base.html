@@ -48,9 +48,14 @@
 
     {# Global stylesheets #}
     <link rel="stylesheet" type="text/css" href="{% static 'css/understory.css' %}">
+    {% comment %}
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+    {% endcomment %}
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="preload" href="https://use.typekit.net/sxu1ita.css" as="style" crossorigin>
+    <link rel="stylesheet" href="https://use.typekit.net/sxu1ita.css" crossorigin>
 
     {% block extra_css %}
         {# Overwrite font #}
@@ -65,7 +70,13 @@
 {% comment %}
 <nav class="navbar fixed-top py-1 h5 transparent">
 {% endcomment %}
-<nav class="navbar fixed-top py-1 transparent navbar-inverse h5" id="main-nav"> {# bg-light makes the navbar white. remove and it's transparent #}
+{# Show an a background on the navbar everywhere but the homepage. #}
+{% slugurl 'home' as the_url %}
+{% if request.get_full_path == the_url %}
+    <nav class="navbar fixed-top py-1 transparent navbar-inverse h5"> {# For the home page #}
+{% else %}
+    <nav class="navbar fixed-top py-1 transparent navbar-inverse h5" id="main-nav"> {# bg-light makes the navbar white. remove and it's transparent #}
+{% endif %}
     {# First is left #}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +102,7 @@
         {% if request.get_full_path == the_url %}
             {# pass #}
         {% else %}
-            <a class="navbar-nav h3" href="{% slugurl 'home' %}">UNDERSTORY</a>
+            <a class="navbar-nav h3" href="{% slugurl 'home' %}" style="color:#FFFFFF;">UNDERSTORY</a>
         {% endif %}
     </div>
     {# Right social media #}
