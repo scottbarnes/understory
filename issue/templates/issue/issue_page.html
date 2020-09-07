@@ -7,7 +7,7 @@
 {% block content %}
     <main role="main">
         <div class="container">
-            <h1>Issue {{ page.id }}</h1>
+            <h1>{{ page.title }}</h1>
             {% if page.date %}
                 <h1>{{ page.date }}</h1>
             {% endif %}
@@ -27,7 +27,7 @@
                     <h2>
                         <a href="{% pageurl article %}">{{ article.title }}</a>
                         {% if article.name %}
-                            by {{ article.name }}</p>
+                            by {{ article.name }}
                         {% endif %}
                     </h2>
 

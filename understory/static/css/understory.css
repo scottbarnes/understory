@@ -1,30 +1,103 @@
-.navbar .navbar-nav {
-  display: inline-block;
-  float: none;
-  vertical-align: top;
-}
-
-.navbar .navbar-collapse {
-  text-align: left;
-}
 
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
-  padding-top: 0rem; /* this was 3.1, or 3.5 */
+  padding-top: 3.5rem; /* this was 3.1, or 3.5 */
   font-family: 'Lato', sans-serif;
   background: rgba(254, 254, 250, 1);
 }
 
+/* NAVBAR GENERALLY */
+/* Make the navbar text black */
+.navbar-nav li a {
+    color: black;
+}
+
+/* Modify the navbar backgorund color */
+/*
+.navbar-nav {
+    background-color: rgba(254, 254, 250, 1);
+}
+*/
+/*
+#main-nav {
+    background-color: #F00;
+    opacity: 0.5;
+    filter:(opacity=50);
+}
+*/
+/*
+.collapse {
+    background-color: rgba(254, 254, 250, .7);
+}
+*/
+.dropdown-menu {
+    background-color: rgba(254, 254, 250, .7);
+}
+.dropdown .dropdown-menu {
+    background-color: rgba(254, 254, 250, .7);
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: left;
+}
+
+/* Remove hamburger button border when not active/selected */
+.navbar-toggler,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+/*
+.navbar.transparent.navbar-inverse .navbar-inner {
+   background: rgba(0,0,0,0.4);
+}
+*/
+
+/* navbar icon color on all pages but jumbotron */
+.fa-bars {
+    color: black;
+}
+.fa-search {
+    color: black;
+}
+
+/* Modify text color
+.navbar-custom .navbar-text {
+	color: black;
+}
+
+ */
+
 p {
   font-family: 'Lato', sans-serif;
+  color: #000;
+}
+
+a {
+  color: #000;
+}
+
+i {
+    color: #000;
 }
 
 title {
   font-family: 'Arvo', serif;
+  color: #000;
 }
 
 h1 {
   font-family: 'Playfair Display', serif;
+    color: #000;
 }
 
 h2 {
@@ -34,14 +107,17 @@ h2 {
 
 h3 {
     font-family: 'Playfair Display', serif;
+    color: #000;
 }
 
 h4 {
   font-family: 'Lato', sans-serif;
+    color: #000;
 }
 
 h5 {
   font-family: 'Lato', sans-serif;
+    color: #000;
 }
 
 /* Issue images */
@@ -64,32 +140,13 @@ h5 {
   opacity: 0.3;
 }
 
-/* Remove hamburger button border when not active/selected */
-.navbar-toggler,
-.navbar-toggler:active,
-.navbar-toggler-icon:focus {
-    outline: none;
-    border: none;
-    box-shadow: none;
-}
-
+/* Background images */
 .jumbotron {
  background: url("../img/understory-bg-blank.jpg") fixed center no-repeat;
  background-size: 100% 100%;
  border-radius: 0 !important;
 }
 
-.navbar.transparent.navbar-inverse .navbar-inner {
-   background: rgba(0,0,0,0.4);
-}
-
-/* navbar icon color on all pages but jumbotron */
-.fa-bars {
-    color: black;
-}
-.fa-search {
-    color: black;
-}
 
 /* social media icons */
 .fa-facebook-square {
@@ -126,16 +183,18 @@ h5 {
 blockquote {
   margin: 1.5em 10px;
   padding: 0.5em 10px;
+  color: #000;
 }
 
 blockquote:before {
-  color: #ccc;
+  color: #000;
   font-size: 4em;
   line-height: 0.1em;
   margin-right: 0.25em;
 }
 blockquote p {
   display: inline;
+  color: #000;
 }
 
 .quote {

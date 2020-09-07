@@ -13,7 +13,7 @@
 
             {% for issue in issuepages %}
                 {% with issue=issue.specific %}
-                    <h2><a href="{% pageurl issue %}">Issue {{ issue.id }}</a></h2>
+                    <h2><a href="{% pageurl issue %}">{{ issue.title }}</a></h2>
 
                     {% if issue.date %}
                         <h3>{{ issue.date|date:"M, Y" }}</h3>

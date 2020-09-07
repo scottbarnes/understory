@@ -44,7 +44,7 @@
                 <div class="line"></div>
             </div>
         {% elif block.block_type == 'embeded_item' %}
-            <p><center>{{ block.value }}</center></p>
+            <p><div style="text-align: center;">{{ block.value }}</div></p>
         {% endif %}
     {% endfor %}
 
@@ -55,7 +55,7 @@
     {% endcomment %}
     <br />
     {# Social media sharing via django_social_share #}
-    <center>
+    <div style="text-align: center;">
         {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
         {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
         {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
@@ -64,20 +64,19 @@
         {% comment %}
         {% post_to_linkedin object_or_url %}
         {% endcomment %}
-    </center>
+    </div>
     <br />
     {% if page.tags.all.count %}
         <div class="tags">
-            <center>
+            <div style="text-align: center;">
                 {% for tag in page.tags.all %}
                     <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
                 {% endfor %}
-            </center>
+            </div>
         </div>
     {% endif %}
     <br />
     <p><a href="../">Return to the Understory article list</a></p>
-    </div>
     </div>
     </main>
 {% endblock %}
