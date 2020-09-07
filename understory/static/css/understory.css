@@ -10,7 +10,7 @@ body {
 
 /* NAVBAR GENERALLY */
 /* Make the navbar text black */
-.navbar-nav li a h3 {
+.navbar-nav li a {
     color: white;
 }
 
