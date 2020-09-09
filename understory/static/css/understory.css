@@ -11,7 +11,8 @@ body {
 /* NAVBAR GENERALLY */
 /* Make the navbar text black */
 .navbar-nav li a {
-    color: white;
+    color: black;
+    font-size: 125%;
 }
 
 /* Modify the navbar backgorund color */
@@ -27,17 +28,18 @@ body {
     filter:(opacity=50);
 }
 */
-/*
-.collapse {
+/* navbar dropdown background color */
+.navbar-collapse {
     background-color: rgba(254, 254, 250, .7);
 }
-*/
+/*
 .dropdown-menu {
     background-color: rgba(254, 254, 250, .7);
 }
 .dropdown .dropdown-menu {
     background-color: rgba(254, 254, 250, .7);
 }
+*/
 
 .navbar .navbar-nav {
     display: inline-block;
