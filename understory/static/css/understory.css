@@ -2,7 +2,7 @@
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
   padding-top: 3.5rem; /* this was 3.1, or 3.5 */
-  font-size: 125%;
+  font-size: 150%;
   line-height: 145%;
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
   background: rgba(254, 254, 250, 1);
@@ -263,6 +263,7 @@ blockquote {
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   color: #000;
+  font-size: 135%;
 }
 
 blockquote:before {
