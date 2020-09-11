@@ -10,10 +10,14 @@
     <main role="main">
     <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
     <div style="text-align: center;">
-        {# Lead with the lead image #}
+        {# Lead with the lead image which is rendered by the template and not the StreamField #}
         {% if page.lead_image %}
             {% image page.lead_image width-600 class="img-fluid" alt="Article lead image" %}
         {% endif %}
+        {% if page.lead_image_text %}
+            <div class="byline" style="text-align: left;">{{ page.lead_image_text }}</div>
+        {% endif %}
+        <br />
         {% if page.title %}
             <div class="hed">{{ page.title }}</div>
         {% endif %}
@@ -61,7 +65,7 @@
     {% endcomment %}
     <br />
     {# Social media sharing via django_social_share #}
-    <div style="text-align: center;">
+    <div style="text-align: center;"><h3>
         {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
         {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
         {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
@@ -70,7 +74,7 @@
         {% comment %}
         {% post_to_linkedin object_or_url %}
         {% endcomment %}
-    </div>
+    </h3></div>
     <br />
     {% if page.tags.all.count %}
         <div class="tags">
@@ -81,6 +85,13 @@
             </div>
         </div>
     {% endif %}
+        <div class="row justify-content-center">
+                <h3>
+                    <a href="https://cdn.forms-content.sg-form.com/5ebceaa0-b708-11ea-91c0-16ac503db295">
+                        Get Notified of New Issues
+                    </a>
+                </h3>
+        </div>
     <br />
     <p><a href="../">Return to the Understory article list</a></p>
     </div>

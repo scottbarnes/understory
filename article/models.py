@@ -112,6 +112,7 @@ class ArticlePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    lead_image_text = models.CharField(max_length=255, blank=True, null=True)
     # Maybe the byline should be done similar to the blog categories with another model?
     # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
     # story_title = models.CharField(max_length=255)
@@ -152,7 +153,10 @@ class ArticlePage(Page):
             FieldPanel('twitter'),
             FieldPanel('website'),
         ], heading='Contact information'),
-        ImageChooserPanel('lead_image'),
+        MultiFieldPanel([
+            ImageChooserPanel('lead_image'),
+            FieldPanel('lead_image_text'),
+        ], heading='Lead'),
         FieldPanel('tags'),
         StreamFieldPanel('body'),
         MultiFieldPanel([

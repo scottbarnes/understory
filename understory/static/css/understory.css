@@ -82,7 +82,8 @@ p {
 
 .hed {
     text-transform: uppercase;
-    font-size: 1.5em;
+    font-size: 2.0em;
+    font-weight: bold;
     line-height: 1.15em;
     letter-spacing: 0.15em;
     margin: 0 0 10px 0;
@@ -93,6 +94,7 @@ p {
     line-height: 1.4em;
     text-transform: uppercase;
     letter-spacing: 0.075em;
+
 }
 
 h1,
@@ -235,18 +237,27 @@ h5 {
 }
 
 .img-fluid {
-    max-width: 100%;
+    width: 100%;
     height: auto;
+}
+
+/* not used */
+.full-width {
+	left: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	max-width: 100vw;
+    /* position: relative; */
+	right: 50%;
+	width: 100vw;
 }
 
 /* css for the StreamField blocks */
 
 /* css for quotations */
 blockquote {
-  margin: 1.0em;
-  padding: 0.5em;
   color: #000;
-  font-size: 145%;
+  font-size: 165%;
 }
 
 blockquote:before {
@@ -283,6 +294,8 @@ blockquote p {
 
 .quote.active .line {
   width: 100px;
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
 }
 
 @-webkit-keyframes adjustHue {
