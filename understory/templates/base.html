@@ -96,7 +96,7 @@
     </div>
         {% endcomment %}
     {# Center #}
-    <div class="navbar-nav">
+    <div class="navbar-nav big-nav">
         {# Show an Understory/home link on the navbar everywhere but the homepage. #}
         {% slugurl 'home' as the_url %}
         {% if request.get_full_path == the_url %}
@@ -115,7 +115,7 @@
     {% endcomment %}
     {# Right side menu items #}
     <div class="navbar-nav">
-        <a href="/s/"><i class="fa fa-search" aria-hidden="true"></i></a>
+        <h4><a href="/s/"><i class="fa fa-search" aria-hidden="true"></i></a></h4>
     </div>
     {# Menu #}
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">

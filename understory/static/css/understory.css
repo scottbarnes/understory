@@ -2,8 +2,6 @@
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
   padding-top: 4.5rem; /* this was 3.1, or 3.5 */
-  font-size: 150%;
-  line-height: 145%;
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
   background: rgba(254, 254, 250, 1);
 }
@@ -15,45 +13,30 @@ body {
     font-size: 125%;
 }
 
-/* Modify the navbar backgorund color */
-/*
-.navbar-nav {
-    background-color: rgba(254, 254, 250, 1);
-}
-*/
-/*
-#main-nav {
-    background-color: #F00;
-    opacity: 0.5;
-    filter:(opacity=50);
-}
-*/
 /* navbar dropdown background color */
 .navbar-collapse {
     background-color: rgba(254, 254, 250, .7);
 }
-/*
-.dropdown-menu {
-    background-color: rgba(254, 254, 250, .7);
-}
-.dropdown .dropdown-menu {
-    background-color: rgba(254, 254, 250, .7);
-}
-*/
 
 .navbar .navbar-nav {
     display: inline-block;
     float: none;
     vertical-align: top;
+}
+
+.big-nav {
     margin-top: 5px;
     margin-bottom: 5px;
-    font-size: 145%;
+    font-size: 200%;
     font-family: 'Abril Fatface', cursive;
 }
 
 .navbar .navbar-collapse {
     text-align: left;
+    line-height: 100%;
 }
+
+nav ul li:hover div { margin-left: 20px; }
 
 /* Remove hamburger button border when not active/selected */
 .navbar-toggler,
@@ -65,12 +48,6 @@ body {
     padding: 0; /* Fix alignment issues */
 }
 
-/*
-.navbar.transparent.navbar-inverse .navbar-inner {
-   background: rgba(0,0,0,0.4);
-}
-*/
-
 /* navbar icon color on all pages but jumbotron */
 .fa-bars {
     color: white;
@@ -78,13 +55,6 @@ body {
 .fa-search {
     color: white;
 }
-
-/* Modify text color
-.navbar-custom .navbar-text {
-	color: black;
-}
-
- */
 
 a {
     color: #000;
@@ -96,7 +66,7 @@ i {
 
 p {
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
-  font-size: 1em;
+  font-size: 150%;
   line-height: 145%;
   color: #000;
 }
@@ -265,10 +235,10 @@ h5 {
 
 /* css for quotations */
 blockquote {
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
+  margin: 1.0em;
+  padding: 0.5em;
   color: #000;
-  font-size: 135%;
+  font-size: 145%;
 }
 
 blockquote:before {
