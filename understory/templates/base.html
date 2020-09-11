@@ -125,6 +125,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% slugurl 'about' %}">About</a>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="{% slugurl 'about-the-project' %}">Project</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% slugurl 'people' %}">People</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% slugurl 'issues' %}">Issues</a>
@@ -141,14 +149,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
-            {% comment %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% slugurl 'articles' %}">Articles</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% slugurl 'blog' %}">News</a>
-            </li>
-            {% endcomment %}
         </ul>
     </div>
 </nav>

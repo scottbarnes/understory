@@ -7,38 +7,20 @@
 {% block content %}
     <main role="main">
         <div class="container">
-            <h1>{{ page.title }}</h1>
+            <h3>{{ page.title }}</h3>
             {% if page.date %}
-                <h1>{{ page.date }}</h1>
+                <h3>{{ page.date }}</h3>
             {% endif %}
-            {% comment %}
-            {% if page.name %}
-                <p class="meta">By: {{ page.name }}</p>
-            {% endif %}
-
-            <div class="intro">{{ page.intro }}</div>
-
-            {{ page.body|richtext }}
-            {% endcomment %}
 
             {# Articles #}
             {% for article in articlepages %}
                 {% with article=article.specific %}
-                    <h2>
+                    <h3>
                         <a href="{% pageurl article %}">{{ article.title }}</a>
                         {% if article.name %}
                             by {{ article.name }}
                         {% endif %}
-                    </h2>
-
-                    {% comment %}
-                    {% if article.date %}
-                        <p class="meta">{{ article.date }}</p>
-                    {% endif %}
-                    {% endcomment %}
-                    {% comment %}
-                    {{ article.body|richtext }}
-                    {% endcomment %}
+                    </h3>
                     <br />
                 {% endwith %}
             {% endfor %}

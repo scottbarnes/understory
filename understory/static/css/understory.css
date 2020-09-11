@@ -72,6 +72,13 @@ p {
   color: #000;
 }
 
+#navbarsExampleDefault {
+    font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
+    font-size: 150%;
+    line-height: 100%;
+    color: #000;
+}
+
 .hed {
     text-transform: uppercase;
     font-size: 1.5em;
@@ -103,19 +110,23 @@ h7 {
 h1 {
     line-height: 1.25em;
     letter-spacing: 0.125em;
+    font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
 }
 h2 {
     line-height: 1.5em;
     letter-spacing: 0.15em;
+    font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
+    /* This may have been the font Ammel liked: font-family: "kepler-std-semicondensed-dis", "Avenir Next Condensed", Impact, serif; */
 }
 h3 {
-    font-family: "kepler-std-semicondensed-dis", "Avenir Next Condensed", Impact, serif;
+    font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
     line-height: 1em;
     text-transform: uppercase;
     letter-spacing: 0em;
     font-weight: 600;
 }
 h4 {
+    font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
     line-height: 1.4em;
     font-weight: 600;
     text-transform: none;
