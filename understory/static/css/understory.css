@@ -1,7 +1,7 @@
 
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
-  padding-top: 3.5rem; /* this was 3.1, or 3.5 */
+  padding-top: 4.5rem; /* this was 3.1, or 3.5 */
   font-size: 150%;
   line-height: 145%;
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
@@ -45,6 +45,10 @@ body {
     display: inline-block;
     float: none;
     vertical-align: top;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 145%;
+    font-family: 'Abril Fatface', cursive;
 }
 
 .navbar .navbar-collapse {
@@ -58,6 +62,7 @@ body {
     outline: none;
     border: none;
     box-shadow: none;
+    padding: 0; /* Fix alignment issues */
 }
 
 /*
