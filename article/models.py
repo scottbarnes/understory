@@ -101,8 +101,9 @@ class ArticlePage(Page):
     Article page model. Formed from form input from ArticleSubmitPage and ArticleSubmitForm.
     Location: /articles/<article-slug>
     """
-    name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
+
+    name = models.CharField(max_length=255)  # Author name
+    email = models.EmailField(max_length=255)  # Author email
     twitter = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(max_length=255, blank=True, null=True)
     lead_image = models.ForeignKey(
@@ -135,9 +136,14 @@ class ArticlePage(Page):
     # issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
     #                     blank=True, null=True)
     issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles')
+    # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
+    associated_english_article = models.ForeignKey('self', on_delete=models.SET_NULL,
+                                                   null=True, blank=True,
+                                                   related_name='translations')
+    language = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
     search_fields = Page.search_fields + [
         # index.SearchField('title'),  # This is redundant and causes an error.
@@ -163,6 +169,8 @@ class ArticlePage(Page):
             FieldPanel('date'),
             FieldPanel('issue'),
             FieldPanel('status'),
+            FieldPanel('language'),
+            FieldPanel('associated_english_article'),
         ], heading='Editorial information'),
     ]
 

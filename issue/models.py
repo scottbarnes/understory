@@ -62,6 +62,8 @@ class IssuePage(Page):
         from article.models import ArticlePage  # Avoid circular import.
         context = super().get_context(request)
         # articlepages = self.articles.live()  # Why is PyCharm flagging this?
+        # For each issue, include articles that are associated with this issue ID, are public, and live. And in English.
+        # articlepages = ArticlePage.objects.filter(issue__id=self.id).live().public()
         articlepages = ArticlePage.objects.filter(issue__id=self.id).live().public()
         context['articlepages'] = articlepages
         return context
