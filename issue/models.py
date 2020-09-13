@@ -63,9 +63,8 @@ class IssuePage(Page):
         context = super().get_context(request)
         # articlepages = self.articles.live()  # Why is PyCharm flagging this?
         # For each issue, include articles that are associated with this issue ID, are public, and live. And in English.
-        # articlepages = ArticlePage.objects.filter(issue__id=self.id).live().public()
-        articlepages = ArticlePage.objects.filter(issue__id=self.id).live().public()
-        context['articlepages'] = articlepages
+        articlepages = ArticlePage.objects.filter(issue__id=self.id).filter(language='English').live().public()
+        context['articlepages'] = articlepages.order_by('title')  # Order alphabetically by title.
         return context
 
     search_fields = Page.search_fields + [
