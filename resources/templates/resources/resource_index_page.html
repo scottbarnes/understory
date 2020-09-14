@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-resourceindexpage{% endblock %}
+
+{% block content %}
+    <main role="main">
+    <div class="container">
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for resource in resourcepages %}
+        {% with resource=resource.specific %}
+            <h2><a href="{% pageurl resource %}">{{ resource.title }}</a></h2>
+
+            {% if resource.date %}
+                <p class="meta">{{ resource.date }}</p>
+            {% endif %}
+            {{ resource.intro | richtext }}
+            <br />
+        {% endwith %}
+    {% endfor %}
+    </div>
+    </main>
+{% endblock %}
