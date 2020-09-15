@@ -11,7 +11,7 @@
             {% if page.date %}
                 <h3>{{ page.date }}</h3>
             {% endif %}
-
+            <br /> {# Space between issue number+date and content #}
             {# List all of the articles. "articlepages" is injected into the context via issue/models.py. #}
             {% for article in articlepages %}
                 {% with article=article.specific %}
