@@ -37,7 +37,14 @@ body {
     line-height: 100%;
 }
 
-nav ul li:hover div { margin-left: 20px; }
+nav ul li:hover div {
+    margin-left: 20px;
+}
+
+/* Remove bullet point styling */
+ul {
+    list-style-type: none;
+}
 
 /* Remove hamburger button border when not active/selected */
 .navbar-toggler,
