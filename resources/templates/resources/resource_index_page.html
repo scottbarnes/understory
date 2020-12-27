@@ -11,8 +11,14 @@
 
     <div class="intro">{{ page.intro|richtext }}</div>
 
-    {% for resource in resourcepages %}
+    {% comment %}
+    {% for resource in resourcepages %} {# This relies on container-fluid above. #}
         {% with resource=resource.specific %}
+            {% if resource.lead_image %}
+                <div class="resource-title-image" style="text-align: center;">
+                    {% image resource.lead_image width-600 class="img-fluid" alt="Resource lead image" %}
+                </div>
+            {% endif %}
             <h2><a href="{% pageurl resource %}">{{ resource.title }}</a></h2>
 
             {% if resource.date %}
@@ -22,6 +28,21 @@
             <br />
         {% endwith %}
     {% endfor %}
+    {% endcomment %}
+        <div class="featured-resources row">
+            {% for resource in resourcepages %}
+                {% with resource=resource.specific %}
+                    <div class="col-md-4">
+                        <a href="{% pageurl resource %}">
+                            <figure>
+                                {% image resource.lead_image fill-430x254-c100 %}
+                            </figure>
+                            <h4>{{ resource.title }}</h4>
+                        </a>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
     </div>
     </main>
 {% endblock %}

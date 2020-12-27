@@ -6,7 +6,16 @@
 
 {% block content %}
     <main role="main">
-        <div class="container">
+        <div class="container-fluid">
+            {# Display the lead image for the issue. #}
+            {% if page.image %}
+                <div class="img-issue">
+                    {% image page.image width-600 class="img-fluid" alt="Issue lead image" %}
+                </div>
+            {% endif %}
+            <br />
+            <br />
+            {# Display the issue number. #}
             <h3>{{ page.title }}</h3>
             {% if page.date %}
                 <h3>{{ page.date }}</h3>
@@ -16,9 +25,10 @@
             {% for article in articlepages %}
                 {% with article=article.specific %}
                     <h3>
-                        <a href="{% pageurl article %}">{{ article.title }}</a>
+                        <a href="{% pageurl article %}">{{ article.title|upper }}</a>
                         {% if article.name %}
-                            by {{ article.name }}
+                            <br />
+                            by {{ article.name|title }}
                         {% endif %}
                     </h3>
                     {% comment %}
@@ -58,14 +68,17 @@
                             {% endfor %}
                         {% endif %}
                         </p>
+                            <br /> {# Add lines between stories with translations. #}
                         {% endwith %}
                     {% else %} {# If no articles in article.translations.all, enter a linebreak in place of <p> #}
                             <br />
+                            <br /> {# Add lines between stories with no translations. #}
                     {% endif %}
                 {% endwith %}
             {% endfor %}
-
-            <p><a href="../">Return to the Understory issue list</a></p>
+            <div style="text-align: center;">
+                <p><a href="../">Return to the Understory issue list</a></p>
+            </div>
         </div>
     </main>
 {% endblock %}

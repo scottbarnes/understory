@@ -124,7 +124,10 @@
                 <a class="nav-link" href="{% slugurl 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
+                {% comment %}
                 <a class="nav-link" href="{% slugurl 'about' %}">About</a>
+                {% endcomment %}
+                <a class="nav-link">About</a>
                 <ul>
                     <li>
                         <a class="nav-link" href="{% slugurl 'about-the-project' %}">Project</a>
