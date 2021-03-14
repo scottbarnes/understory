@@ -18,17 +18,21 @@ class HomePage(RoutablePageMixin, Page):
 
     def get_context(self, request):
         """
-        Modify the QuerySet to return the three most recent published Resources and Issues.
+        Modify the QuerySet to return the three most recent published Resources and Articles.
         """
         # Avoid circular imports.
-        from issue.models import IssuePage
+        # from issue.models import IssuePage
+        from article.models import ArticlePage
         from resources.models import ResourcePage
 
         # Add the last three Resources and Issues to the context.
         context = super().get_context(request)
-        issuepages = IssuePage.objects.live().order_by('-first_published_at')[:3]
-        issuepages = reversed(issuepages)
-        context['issuepages'] = issuepages
+        # issuepages = IssuePage.objects.live().order_by('-first_published_at')[:3]
+        # issuepages = reversed(issuepages)
+        # context['issuepages'] = issuepages
+        articlepages = ArticlePage.objects.live().order_by('-first_published_at')[:3]
+        articlepages = reversed(articlepages)
+        context['articlepages'] = articlepages
         resourcepages = ResourcePage.objects.live().order_by('-first_published_at')[:3]
         resourcepages = reversed(resourcepages)
         context['resourcepages'] = resourcepages

@@ -6,7 +6,10 @@
 
 {% block content %}
     <main role="main">
+        {% comment %}
         <div class="container-fluid">
+        {% endcomment %}
+        <div class="container">
             <h1>{{ page.title|upper }}</h1>
 
             <div class="intro">{{ page.intro|richtext }}</div>
@@ -15,7 +18,10 @@
                 {% with issue=issue.specific %}
                     {% if issue.image %}
                         <div class="img-issue">
+                            {% comment %}
                             {% image issue.image width-600 class="img-fluid" alt="Issue lead image" %}
+                            {% endcomment %}
+                            {% image issue.image fill-310x254-c100 %}
                         </div>
                     {% endif %}
                     <h2><a href="{% pageurl issue %}">{{ issue.title|upper }}</a></h2>
