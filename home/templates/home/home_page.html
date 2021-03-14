@@ -46,19 +46,19 @@
             </div>
             {% endcomment %}
             {# Latest articles #}
-            <div style="text-align: center;"><h2>ARTICLES</h2></div>
+            <div style="text-align: center;">
+                <h2><a href="{% slugurl 'articles' %}">ARTICLES</a></h2>
+            </div>
             <div class="featured-issues row">
                 {% for article in articlepages %}
                     {% with article=article.specific %}
                         <div class="col-md-4">
-
                             <a href="{% pageurl article %}">
                                 <figure>
                                     {% image article.lead_image fill-430x254-c100 %}
                                 </figure>
                                 <h4>{{ article.title }}</h4>
                             </a>
-
                             {% comment %}
                             <h4>{{ article.title }}</h4>
                             <p>{{ article.intro | richtext }}</p>
@@ -72,7 +72,9 @@
             <!-- Resources -->
             <br />
             {# Latest resources #}
-            <div style="text-align: center;"><h2>RESOURCES</h2></div>
+            <div style="text-align: center;">
+                <h2><a href="{% slugurl 'resources' %}">RESOURCES</a></h2>
+            </div>
             <div class="featured-resources row">
                 {# Why doesn't this need to use "|slice:3"? #}
                 {% for resource in resourcepages %}
