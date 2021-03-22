@@ -128,7 +128,7 @@ ol > li:before {content:counters(item, ".") ". "; font-weight:bold;} /* print co
 .byline {
     font-size: 1em;
     line-height: 1.4em;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 0.075em;
 
 }
