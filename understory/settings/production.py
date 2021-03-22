@@ -13,7 +13,7 @@ environ.Env.read_env()
 # Environment variables
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='aVtheUot32d-_&<>PBT<R')
 #ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["understory-staging.fishcracker.net"])
-ALLOWED_HOSTS = ['understory-staging.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in']
+ALLOWED_HOSTS = ['understory-staging.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
 
 
 # Search
