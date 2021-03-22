@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'social_share_templates',
     'django_social_share',
+    'google_analytics',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -191,3 +192,7 @@ BASE_URL = 'http://example.com'
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# django-google-analytics-app
+GOOGLE_ANALYTICS = {
+    'google_analytics_id': 'UA-192845932-1',
+}
