@@ -1,11 +1,23 @@
 {% load wagtailcore_tags wagtailfontawesome wagtailroutablepage_tags %}
 {% load static wagtailuserbar %}
 {% load google_analytics_tags %}
-{% fontawesome_css %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {# Google Analytics #}
+    {% if not DEBUG %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_CODE }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', {{ GOOGLE_ANALYTICS_CODE }});
+        </script>
+    {% endif %}
+    {% fontawesome_css %}
     <meta charset="utf-8">
     <title>
         {% block title %}
@@ -66,11 +78,13 @@
 
 <body class="{% block body_class %}{% endblock %}">
 {% wagtailuserbar %}
+{% comment %}
 {% if not DEBUG %}
     <div style="display:none">
         <img src="{% google_analytics %}" width="0" height="0" />
     </div>
 {% endif %}
+{% endcomment %}
 
 {# <div class="navbar transparent navbar-inverse navbar-fixed-top py-1 h5"> #}
 {% comment %}
@@ -179,6 +193,7 @@
 <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js"><\/script>')</script>
 <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="{% static 'js/understory.js' %}"></script>
+
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}

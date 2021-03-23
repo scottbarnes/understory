@@ -104,6 +104,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'understory.context_processors.debug',
+                'understory.context_processors.analytics',
             ],
         },
     },
@@ -197,3 +198,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 GOOGLE_ANALYTICS = {
     'google_analytics_id': 'UA-192845932-1',
 }
+
+GOOGLE_ANALYTICS_CODE = 'UA-192845932-1'

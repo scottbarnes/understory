@@ -1,5 +1,6 @@
 """ Context processor to add settings.DEBUG to the context. """
 from django.conf import settings
+from django.template.loader import render_to_string
 
 
 def debug(request):
@@ -8,3 +9,8 @@ def debug(request):
     Multiple values okay.
     """
     return {'DEBUG': settings.DEBUG}
+
+
+def analytics(request):
+    """ Return a Google Analytics key """
+    return {'GOOGLE_ANALYTICS_CODE': settings.GOOGLE_ANALYTICS_CODE}
