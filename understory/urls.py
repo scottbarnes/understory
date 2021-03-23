@@ -12,14 +12,12 @@ from search import views as search_views
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
-
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     # Serve from wagtail
     # url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
     # Redirect for images served elsewhere
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
-
     url(r'^search/$', search_views.search, name='search'),
     re_path('djga/', include('google_analytics.urls')),
 

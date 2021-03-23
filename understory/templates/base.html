@@ -66,9 +66,11 @@
 
 <body class="{% block body_class %}{% endblock %}">
 {% wagtailuserbar %}
-<div style="display:none">
-    <img src="{% google_analytics %}" width="0" height="0" />
-</div>
+{% if not DEBUG %}
+    <div style="display:none">
+        <img src="{% google_analytics %}" width="0" height="0" />
+    </div>
+{% endif %}
 
 {# <div class="navbar transparent navbar-inverse navbar-fixed-top py-1 h5"> #}
 {% comment %}
