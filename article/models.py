@@ -137,7 +137,7 @@ class ArticlePage(Page):
     #                     blank=True, null=True)
     issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles')
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
-    associated_english_article = models.ForeignKey('self', on_delete=models.SET_NULL,
+    associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
                                                    related_name='translations')
     language = models.CharField(max_length=255, blank=True, null=True)
@@ -170,7 +170,7 @@ class ArticlePage(Page):
             FieldPanel('issue'),
             FieldPanel('status'),
             FieldPanel('language'),
-            FieldPanel('associated_english_article'),
+            FieldPanel('associated_English_article'),
         ], heading='Editorial information'),
     ]
 
