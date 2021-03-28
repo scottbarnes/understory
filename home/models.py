@@ -1,11 +1,14 @@
 from django.db import models
 from django.shortcuts import render
+from django.urls import reverse
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.fields import RichTextField
 from wagtail.search.models import Query
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.models import register_snippet
 
 
 class HomePage(RoutablePageMixin, Page):
@@ -58,13 +61,83 @@ class HomePage(RoutablePageMixin, Page):
 
 
 class AboutPage(Page):
-    """ The About page. """
+    """ The About page. Currently used as a generic blank page. Should come up with another strategy with a
+     Streamfield or something. """
     body = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('body', classname='full'),
     ]
 
 
+@register_snippet
+class Copyright(models.Model):
+    """ Snippet for editing the copyright text. """
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('text')
+    ]
+
+    class Meta:  # noqa
+        verbose_name = 'Copyright text'
+        verbose_name_plural = 'Copyright text'
+
+    def __str__(self):
+        return self.text
 
 
+@register_snippet
+class PrivacyPolicy(models.Model):
+    """ Snippet for editing the privacy policy text and slug. """
+    text = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255)
 
+    panels = [
+        FieldPanel('text'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:  # noqa
+        verbose_name = 'Privacy policy: text and slug'
+        verbose_name_plural = 'Privacy policy: text and slug'
+
+    def __str__(self):
+        return self.text
+
+
+@register_snippet
+class TermsOfUse(models.Model):
+    """ Snippet for editing the terms of use text and slug. """
+    text = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('text'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:  # noqa
+        verbose_name = 'Terms of use: text and slug'
+        verbose_name_plural = 'Terms of use: text and slug'
+
+    def __str__(self):
+        return self.text
+
+
+@register_snippet
+class Subscribe(models.Model):
+    """ Snippet for controlling the 'click here to subscribe to understory' text. """
+    text = models.CharField(max_length=255)
+    url = models.URLField(max_length=255)
+
+    panels = [
+        FieldPanel('text'),
+        FieldPanel('url'),
+    ]
+
+    class Meta:  # noqa
+        verbose_name = 'Click here to subscribe: text and slug'
+        verbose_name_plural = 'Click here to subscribe: text and slug'
+
+    def __str__(self):
+        return self.text

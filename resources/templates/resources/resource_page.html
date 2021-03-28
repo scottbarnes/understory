@@ -3,6 +3,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load wagtailuserbar %}
 {% load social_share %}
+{% load footer_tags %}
 
 {% block body_class %}template-resourcepage{% endblock %}
 
@@ -87,9 +88,7 @@
     {% endif %}
         <div class="row justify-content-center">
                 <h3>
-                    <a href="https://cdn.forms-content.sg-form.com/5ebceaa0-b708-11ea-91c0-16ac503db295">
-                        Get Notified of New Issues
-                    </a>
+                    <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
                 </h3>
         </div>
     <br />

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static wagtailimages_tags wagtailcore_tags %}
+{% load footer_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -102,9 +103,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <h4>
-                        <a href="https://cdn.forms-content.sg-form.com/5ebceaa0-b708-11ea-91c0-16ac503db295">
-                            Click Here to Subscribe to Understory
-                        </a>
+                        <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
                     </h4>
                 </div>
             </div>

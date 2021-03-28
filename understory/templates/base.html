@@ -1,6 +1,7 @@
 {% load wagtailcore_tags wagtailfontawesome wagtailroutablepage_tags %}
 {% load static wagtailuserbar %}
 {% load google_analytics_tags %}
+{% load footer_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -180,9 +181,11 @@
 
 <footer class="container">
     <p>
-        <a href="{% slugurl 'privacy-policy' %}">Privacy policy<br/>
-        <a href="{% slugurl 'terms-and-conditions' %}">Terms of use<br/>
-        &copy; Understory 2020
+        <a href="{{ 'slug'|privacy_policy }}">{{ 'text'|privacy_policy }}</a>
+        <br />
+        <a href="{{ 'slug'|terms_of_use }}">{{ 'text'|terms_of_use }}</a>
+        <br />
+        &copy;&nbsp;{% copyright_text %}&nbsp;{% now "Y" %}
     </p>
 </footer>
 
