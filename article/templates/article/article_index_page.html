@@ -26,9 +26,26 @@
                 </figure>
                 <h3>
                     <a href="{% pageurl article %}">{{ article.title|upper }}</a>
-                    {% if article.name %}
-                        <br />by {{ article.name }}
-                    {% endif %}
+                    {% with num_of_authors=article.authors.count %}
+                        {% if num_of_authors == 1%}
+                            <br />by {{ article.authors.first.author.name }}
+                        {% elif num_of_authors == 2 %}
+                            <br />by {{ article.authors.all.0.author.name }}
+                            and
+                            {{ article.authors.all.1.author.name }}
+                        {% elif num_of_authors > 2 %}
+                            <br />by
+                            {% for iter in article.authors.all %}
+                                {% if iter == article.authors.last %}
+                                    and {{ iter.author.name }}
+                                {% else %}
+                                    {{ iter.author.name }},&nbsp;
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                    {% endwith %}
+
                 </h3>
                 {% comment %}
                     Go through the translation queryset and for each translation make a link

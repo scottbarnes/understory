@@ -109,10 +109,10 @@ class ArticlePage(Page):
     Location: /articles/<article-slug>
     """
 
-    name = models.CharField(max_length=255)  # Author name
-    email = models.EmailField(max_length=255)  # Author email
-    twitter = models.CharField(max_length=255, blank=True, null=True)
-    website = models.URLField(max_length=255, blank=True, null=True)
+    # name = models.CharField(max_length=255)  # Author name
+    # email = models.EmailField(max_length=255)  # Author email
+    # twitter = models.CharField(max_length=255, blank=True, null=True)
+    # website = models.URLField(max_length=255, blank=True, null=True)
     lead_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
