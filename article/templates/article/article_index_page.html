@@ -14,13 +14,20 @@
     {% endcomment %}
     <br />
 
+    <div class="featured-stories row">
+
     {% for article in articlepages %}
         {% with article=article.specific %}
+
             {% if article.language == "English" %}
+                <div class="col-md-4">
+                <figure>
+                    {% image article.lead_image fill-430x254-c100 %}
+                </figure>
                 <h3>
                     <a href="{% pageurl article %}">{{ article.title|upper }}</a>
                     {% if article.name %}
-                        by {{ article.name }}
+                        <br />by {{ article.name }}
                     {% endif %}
                 </h3>
                 {% comment %}
@@ -84,9 +91,12 @@
                 {{ article.intro | richtext }}
                 {% endcomment %}
                 <br />
+                </div>
             {% endif %}
         {% endwith %}
     {% endfor %}
+
+    </div>
     </div>
     </main>
 {% endblock %}

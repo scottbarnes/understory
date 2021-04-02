@@ -5,7 +5,13 @@ from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    StreamFieldPanel,
+)
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core import blocks
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
@@ -14,6 +20,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 from home.models import HomePage
 from issue.models import IssuePage
@@ -154,11 +161,12 @@ class ArticlePage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('name'),
-            FieldPanel('email'),
-            FieldPanel('twitter'),
-            FieldPanel('website'),
-        ], heading='Contact information'),
+            InlinePanel("authors", label="Author", min_num=1, max_num=10)
+            # FieldPanel('name'),
+            # FieldPanel('email'),
+            # FieldPanel('twitter'),
+            # FieldPanel('website'),
+        ], heading='Author(s)'),
         MultiFieldPanel([
             ImageChooserPanel('lead_image'),
             FieldPanel('lead_image_text'),
@@ -233,14 +241,62 @@ class ArticleSubmitPage(Page):
             'form': form,
         })
 
+class AuthorOrderable(Orderable):
+    """ Enables selection of one or more authors from the Author snippet. See below. """
+    page = ParentalKey("article.ArticlePage", related_name="authors")
+    author = models.ForeignKey(
+        "article.Author",
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("author")
+    ]
 
 
+class Author(models.Model):
+    """ Author for articles (stories) and possibly more.
+    Source:
+    - https://learnwagtail.com/tutorials/registering-snippets-using-django-models/
+    - https://learnwagtail.com/tutorials/using-snippetchooserpanel-select-multiple-blog-authors-snippets-orderables/
+    """
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    biography = models.TextField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("name"),
+                ImageChooserPanel("image"),
+                FieldPanel("biography"),
+            ],
+            heading="Biographical information"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("email"),
+                FieldPanel("website")
+            ],
+            heading="Contact and links"
+        ),
+    ]
+
+    def __str__(self):
+        """ String representation of this class. """
+        return self.name
+
+    class Meta:  #noqa
+        verbose_name = "Author"
+        verbose_name_plural = "Authors"
 
 
-
-
-
-
-
-
-
+register_snippet(Author)

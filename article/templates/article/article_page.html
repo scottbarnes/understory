@@ -27,9 +27,15 @@
             <p class="meta">{{ page.date }}</p>
         {% endif %}
         {% endcomment %}
+
+        {% comment %}
         {% if page.name %}
             <div class="byline">{{ page.name }}</div>
         {% endif %}
+        {% endcomment %}
+        {% for iter in self.authors.all %}
+            <div class="byline">{{ iter.author.name }}</div>
+        {% endfor %}
     </div>
 
     {% comment %}
