@@ -56,11 +56,12 @@ def terms_of_use(field):
 def subscribe_text(field):
     """ Returns the text and url for the 'click here to subscribe' link. There should
     only ever be one. """
-    o = Subscribe.objects.first()
-    result = getattr(o, field)
-    if field == 'url':
-        # See comment for privacy_policy()
-        url = o.url
-        if url:
-            return url
-    return result
+    if Subscribe.objects.all().exists():
+        o = Subscribe.objects.first()
+        result = getattr(o, field)
+        if field == 'url':
+            # See comment for privacy_policy()
+            url = o.url
+            if url:
+                return url
+        return result
