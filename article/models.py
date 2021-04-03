@@ -155,8 +155,8 @@ class ArticlePage(Page):
     search_fields = Page.search_fields + [
         # index.SearchField('title'),  # This is redundant and causes an error.
         index.SearchField('body'),
-        index.SearchField('name'),
-        index.SearchField('email'),
+        # index.SearchField('authors'),
+        # index.SearchField('email'),
     ]
 
     content_panels = Page.content_panels + [
@@ -241,6 +241,7 @@ class ArticleSubmitPage(Page):
             'form': form,
         })
 
+
 class AuthorOrderable(Orderable):
     """ Enables selection of one or more authors from the Author snippet. See below. """
     page = ParentalKey("article.ArticlePage", related_name="authors")
@@ -271,6 +272,12 @@ class Author(models.Model):
         blank=True,
         related_name="+",
     )
+
+    search_fields = Page.search_fields + [
+        # index.SearchField('title'),  # This is redundant and causes an error.
+        index.SearchField('name'),
+        # index.SearchField('email'),
+    ]
 
     panels = [
         MultiFieldPanel(
