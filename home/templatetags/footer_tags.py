@@ -11,7 +11,8 @@ register = template.Library()
 @register.simple_tag()
 def copyright_text():
     """ Copyright text for the footer. There should only ever be one object. """
-    return Copyright.objects.first()
+    if Copyright.objects.all().exists():
+        return Copyright.objects.first()
 
 
 # Privacy policy snippet
@@ -25,15 +26,16 @@ def privacy_policy(field):
     first PrivacyPolicy object (there should only be one). This way it's possible in the
     Django template to have {{ 'field_name'|privacy_policy }} to get the text and slug
     fields. """
-    o = PrivacyPolicy.objects.first()
-    result = getattr(o, field)
-    if field == 'slug':
-        """ This seemed the easiest way to generate the url as slugurl was messing up 
-        on {% slugurl '{{ 'variable'|function }}' %}. """
-        slug = o.slug
-        if slug:
-            return f'/{slug}'
-    return result
+    if PrivacyPolicy.objects.all().exists():
+        o = PrivacyPolicy.objects.first()
+        result = getattr(o, field)
+        if field == 'slug':
+            """ This seemed the easiest way to generate the url as slugurl was messing up 
+            on {% slugurl '{{ 'variable'|function }}' %}. """
+            slug = o.slug
+            if slug:
+                return f'/{slug}'
+        return result
 
 
 # Terms of use snippet
@@ -41,14 +43,15 @@ def privacy_policy(field):
 def terms_of_use(field):
     """ Takes Django filter variable and returns the corresponding fields. See note
      for privacy_policy. """
-    o = TermsOfUse.objects.first()
-    result = getattr(o, field)
-    if field == 'slug':
-        # See comment for privacy_policy()
-        slug = o.slug
-        if slug:
-            return f'/{slug}'
-    return result
+    if TermsOfUse.objects.all().exists():
+        o = TermsOfUse.objects.first()
+        result = getattr(o, field)
+        if field == 'slug':
+            # See comment for privacy_policy()
+            slug = o.slug
+            if slug:
+                return f'/{slug}'
+        return result
 
 
 # 'Click here to subscribe' snippet
