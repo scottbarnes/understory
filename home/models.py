@@ -27,6 +27,8 @@ class HomePage(RoutablePageMixin, Page):
         # from issue.models import IssuePage
         from article.models import ArticlePage
         from resources.models import ResourcePage
+        from five_questions.models import FiveQuestionsPage
+        from invitations.models import InvitationsPage
 
         # Add the last three Resources and Issues to the context.
         context = super().get_context(request)
@@ -39,6 +41,14 @@ class HomePage(RoutablePageMixin, Page):
         resourcepages = ResourcePage.objects.live().order_by('-first_published_at')[:3]
         resourcepages = reversed(resourcepages)
         context['resourcepages'] = resourcepages
+        five_questionspages = FiveQuestionsPage.objects.live().order_by('-first_published_at')[:1]
+        five_questionspages = reversed(five_questionspages)
+        context['five_questionspages'] = five_questionspages
+        invitationspages = InvitationsPage.objects.live().order_by('-first_published_at')[:1]
+        invitationspages = reversed(invitationspages)
+        context['invitationspages'] = invitationspages
+
+
 
         return context
 

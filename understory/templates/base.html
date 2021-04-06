@@ -162,7 +162,15 @@
                 <a class="nav-link" href="{% slugurl 'stories' %}">Stories</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% slugurl 'resources' %}">Resources</a>
+                <a class="nav-link">Resources</a>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="{% slugurl 'invitations' %}">Invitations</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% slugurl 'five-questions' %}">Five Questions</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% slugurl 'submit' %}">Submit</a>

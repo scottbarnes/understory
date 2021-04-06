@@ -24,6 +24,7 @@ from wagtail.snippets.models import register_snippet
 
 from home.models import HomePage
 from issue.models import IssuePage
+from five_questions.models import FiveQuestionsPage
 
 
 BYLINE_CHOICES = (
@@ -52,12 +53,14 @@ class TagIndexPage(Page):
         articlepages = ArticlePage.objects.live().public().filter(tags__name=tag)
         blogpages = BlogPage.objects.live().public().filter(tags__name=tag)
         imagepages = Image.objects.filter(tags__name=tag)
+        five_questionspages = FiveQuestionsPage.objects.filter(tags__name=tag)
 
         # Update the template context
         context = super().get_context(request)
         context['articlepages'] = articlepages
         context['blogpages'] = blogpages
         context['imagepages'] = imagepages
+        context['five_questionspages'] = five_questionspages
 
         return context
 
@@ -247,6 +250,32 @@ class AuthorOrderable(Orderable):
     page = ParentalKey("article.ArticlePage", related_name="authors")
     author = models.ForeignKey(
         "article.Author",
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("author")
+    ]
+
+
+class InvitationsAuthorOrderable(Orderable):
+    """ Enables selection of one or more authors from the Author snippet. See imported Author class. """
+    page = ParentalKey("invitations.InvitationsPage", related_name="authors")
+    author = models.ForeignKey(
+        "article.Author",  # Yes, this is where the F/K comes from, hence its location in this model.
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("author")
+    ]
+
+
+class FiveQuestionsAuthorOrderable(Orderable):
+    """ Enables selection of one or more authors from the Author snippet. See imported Author class. """
+    page = ParentalKey("five_questions.FiveQuestionsPage", related_name="authors")
+    author = models.ForeignKey(
+        "article.Author",  # Yes, this is where the F/K comes from, hence its location in this model.
         on_delete=models.CASCADE,
     )
 

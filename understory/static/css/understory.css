@@ -126,11 +126,17 @@ ol > li:before {content:counters(item, ".") ". "; font-weight:bold;} /* print co
 }
 
 .byline {
+    font-size: 1.5em;
+    line-height: 1.4em;
+    /* text-transform: uppercase; */
+    letter-spacing: 0.075em;
+}
+
+.lead-image {
     font-size: 1em;
     line-height: 1.4em;
     /* text-transform: uppercase; */
     letter-spacing: 0.075em;
-
 }
 
 h1,
@@ -159,7 +165,7 @@ h2 {
 }
 h3 {
     font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
-    line-height: 1em;
+    line-height: 1.3em;
     /* text-transform: uppercase; */
     letter-spacing: 0em;
     font-weight: 600;

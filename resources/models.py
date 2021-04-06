@@ -9,6 +9,13 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
 from wagtail.images.edit_handlers import ImageChooserPanel
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.search import index
+from article.models import Author
+from wagtail.snippets.models import register_snippet
 
 
 class ResourceIndexPage(Page):
