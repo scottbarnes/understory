@@ -247,10 +247,12 @@ class ArticleSubmitPage(Page):
 
 class AuthorOrderable(Orderable):
     """ Enables selection of one or more authors from the Author snippet. See below. """
-    page = ParentalKey("article.ArticlePage", related_name="authors")
+    page = ParentalKey("article.ArticlePage", related_name="authors", blank=True, null=True)
     author = models.ForeignKey(
         "article.Author",
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     panels = [
@@ -260,10 +262,12 @@ class AuthorOrderable(Orderable):
 
 class InvitationsAuthorOrderable(Orderable):
     """ Enables selection of one or more authors from the Author snippet. See imported Author class. """
-    page = ParentalKey("invitations.InvitationsPage", related_name="authors")
+    page = ParentalKey("invitations.InvitationsPage", related_name="authors", blank=True, null=True)
     author = models.ForeignKey(
         "article.Author",  # Yes, this is where the F/K comes from, hence its location in this model.
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     panels = [
@@ -273,10 +277,12 @@ class InvitationsAuthorOrderable(Orderable):
 
 class FiveQuestionsAuthorOrderable(Orderable):
     """ Enables selection of one or more authors from the Author snippet. See imported Author class. """
-    page = ParentalKey("five_questions.FiveQuestionsPage", related_name="authors")
+    page = ParentalKey("five_questions.FiveQuestionsPage", related_name="authors", blank=True, null=True)
     author = models.ForeignKey(
         "article.Author",  # Yes, this is where the F/K comes from, hence its location in this model.
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     panels = [
