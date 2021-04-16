@@ -106,6 +106,16 @@ class ArticleIndexPage(Page):
     ]
 
 
+# Image formatting choices. Imported elsewhere.
+IMAGE_FORMATTING_CHOICES = [
+    ('25_PERCENT_WIDTH', '25% width'),
+    ('50_PERCENT_WIDTH', '50% width'),
+    ('75_PERCENT_WIDTH', '75% width'),
+    ('90_PERCENT_WIDTH', '90% width'),
+    ('100_PERCENT_WIDTH', '100% width'),
+]
+
+
 class ArticlePage(Page):
     """
     Article page model. Formed from form input from ArticleSubmitPage and ArticleSubmitForm.
@@ -123,7 +133,25 @@ class ArticlePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    lead_image_text = models.CharField(max_length=255, blank=True, null=True)
+    lead_image_caption = models.CharField(max_length=255, blank=True, null=True)
+    lead_image_alt_text = models.TextField(
+        blank=True, null=True,
+        help_text='Specify the alt text to improve site accessibility. This should be '
+        ' descriptive of the image and not merely a recitation of the caption'
+        ' text. Nor should it be duplicative of information in the caption.'
+        ' But it should be pithy. Perhaps no more than 125 characters.'
+        ' See best practices at https://axesslab.com/alt-texts/.'
+    )
+    lead_image_formatting_options = models.CharField(
+        choices=IMAGE_FORMATTING_CHOICES,
+        default='100_PERCENT_WIDTH',
+        max_length=255,
+        help_text='Select the formatting rules that apply this image. By default, images'
+                  ' will span 100% of the width of the text column. Selecting 50% would'
+                  ' render the image so that the width occupied 50% of the text column.'
+                  ' Aspect ratios will be preserved. For a somewhat technical explanation'
+                  ' of how images work in Wagtail, see https://docs.wagtail.io/en/v2.12.3/topics/images.html'
+    )
     # Maybe the byline should be done similar to the blog categories with another model?
     # byline = models.CharField(max_length=255, blank=False, null=True, choices=BYLINE_CHOICES, default='name')
     # story_title = models.CharField(max_length=255)
@@ -133,6 +161,27 @@ class ArticlePage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('quote', blocks.BlockQuoteBlock()),
         ('image', ImageChooserBlock()),
+        ('image_with_alt_text', blocks.StructBlock([
+            ('image', ImageChooserBlock()),
+            ('caption_text', blocks.RichTextBlock(required=False)),
+            ('alt_text', blocks.TextBlock(
+                help_text='Specify the alt text to improve site accessibility. This should be '
+                          ' descriptive of the image and not merely a recitation of the caption'
+                          ' text. Nor should it be duplicative of information in the caption.'
+                          ' But it should be pithy. Perhaps no more than 125 characters.'
+                          ' See best practices at https://axesslab.com/alt-texts/.'
+            )),
+            ('formatting_options', blocks.ChoiceBlock(
+                required=False,
+                choices=IMAGE_FORMATTING_CHOICES,
+                help_text='Select the formatting rules that apply this image. By default, images'
+                          ' will span 100% of the width of the text column. Selecting 50% would'
+                          ' render the image so that the width occupied 50% of the text column.'
+                          ' Aspect ratios will be preserved. For a somewhat technical explanation'
+                          ' of how images work in Wagtail, see https://docs.wagtail.io/en/v2.12.3/topics/images.html'
+            ))],
+            icon='image', )
+         ),
         ('image_text', blocks.RichTextBlock()),
         ('embeded_item', blocks.RawHTMLBlock()),
     ])
@@ -145,12 +194,17 @@ class ArticlePage(Page):
     updated_at = models.DateTimeField(auto_now=True)
     # issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
     #                     blank=True, null=True)
-    issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles')
+    issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles', help_text="This field is historical and not currently used. It may be removed in the future.")
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
     associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
-                                                   related_name='translations')
-    language = models.CharField(max_length=255, blank=True, null=True)
+                                                   related_name='translations',
+                                                   help_text='If this article is not in English, and there exists an English translation of the article, select it here. This will enable automatic linking of the various translations.')
+    language = models.CharField(
+        help_text="Specify the languge in which the article is written. Note: the language must start with a"
+                  " capital letter.",
+        max_length=255
+    )
 
     def __str__(self):
         return self.title
@@ -172,7 +226,9 @@ class ArticlePage(Page):
         ], heading='Author(s)'),
         MultiFieldPanel([
             ImageChooserPanel('lead_image'),
-            FieldPanel('lead_image_text'),
+            FieldPanel('lead_image_caption'),
+            FieldPanel('lead_image_alt_text'),
+            FieldPanel('lead_image_formatting_options'),
         ], heading='Lead'),
         FieldPanel('tags'),
         StreamFieldPanel('body'),

@@ -296,9 +296,10 @@ h5 {
 }
 
 .img-fluid {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
+
 /*
 .resource-title-image .img-fluid {
     width: 50%;
@@ -396,3 +397,12 @@ blockquote p {
     filter: saturate(150%) hue-rotate(-35deg);
   }
 }
+
+/* Mobile settings */
+@media only screen and (max-device-width: 480px) {
+  .img-fluid-m {
+    width: 100%;
+    height: auto;
+  }
+}
+
