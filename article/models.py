@@ -228,7 +228,7 @@ class ArticlePage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            InlinePanel("authors", label="Author", min_num=1, max_num=10)
+            InlinePanel("authors", label="Author", min_num=0, max_num=10)
             # FieldPanel('name'),
             # FieldPanel('email'),
             # FieldPanel('twitter'),
