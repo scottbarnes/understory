@@ -160,7 +160,6 @@ class ArticlePage(Page):
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('quote', blocks.BlockQuoteBlock()),
-        ('image', ImageChooserBlock()),  # Remove post update
         ('image_with_alt_text', blocks.StructBlock([
             ('image', ImageChooserBlock()),
             ('caption_text', blocks.RichTextBlock(required=False)),
@@ -182,7 +181,6 @@ class ArticlePage(Page):
             ))],
             icon='image', )
          ),
-        ('image_text', blocks.RichTextBlock()),  # Remove post update.
         ('embeded_item', blocks.RawHTMLBlock()),
     ])
     # Not displayed on the submission form.

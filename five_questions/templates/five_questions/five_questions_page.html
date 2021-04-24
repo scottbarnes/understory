@@ -74,8 +74,6 @@
                     <p><small><i>{{ block.value.caption_text }}</i></small></p>
                 {% endif %}
             </div>
-        {% elif block.block_type == 'image_text' %}
-            <p><small><i>{{ block.value }}</i></small></p>
         {% elif block.block_type == 'paragraph' %}
             <p>{{ block.value }}</p>
         {% elif block.block_type == 'heading' %}

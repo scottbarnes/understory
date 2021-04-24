@@ -96,7 +96,7 @@ class FiveQuestionsPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    lead_image_text = models.CharField(max_length=255, blank=True, null=True)
+    # lead_image_text = models.CharField(max_length=255, blank=True, null=True)
     lead_image_caption = models.CharField(max_length=255, blank=True, null=True)
     lead_image_alt_text = models.TextField(
         blank=True, null=True,
@@ -120,7 +120,6 @@ class FiveQuestionsPage(Page):
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('quote', blocks.BlockQuoteBlock()),
-        ('image', ImageChooserBlock()),  # Remove post update.
         ('image_with_alt_text', blocks.StructBlock([
             ('image', ImageChooserBlock()),
             ('caption_text', blocks.RichTextBlock(required=False)),
@@ -142,7 +141,6 @@ class FiveQuestionsPage(Page):
             ))],
             icon='image', )
          ),
-        ('image_text', blocks.RichTextBlock()),  # Remove post update.
         ('embeded_item', blocks.RawHTMLBlock()),
     ])
     # Not displayed on the submission form.
@@ -187,7 +185,6 @@ class FiveQuestionsPage(Page):
         ], heading='Author(s)'),
         MultiFieldPanel([
             ImageChooserPanel('lead_image'),
-            FieldPanel('lead_image_text'),  # Remove post update.
             FieldPanel('lead_image_caption'),
             FieldPanel('lead_image_alt_text'),
             FieldPanel('lead_image_formatting_options'),
