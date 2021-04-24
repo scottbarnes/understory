@@ -13,10 +13,20 @@
     <div style="text-align: center;">
         {# Lead with the lead image which is rendered by the template and not the StreamField #}
         {% if page.lead_image %}
-            {% image page.lead_image width-600 class="img-fluid" alt="Article lead image" %}
+            {% if page.lead_image_formatting_options == '25_PERCENT_WIDTH' %}
+                {% image page.lead_image class="img-fluid-m" width-150 alt=page.lead_image_alt_text %}
+            {% elif page.lead_image_formatting_options == '50_PERCENT_WIDTH' %}
+                {% image page.lead_image class="img-fluid-m" width-300 alt=page.lead_image_alt_text %}
+            {% elif page.lead_image_formatting_options == '75_PERCENT_WIDTH' %}
+                {% image page.lead_image class="img-fluid-m" width-450 alt=page.lead_image_alt_text %}
+            {% elif page.lead_image_formatting_options == '90_PERCENT_WIDTH' %}
+                {% image page.lead_image class="img-fluid-m" width-540 alt=page.lead_image_alt_text %}
+            {% else %}
+                {% image page.lead_image width-600 class="img-fluid" alt=page.lead_image_alt_text %}
+            {% endif %}
         {% endif %}
-        {% if page.lead_image_text %}
-            <div class="lead-image" style="text-align: left;">{{ page.lead_image_text }}</div>
+        {% if page.lead_image_caption %}
+            <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
         {% endif %}
         <br />
         {% if page.title %}
@@ -46,8 +56,24 @@
     {% include_block page.body %}
     {% endcomment %}
     {% for block in page.body %}
-        {% if block.block_type == 'image' %}
-            {% image block.value width-600 class="img-fluid" alt="Responsive image" %}
+        {% if block.block_type == 'image_with_alt_text' %}
+            <div style="text-align: center;">
+                {% if block.value.formatting_options == '25_PERCENT_WIDTH' %}
+                    {% image block.value.image class="img-fluid-m" width-150 alt=block.value.alt_text %}
+                {% elif block.value.formatting_options == '50_PERCENT_WIDTH' %}
+                    {% image block.value.image class="img-fluid-m" width-300 alt=block.value.alt_text %}
+                {% elif block.value.formatting_options == '75_PERCENT_WIDTH' %}
+                    {% image block.value.image class="img-fluid-m" width-450 alt=block.value.alt_text %}
+                {% elif block.value.formatting_options == '90_PERCENT_WIDTH' %}
+                    {% image block.value.image class="img-fluid-m" width-540 alt=block.value.alt_text %}
+                {% else %}
+                    {% image block.value.image width-600 class="img-fluid" alt=block.value.alt_text %}
+                {% endif %}
+
+                {% if block.value.caption_text %}
+                    <p><small><i>{{ block.value.caption_text }}</i></small></p>
+                {% endif %}
+            </div>
         {% elif block.block_type == 'image_text' %}
             <p><small><i>{{ block.value }}</i></small></p>
         {% elif block.block_type == 'paragraph' %}

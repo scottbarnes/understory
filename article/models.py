@@ -106,7 +106,7 @@ class ArticleIndexPage(Page):
     ]
 
 
-# Image formatting choices. Imported elsewhere.
+# Image formatting choices.
 IMAGE_FORMATTING_CHOICES = [
     ('25_PERCENT_WIDTH', '25% width'),
     ('50_PERCENT_WIDTH', '50% width'),
@@ -160,7 +160,7 @@ class ArticlePage(Page):
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('quote', blocks.BlockQuoteBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ImageChooserBlock()),  # Remove post update
         ('image_with_alt_text', blocks.StructBlock([
             ('image', ImageChooserBlock()),
             ('caption_text', blocks.RichTextBlock(required=False)),
@@ -182,7 +182,7 @@ class ArticlePage(Page):
             ))],
             icon='image', )
          ),
-        ('image_text', blocks.RichTextBlock()),
+        ('image_text', blocks.RichTextBlock()),  # Remove post update.
         ('embeded_item', blocks.RawHTMLBlock()),
     ])
     # Not displayed on the submission form.
@@ -194,14 +194,24 @@ class ArticlePage(Page):
     updated_at = models.DateTimeField(auto_now=True)
     # issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
     #                     blank=True, null=True)
-    issue = models.ForeignKey(IssuePage, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles', help_text="This field is historical and not currently used. It may be removed in the future.")
+    issue = models.ForeignKey(
+        IssuePage,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='articles',
+        help_text="This field is historical and not currently used. It may be removed in the future.")
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
     associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
                                                    related_name='translations',
-                                                   help_text='If this article is not in English, and there exists an English translation of the article, select it here. This will enable automatic linking of the various translations.')
+                                                   help_text='If this article is not in English, and there exists an '
+                                                             'English translation of the article, select it here. '
+                                                             'This will enable automatic linking of the various '
+                                                             'translations.'
+                                                   )
     language = models.CharField(
-        help_text="Specify the languge in which the article is written. Note: the language must start with a"
+        help_text="Specify the language in which the article is written. Note: the language must start with a"
                   " capital letter.",
         max_length=255
     )
