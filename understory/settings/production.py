@@ -19,15 +19,21 @@ ALLOWED_HOSTS = ['understory-staging.fishcracker.net', 'localhost', '.fishcracke
 # Search
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch7',
-        'URLS': ['http://elasticsearch:9200'],
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
-        'AUTO_UPDATE': True,
-    }
+        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'SEARCH_CONFIG': 'english',
+    },
 }
+# WAGTAILSEARCH_BACKENDS = {
+#     'default': {
+#         'BACKEND': 'wagtail.search.backends.elasticsearch7',
+#         'URLS': ['http://elasticsearch:9200'],
+#         'INDEX': 'wagtail',
+#         'TIMEOUT': 5,
+#         'OPTIONS': {},
+#         'INDEX_SETTINGS': {},
+#         'AUTO_UPDATE': True,
+#     }
+# }
 
 # Logging
 LOGGING = {
