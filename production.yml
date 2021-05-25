@@ -4,6 +4,7 @@ volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
   production_traefik: {}
+  production_django_media: {}
   esdata:
     driver: local
 
@@ -25,20 +26,30 @@ services:
     # restart: always  # Don't enable while originally configuring.
     container_name: understory-production
     volumes:
-      - ./static:/code/static  # Ensure UID 1000 on the local system has r/w on ./static.
-      - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
-      # - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
-      # - ./db.sqlite3:/code/db.sqlite3  # Ensure UID 1000 on the local system has r/w on ./static.
+      - ./static:/code/static  # whitenoise handles this. Ensure user running docker has r/w.
+      - production_django_media:/code/media
+      # - ./media:/code/media  # nginx. Ensure user running docker has r/w.
     ports:
       - "5000:8000"
-    command: bash -c "sleep 15 && /code/start"
+    # command: bash -c "sleep 15 && /code/start"
+    command: /code/start
     # command: tail -f /dev/null  # Keep container running when diagnosing gunicorn crash issues.
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: understory_production_nginx
+    depends_on:
+      - django
+    volumes:
+      - production_django_media:/usr/share/nginx/media:ro
 
   postgres:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: foxtail2_production_postgres
+    image: understory_production_postgres
     volumes:
       - production_postgres_data:/var/lib/postgresql/data:Z
       - production_postgres_data_backups:/backups:z
@@ -65,7 +76,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/traefik/Dockerfile
-    image: foxtail2_production_traefik
+    image: understory_production_traefik
     depends_on:
       - django
     volumes:

@@ -47,6 +47,16 @@ http:
         # https://docs.traefik.io/master/routing/routers/#certresolver
         certResolver: letsencrypt
 
+    web-media-router:
+      rule: "Host(`us-test.fishcracker.net`) && PathPrefix(`/media/`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: django-media
+      tls:
+        certResolver: letsencrypt
+
     #flower-secure-router:
     #  rule: "Host(`fishcracker.net`)"
     #  entryPoints:
@@ -73,6 +83,11 @@ http:
       loadBalancer:
         servers:
           - url: http://django:8000
+
+    django-media:
+      loadBalancer:
+        servers:
+          - url: http://nginx:80
 
     #flower:
     #  loadBalancer:
