@@ -1,5 +1,5 @@
 log:
-  level: INFO
+  level: DEBUG
 
 entryPoints:
   web:
@@ -35,6 +35,16 @@ http:
         - csrf
       service: django
 
+    web-ojs-router:
+      rule: "Host(`ojs-test.fishcracker.net`)"
+      
+      entryPoints:
+        - web
+      middlewares:
+        - redirect
+        - csrf
+      service: ojs
+
     web-secure-router:
       rule: "Host(`us-test.fishcracker.net`)"
       
@@ -54,6 +64,16 @@ http:
       middlewares:
         - csrf
       service: django-media
+      tls:
+        certResolver: letsencrypt
+
+    web-secure-ojs-router:
+      rule: "Host(`ojs-test.fishcracker.net`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: ojs
       tls:
         certResolver: letsencrypt
 
@@ -88,6 +108,12 @@ http:
       loadBalancer:
         servers:
           - url: http://nginx:80
+
+    ojs:
+      loadBalancer:
+        servers:
+          - url: http://172.31.34.26:8081
+          # - url: http://172.31.34.26:8888  # local IP of the machine; 'localhost' goes to docker, not AWS.
 
     #flower:
     #  loadBalancer:
