@@ -21,7 +21,7 @@ services:
       - ./db.sqlite3:/code/db.sqlite3  # Ensure UID 1000 on the local system has r/w on ./static.
     ports:
       - "8004:8000"
-    command: bash -c "sleep 15 && /code/start"
+    command: bash -c "sleep 20 && /code/start"
     # command: tail -f /dev/null  # Keep container running when diagnosing gunicorn crash issues.
 
   elasticsearch:
