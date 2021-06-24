@@ -22,7 +22,7 @@
             {% if article.language == "English" %}
                 <div class="col-md-4">
                 <figure>
-                    {% image article.lead_image fill-430x254-c100 %}
+                    {% image article.lead_image fill-430x254-c100 alt=article.lead_image_alt_text %}
                 </figure>
                 <h3>
                     <a href="{% pageurl article %}">{{ article.title|upper }}</a>

@@ -22,7 +22,7 @@
             {% if invitations.language == "English" %}
                 <div class="col-md-4">
                 <figure>
-                    {% image invitations.lead_image fill-430x254-c100 %}
+                    {% image invitations.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
                 </figure>
                 <h3>
                     <a href="{% pageurl invitations %}">{{ invitations.title|upper }}</a>
