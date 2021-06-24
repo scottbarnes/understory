@@ -35,7 +35,7 @@ class HomePage(RoutablePageMixin, Page):
         # issuepages = IssuePage.objects.live().order_by('-first_published_at')[:3]
         # issuepages = reversed(issuepages)
         # context['issuepages'] = issuepages
-        articlepages = ArticlePage.objects.live().order_by('-first_published_at')[:3]
+        articlepages = ArticlePage.objects.live().order_by('-first_published_at').filter(language='English')[:3]
         articlepages = reversed(articlepages)
         context['articlepages'] = articlepages
         resourcepages = ResourcePage.objects.live().order_by('-first_published_at')[:3]
@@ -47,8 +47,6 @@ class HomePage(RoutablePageMixin, Page):
         invitationspages = InvitationsPage.objects.live().order_by('-first_published_at')[:1]
         invitationspages = reversed(invitationspages)
         context['invitationspages'] = invitationspages
-
-
 
         return context
 

@@ -6,144 +6,204 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
 {% endblock %}
 {% block content %}
-    <main role="main">
+  <main role="main">
 
-        <!-- Main jumbotron -->
-        <div class="jumbotron">
-            <div class="container" style="text-align: center;">
-                {% comment %}
-                <div class="col-md-6">
-                    <img src="../../static/img/understory-logo.png" class="img-fluid">
-                </div>
-                {% endcomment %}
-                {% comment %}
-                <h2 class="display-5">UNDERSTORY</h2>
-                <h5 class="display-5">Stories without a home</h5>
-                {% endcomment %}
-                <img src="../../static/img/understory-logo-text-v2.png" class="img-fluid" alt="Understory: Stories Without A Home">
-            </div>
-        </div>
+    <!-- Main jumbotron -->
+    <div class="jumbotron">
+      <div class="container" style="text-align: center;">
+	{% comment %}
+	  <div class="col-md-6">
+	    <img src="../../static/img/understory-logo.png" class="img-fluid">
+	  </div>
+	{% endcomment %}
+	{% comment %}
+	  <h2 class="display-5">UNDERSTORY</h2>
+	  <h5 class="display-5">Stories without a home</h5>
+	{% endcomment %}
+	<img src="../../static/img/understory-logo-text-v2.png" class="img-fluid" alt="Understory: Stories Without A Home">
+      </div>
+    </div>
 
-        <div class="container">
-            {# Latest issues #}
-            {% comment %}
-            <div style="text-align: center;"><h2>ISSUES</h2></div>
-            <div class="featured-issues row">
-                {% for issue in issuepages %}
-                    {% with issue=issue.specific %}
-                        <div class="col-md-4">
-                                <a href="{% pageurl issue %}">
-                                    <figure>
-                                        {% image issue.image fill-430x254-c100 %}
-                                    </figure>
-                                    <h4>{{ issue.title }}</h4>
-                                </a>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-            </div>
-            {% endcomment %}
-            {# Latest articles #}
-            <div style="text-align: center;">
-                <h2><a href="{% slugurl 'stories' %}">STORIES</a></h2>
-            </div>
-            <div class="featured-stories row">
-                {% for article in articlepages %}
-                    {% with article=article.specific %}
-                        <div class="col-md-4">
-                            <a href="{% pageurl article %}">
-                                <figure>
-                                    {% image article.lead_image fill-430x254-c100 %}
-                                </figure>
-                                <h4>{{ article.title }}</h4>
-                            </a>
-                            {% comment %}
-                            <h4>{{ article.title }}</h4>
-                            <p>{{ article.intro | richtext }}</p>
-                            <p><a class="btn btn-secondary" href="{% pageurl article %}" role="button">Read more
-                                &raquo;</a></p>
-                            {% endcomment %}
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-            </div>
-            <!-- Resources -->
-            <br />
-            {# Latest resources #}
-            <div style="text-align: center;">
-                <h2>RESOURCES</h2>
-            </div>
-            <div class="featured-resources row">
-                {% for invitations in invitationspages %}
-                    {% with invitations=invitations.specific %}
-                        <div class="col-md-4">
-                            <a href="{% slugurl 'invitations' %}">
-                                <figure>
-                                    {% image invitations.lead_image fill-430x254-c100 %}
-                                </figure>
-                                <h4>INVITATIONS</h4>
-                            </a>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-                {% for five_questions in five_questionspages %}
-                    {% with five_questions=five_questions.specific %}
-                        <div class="col-md-4">
-                            <a href="{% slugurl 'five-questions' %}">
-                                <figure>
-                                    {% image five_questions.lead_image fill-430x254-c100 %}
-                                </figure>
-                                <h4 class="more-space">FIVE QUESTIONS</h4>
-                            </a>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-            </div>
-            {% comment %}
-            <div style="text-align: center;">
-                <h2><a href="{% slugurl 'resources' %}">RESOURCES</a></h2>
-            </div>
-            <div class="featured-resources row">
-                {# Why doesn't this need to use "|slice:3"? Because it's done at the context level. home/models.py #}
-                {% for resource in resourcepages %}
-                    {% with resource=resource.specific %}
-                        <div class="col-md-4">
-                            <a href="{% pageurl resource %}">
-                                <figure>
-                                    {% image resource.lead_image fill-430x254-c100 %}
-                                </figure>
-                                <h4>{{ resource.title }}</h4>
-                            </a>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-            </div>
-            {% endcomment %}
-            {% comment %}
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div style="text-align: center;"><h2>Resources</h2></div>
-                </div>
-            </div>
-            {% endcomment %}
-            <br />
-            <br />
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <h4>
-                        <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
-                    </h4>
-                </div>
-            </div>
+    <div class="container">
+      {# Latest issues #}
+      {% comment %}
+	<div style="text-align: center;"><h2>ISSUES</h2></div>
+	<div class="featured-issues row">
+	  {% for issue in issuepages %}
+	    {% with issue=issue.specific %}
+	      <div class="col-md-4">
+		<a href="{% pageurl issue %}">
+		  <figure>
+		    {% image issue.image fill-430x254-c100 %}
+		  </figure>
+		  <h4>{{ issue.title }}</h4>
+		</a>
+	      </div>
+	    {% endwith %}
+	  {% endfor %}
+	</div>
+      {% endcomment %}
+      {# Latest articles #}
+      <div style="text-align: center;">
+	<h2><a href="{% slugurl 'stories' %}">STORIES</a></h2>
+      </div>
+      <div class="featured-stories row">
+	{% for article in articlepages %}
+	  {% with article=article.specific %}
+	    {% if article.language == "English" %}
+	      <div class="col-md-4">
+		<figure>
+		  {% image article.lead_image fill-430x254-c100 alt=article.lead_image_alt_text %}
+		</figure>
+		<h3>
+		  <a href="{% pageurl article %}">{{ article.title|upper }}</a>
+		  {% with num_of_authors=article.authors.count %}
+		    {% if num_of_authors == 1%}
+		      <br />by {{ article.authors.first.author.name }}
+		    {% elif num_of_authors == 2 %}
+		      <br />by {{ article.authors.all.0.author.name }}
+		      and
+		      {{ article.authors.all.1.author.name }}
+		    {% elif num_of_authors > 2 %}
+		      <br />by
+		      {% for iter in article.authors.all %}
+			{% if iter == article.authors.last %}
+			  and {{ iter.author.name }}
+			{% else %}
+			  {{ iter.author.name }},&nbsp;
+			{% endif %}
+		      {% endfor %}
+		    {% endif %}
 
-            <hr>
-            {{ page.body|richtext }}
+		  {% endwith %}
 
-        </div> <!-- /container -->
+		</h3>
+		{% comment %}
+		  Go through the translation queryset and for each translation make a link
+		  to the translated article. But if there are no translations output a
+		  linebreak (in place of <p> which would have done that if there were
+		  a translation).
+		{% endcomment %}
+		{% if article.translations.all %} {# .all filters out empty querysets #}
+		  {% with num_of_translations=article.translations.count %}
+		    <p style="text-align: center">Also available in
+		    {# When there is one translation just link it. #}
+		    {% if num_of_translations == 1 %}
+		      {% with translation=article.translations.all.0 %} {# get first index #}
+			<a href="{% pageurl translation %}">{{ translation.language }}</a>
+		      {% endwith %}
+		      {# With two translations link both joined with a conjunction. #}
+		    {% elif num_of_translations == 2 %}
+		      {% with translation=article.translations.all %}
+			<a href="{% pageurl translation.0 %}">{{ translation.0.language }}</a>
+			and
+			<a href="{% pageurl translation.1 %}">{{ translation.1.language }}</a>
+		      {% endwith %}
+		    {% else %}
+		      {% comment %}
+			For all of the translations, if the element is the last of the translations, print:
+			"and <language>". Otherwise, print "<language>,"
+		      {% endcomment %}
+		      {% for translation in article.translations.all %}
+			{% with translation=translation.specific %}
+			  {% if translation == article.translations.all.last %}
+			    and <a href="{% pageurl translation %}">{{ translation.language }}</a>
+			  {% else  %}
+			    <a href="{% pageurl translation %}">{{ translation.language }}</a>, {# comma #}
+			  {% endif %}
+			{% endwith %}
+		      {% endfor %}
+		    {% endif %}
+		    </p>
+		    <br /> {# Add lines between stories with translations. #}
+		  {% endwith %}
+		{% else %} {# If no articles in article.translations.all, enter a linebreak in place of <p> #}
+		  <br />
+		  <br /> {# Add lines between stories with no translations. #}
+		{% endif %}
+		<br />
+	      </div>
+	    {% endif %}
+	  {% endwith %}
+	{% endfor %}
+      </div>
+      <!-- Resources -->
+      <br />
+      {# Latest resources #}
+      <div style="text-align: center;">
+	<h2>RESOURCES</h2>
+      </div>
+      <div class="featured-resources row">
+	{% for invitations in invitationspages %}
+	  {% with invitations=invitations.specific %}
+	    <div class="col-md-4">
+	      <a href="{% slugurl 'invitations' %}">
+		<figure>
+		  {% image invitations.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
+		</figure>
+		<h4>INVITATIONS</h4>
+	      </a>
+	    </div>
+	  {% endwith %}
+	{% endfor %}
+	{% for five_questions in five_questionspages %}
+	  {% with five_questions=five_questions.specific %}
+	    <div class="col-md-4">
+	      <a href="{% slugurl 'five-questions' %}">
+		<figure>
+		  {% image five_questions.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
+		</figure>
+		<h4 class="more-space">FIVE QUESTIONS</h4>
+	      </a>
+	    </div>
+	  {% endwith %}
+	{% endfor %}
+      </div>
+      {% comment %}
+	<div style="text-align: center;">
+	  <h2><a href="{% slugurl 'resources' %}">RESOURCES</a></h2>
+	</div>
+	<div class="featured-resources row">
+	  {# Why doesn't this need to use "|slice:3"? Because it's done at the context level. home/models.py #}
+	  {% for resource in resourcepages %}
+	    {% with resource=resource.specific %}
+	      <div class="col-md-4">
+		<a href="{% pageurl resource %}">
+		  <figure>
+		    {% image resource.lead_image fill-430x254-c100 %}
+		  </figure>
+		  <h4>{{ resource.title }}</h4>
+		</a>
+	      </div>
+	    {% endwith %}
+	  {% endfor %}
+	</div>
+      {% endcomment %}
+      {% comment %}
+	<div class="row justify-content-center">
+	  <div class="col-md-4">
+	    <div style="text-align: center;"><h2>Resources</h2></div>
+	  </div>
+	</div>
+      {% endcomment %}
+      <br />
+      <br />
+      <div class="row justify-content-center">
+	<div class="col-md-12">
+	  <h4>
+	    <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
+	  </h4>
+	</div>
+      </div>
 
-    </main>
+      <hr>
+      {{ page.body|richtext }}
+
+    </div> <!-- /container -->
+
+  </main>
 {% endblock %}
 
