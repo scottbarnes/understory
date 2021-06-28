@@ -34,4 +34,5 @@ psycopg2==2.8.5
 django-social-share==2.0.0
 django-google-analytics-app==5.0.2
 whitenoise==5.2.0  # https://github.com/evansd/whitenoise
+django-slack==5.16.2  # https://github.com/lamby/django-slack
 

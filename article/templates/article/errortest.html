@@ -1,0 +1,5 @@
+{% extends django_slack %}
+
+{% block text %}
+Text: {{ article.title|safe }}
+{% endblock %}

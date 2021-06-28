@@ -9,8 +9,6 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
 
-from article import views as fail_views
-
 from search import views as search_views
 
 urlpatterns = [
@@ -23,7 +21,7 @@ urlpatterns = [
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
     url(r'^search/$', search_views.search, name='search'),
     re_path('djga/', include('google_analytics.urls')),
-    path('fail/', fail_views.error_500_test_view),
+    path('article/', article.views.error_test_view),
 ]
 
 

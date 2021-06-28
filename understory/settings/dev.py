@@ -24,6 +24,45 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+# LOGGING
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'slack_admins': {
+            # 'level': 'ERROR',
+            # 'filters': ['require_debug_false'],
+            'class': 'django_slack.log.SlackExceptionHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'level': 'ERROR',
+            'handlers': ['slack_admins'],
+        },
+    },
+    'root': {
+        'handlers': ['console', 'slack_admins'],
+        'level': 'ERROR',
+    }
+}
+
 # DATABASES
 # ------------------------------------------------------------------------------
 DATABASES = {

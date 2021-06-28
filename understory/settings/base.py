@@ -28,7 +28,6 @@ if READ_DOT_ENV_FILE:
     env.read_env(str(ROOT_DIR / ".django"))
     env.read_env(str(ROOT_DIR / ".postgres"))
 
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -71,6 +70,7 @@ INSTALLED_APPS = [
     'social_share_templates',
     'django_social_share',
     'google_analytics',
+    'django_slack',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -205,3 +205,8 @@ GOOGLE_ANALYTICS = {
 }
 
 GOOGLE_ANALYTICS_CODE = 'UA-192845932-1'
+
+# django-slack
+SLACK_TOKEN = env('DJANGO_SLACK_TOKEN')
+SLACK_CHANNEL = env('DJANGO_SLACK_CHANNEL')
+SLACK_BACKEND_FOR_QUEUE = 'django_slack.backends.UrllibBackend'
