@@ -6,19 +6,19 @@ services:
       - elasticsearch
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile-turtle
     image: understory-staging
     env_file:
       - ./.envs/production/.env
-    environment:
-      - DJANGO_SETTINGS_MODULE=understory.settings.production
+    # environment:
+    #   - DJANGO_SETTINGS_MODULE=understory.settings.production
     # restart: always  # Don't enable while originally configuring.
     container_name: understory-staging
     volumes:
       # - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
       - ./static:/code/static  # Ensure UID 1000 on the local system has r/w on ./static.
       - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
-      - ./db.sqlite3:/code/db.sqlite3  # Ensure UID 1000 on the local system has r/w on ./static.
+      # - ./db.sqlite3:/code/db.sqlite3  # Ensure UID 1000 on the local system has r/w on ./static.
     ports:
       - "8004:8000"
     command: bash -c "sleep 20 && /code/start"
