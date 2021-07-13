@@ -188,6 +188,8 @@
 {% block content %}{% endblock %}
 
 <footer class="container">
+  <div class="column-main">
+  <div class="column-left">
     <p>
         <a href="{{ 'slug'|privacy_policy }}">{{ 'text'|privacy_policy }}</a>
         <br />
@@ -195,6 +197,22 @@
         <br />
         &copy;&nbsp;{% copyright_text %}&nbsp;{% now "Y" %}
     </p>
+  </div>
+  <div class="column-right">
+	<div>Follow Us</div>
+	<div class="instagram-icon">
+	  <a href="https://www.instagram.com/storieswithoutahome/">
+		<img
+		  src="/static/img/Instagram_logo_2016.svg"
+		  alt="Instagram logo"
+		  border="0"
+		  width="42.5"
+		  height="42.5"
+		>
+	  </a>
+	</div>
+  </div>
+</div>
 </footer>
 
 {# Global javascript #}

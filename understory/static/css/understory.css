@@ -406,3 +406,19 @@ blockquote p {
   }
 }
 
+/* Footer styling */
+
+.column-main {
+  display: flex;
+}
+
+.column-right {
+  margin-left: auto;
+  text-align: center;
+  font-size: 21.25px;
+  /* background: #efefef; */
+  /* border: 1px solid #999; */
+}
+
+.instagram-icon {
+}
