@@ -40,4 +40,5 @@ build:
   stage: build
   script:
     - docker-compose -f turtle.yml build
-    - docker push $IMAGE:web
+    - docker push $CI_REGISTRY_IMAGE:latest
+    # - docker push $IMAGE:web
