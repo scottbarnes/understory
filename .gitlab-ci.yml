@@ -22,6 +22,7 @@ test:
   stage: test
   image: tiangolo/docker-with-compose
   script:
+    - export
     - docker-compose -f turtle.yml test -v 2
 
 # build:
