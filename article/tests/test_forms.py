@@ -29,19 +29,19 @@ class ArticleFormTest(TestCase):
         form = ArticleSubmitForm()
         self.assertIn('input type="text" name="name"', form.as_p())
 
-    def test_form_renders_bootstrap_with_a_get(self):
-        """ Note: does test crispy forms. """
-        response = self.client.get('/submit/')
-        self.assertIn(b'class="textinput textInput form-control"', response.content)
+    # def test_form_renders_bootstrap_with_a_get(self):
+    #     """ Note: does test crispy forms. """
+    #     response = self.client.get('/submit/')
+    #     self.assertIn(b'class="textinput textInput form-control"', response.content)
 
-    def test_can_submit_article_form(self):
-        response = self.client.post('/submit/', {
-            'name': 'Tester McTest',
-            'email': 'test@example.com',
-            'twitter': '',
-            'story_title': 'Test story title',
-            'body': 'This is the test story body',
-        })
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(ArticlePage.objects.count(), 1)
-        self.assertEqual(ArticlePage.objects.last().name, 'Tester McTest')
+    # def test_can_submit_article_form(self):
+    #     response = self.client.post('/submit/', {
+    #         'name': 'Tester McTest',
+    #         'email': 'test@example.com',
+    #         'twitter': '',
+    #         'story_title': 'Test story title',
+    #         'body': 'This is the test story body',
+    #     })
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(ArticlePage.objects.count(), 1)
+    #     self.assertEqual(ArticlePage.objects.last().name, 'Tester McTest')

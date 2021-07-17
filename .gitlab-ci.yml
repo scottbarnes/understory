@@ -1,0 +1,27 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - test
+  - build
+  - release
+
+variables:
+  - DOCKER_HOST: tcp://docker:2375
+  - DOCKER_DRIVER: overlay2
+  - CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
+  - CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+
+test:
+  stage: test
+  image: tiangolo/docker-with-compose
+  script:
+    - docker-compose -f turtle.yml test -v 2
+
+# build:
+#   stage: build
+#   before_script:
+
+
