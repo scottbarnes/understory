@@ -25,9 +25,9 @@ test:
     - export
     - chmod +x ./setup_env.sh
     - sh ./setup_env.sh
+    - docker-compose -f turtle.yml run --rm understory-staging python manage.py test -v 2
     - docker-compose -f turtle.yml build
     # - docker-compose -f turtle.yml run --rm understory-staging python manage.py collectstatic --no-input
-    - docker-compose -f turtle.yml run --rm understory-staging python manage.py test -v 2
 
 # build:
 #   stage: build
