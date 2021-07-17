@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#####
+# Note: the output file, here .django, will vary based on config. 
+#####
+
+
 echo understory=production >> .django
 echo DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE >> .django
 echo DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY >> .django
