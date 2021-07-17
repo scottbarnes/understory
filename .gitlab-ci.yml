@@ -37,5 +37,6 @@ test:
 
 build:
   stage: build
+  script:
     - docker-compose -f turtle.yml build
     - docker push $IMAGE:web
