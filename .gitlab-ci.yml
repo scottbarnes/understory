@@ -21,6 +21,8 @@ variables:
 test:
   stage: test
   image: tiangolo/docker-with-compose
+  before_script:
+    - export
   script:
     - export
     - docker-compose -f turtle.yml test -v 2
