@@ -13,6 +13,7 @@ variables:
   DOCKER_DRIVER: overlay2
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
   CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  CI_REPOSITORY_URL: 'http://192.168.0.17:8012/scott/understory.git/'
 
 test:
   stage: test
