@@ -40,13 +40,14 @@ build:
   stage: build
   script:
     - docker-compose -f turtle.yml build
-    - docker push understory-staging:latest 
+    - docker tag understory-staging:latest $CONTAINER_TEST_IMAGE
+    - docker push $CONTAINER_TEST_IMAGE
     # - docker push $CI_REGISTRY_IMAGE:latest
     # - docker push $IMAGE:web
 
 deploy:
   stage: deploy
   script:
-    - docker pull understory-staging:latest
-    - docker tag understory-staging:latest $CONTAINER_RELEASE_IMAGE
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
     - docker push $CONTAINER_RELEASE_IMAGE
