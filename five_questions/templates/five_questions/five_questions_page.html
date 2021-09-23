@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
-{% load wagtailuserbar %}
+{% load static wagtailuserbar %}
 {% load social_share %}
 {% load footer_tags %}
 
@@ -55,6 +55,12 @@
     {% comment %}
     {% include_block page.body %}
     {% endcomment %}
+	{# Load the FlipBook js if it's a flip book, even though this is sub optimal #}
+	{% if page.is_flipbook %}
+	  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+	  <script type="text/javascript" src="{% static 'js/flipbook.js' %}"></script>
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/flipbook.css' %}">
+	{% endif %}
     {% for block in page.body %}
         {% if block.block_type == 'image_with_alt_text' %}
             <div style="text-align: center;">
