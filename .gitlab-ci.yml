@@ -1,0 +1,53 @@
+image:
+  name: docker/compose:latest
+  entrypoint: [""]
+
+services:
+  - docker:dind
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  # DOCKER_HOST: tcp://docker:2375
+  # DOCKER_DRIVER: overlay2
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  # CI_REPOSITORY_URL: 'http://192.168.0.17:8012/scott/understory.git/'
+  # CI_SERVER_URL: "http://192.168.0.17"
+  # CI_SERVER_HOST="example.com"
+  # CI_SERVER_PORT: "8012"
+
+before_script:
+  - export
+  - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+  - export WEB_IMAGE=$IMAGE:web
+  - chmod +x ./setup_env.sh
+  - sh ./setup_env.sh
+  - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+  # - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN https://registry.fishcracker.net:443/v2/
+
+# test:
+#   stage: test
+#   # image: tiangolo/docker-with-compose
+#   script:
+#     - docker-compose -f turtle.yml run --rm understory-staging python manage.py test -v 2
+#     # - docker-compose -f turtle.yml run --rm understory-staging python manage.py collectstatic --no-input
+
+build:
+  stage: build
+  script:
+    - docker-compose -f turtle.yml build
+    - docker tag understory-staging:latest $CONTAINER_TEST_IMAGE
+    - docker push $CONTAINER_TEST_IMAGE
+    # - docker push $CI_REGISTRY_IMAGE:latest
+    # - docker push $IMAGE:web
+
+deploy:
+  stage: deploy
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE

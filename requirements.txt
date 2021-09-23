@@ -2,7 +2,7 @@ asgiref==3.3.1
 beautifulsoup4==4.8.2
 certifi==2020.4.5.1
 chardet==3.0.4
-Django==3.1.12
+Django==3.1.13
 django-modelcluster==5.1.0
 django-taggit==1.2.0
 django-treebeard==4.3.1
@@ -35,4 +35,3 @@ django-social-share==2.0.0
 django-google-analytics-app==5.0.2
 whitenoise==5.2.0  # https://github.com/evansd/whitenoise
 django-slack==5.16.2  # https://github.com/lamby/django-slack
-

@@ -164,6 +164,8 @@ class FiveQuestionsPage(Page):
                   " capital letter.",
         max_length=255
     )
+    # Toggle FlipBook support for the Five Questions
+    is_flipbook = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -190,6 +192,7 @@ class FiveQuestionsPage(Page):
             FieldPanel('lead_image_formatting_options'),
         ], heading='Lead'),
         FieldPanel('tags'),
+        FieldPanel('is_flipbook'),
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),

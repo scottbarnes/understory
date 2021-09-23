@@ -8,8 +8,8 @@ services:
       context: .
       dockerfile: ./Dockerfile-turtle
     image: understory-staging
-    env_file:
-      - ./.envs/production/.env
+    # env_file:
+    #   - ./.envs/production/.env
     # environment:
     #   - DJANGO_SETTINGS_MODULE=understory.settings.production
     restart: always  # Don't enable while originally configuring.
