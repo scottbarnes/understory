@@ -12,7 +12,7 @@ services:
     #   - ./.envs/production/.env
     # environment:
     #   - DJANGO_SETTINGS_MODULE=understory.settings.production
-    # restart: always  # Don't enable while originally configuring.
+    restart: always  # Don't enable while originally configuring.
     container_name: understory-staging
     volumes:
       # - ./VOL_STATIC:/code/static  # Ensure UID 1000 on the local system has r/w on VOL_STATIC.
