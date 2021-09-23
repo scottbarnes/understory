@@ -3,17 +3,21 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const pageFlip = new St.PageFlip(
-        document.getElementById("demoBookExample"),
+        document.getElementById("understoryBook"),
         {
-            width: 550, // base page width
-            height: 733, // base page height
+            // width: 550, // base page width
+            // height: 733, // base page height
+            width: 825, // base page width
+            height: 1100, // base page height
 
             size: "stretch",
             // set threshold values:
             minWidth: 300,
-            maxWidth: 1000,
+            maxWidth: 1500,
+            // maxWidth: 1000,
             minHeight: 410,
-            maxHeight: 1350,
+            maxHeight: 2015,
+            // maxHeight: 1350,
 
             maxShadowOpacity: 0.5, // Half shadow intensity
             showCover: true,
