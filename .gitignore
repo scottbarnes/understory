@@ -239,3 +239,5 @@ static/*
 # user uploaded media
 VOL_MEDIA/
 VOL_STATIC/
+media.bak
+_VOL_STATIC
