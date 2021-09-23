@@ -8,6 +8,8 @@ services:
       context: .
       dockerfile: ./Dockerfile-turtle
     image: understory-staging
+    env_file:
+      - ./.env
     # env_file:
     #   - ./.envs/production/.env
     # environment:
