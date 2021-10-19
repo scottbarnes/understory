@@ -9,7 +9,11 @@
 
 {% block content %}
     <main role="main">
+{% if page.is_flipbook %}
+    <div class="container-fluid flipbook"> {# used in conjunction with .container-fluid in understory.css #}
+{% else %}
     <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
+{% endif %}
     <div style="text-align: center;">
         {# Lead with the lead image which is rendered by the template and not the StreamField #}
         {% if page.lead_image %}
@@ -28,8 +32,7 @@
         {% if page.lead_image_caption %}
             <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
         {% endif %}
-        <br />
-        {% if page.title %}
+        {% if page.title and not page.is_flipbook %}
             <div class="hed">{{ page.title }}</div>
         {% endif %}
         {% comment %}

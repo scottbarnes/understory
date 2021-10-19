@@ -35,9 +35,10 @@
   height: 100%;
   flex-grow: 1;
   font-size: 100%;
+  /* font-size: 80%; */
   text-align: justify;
-  margin-top: 10px;
-  padding-top: 10px;
+  /* margin-top: 10px; */
+  /* padding-top: 10px; */
   box-sizing: border-box;
   border-top: solid 1px #f4e8d7;
 }
@@ -69,7 +70,8 @@
 }
 .page.page-cover h2 {
   text-align: center;
-  padding-top: 50%;
+  /* padding-top: 50%; */
+  padding-top: 25%;
   font-size: 210%;
 }
 .page.page-cover.page-cover-top {

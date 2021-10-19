@@ -93,6 +93,8 @@
 {% endcomment %}
 {# Show an a background on the navbar everywhere but the homepage. #}
 {% slugurl 'home' as the_url %}
+{# Don't show the navbar on flipbooks #}
+{% if not page.is_flipbook %}
 {% if request.get_full_path == the_url %}
     <nav class="navbar fixed-top py-1 transparent navbar-inverse"> {# For the home page #}
 {% else %}
@@ -184,6 +186,7 @@
         </ul>
     </div>
 </nav>
+{% endif %}
 {# Content #}
 {% block content %}{% endblock %}
 

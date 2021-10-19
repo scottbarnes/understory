@@ -1,11 +1,12 @@
 
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
-  padding-top: 4.5rem; /* this was 3.1, or 3.5 */
+  /* padding-top: 4.5rem; /1* this was 3.1, or 3.5 *1/ */
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
   font-size: 100%;
   background: rgba(254, 254, 250, 1);
 }
+
 
 /* NAVBAR GENERALLY */
 /* Make the navbar text black */
@@ -39,6 +40,12 @@ body {
 
 nav ul li:hover div {
     margin-left: 20px;
+}
+
+/* Stop the navbar from hiding content section headers */
+.nav-adjust {
+	margin-top: -70px;
+    padding-top: 70px;
 }
 
 /* Remove bullet point styling */
@@ -158,6 +165,7 @@ h1 {
     font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
 }
 h2 {
+	/* margin-top: 50px !important; */
     line-height: 1.5em;
     letter-spacing: 0.15em;
     font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
@@ -293,6 +301,7 @@ h5 {
   margin-right: auto;
   margin-left: auto;
   max-width: 700px; /* articles_page.html uses a fluid container + this to limit the viewport to 700px */
+  /* max-width: 1200px; /1* articles_page.html uses a fluid container + this to limit the viewport to 700px *1/ */
 }
 
 .img-fluid {
@@ -421,4 +430,9 @@ blockquote p {
 }
 
 .instagram-icon {
+}
+
+.flipbook {
+  /* padding-top: 0rem !important; */
+  /* max-width: 1000px !important; /1* articles_page.html uses a fluid container + this to limit the viewport to 700px *1/ */
 }
