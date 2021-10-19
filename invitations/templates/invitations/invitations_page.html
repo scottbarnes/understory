@@ -28,9 +28,9 @@
         {% if page.lead_image_caption %}
             <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
         {% endif %}
-        <br />
         {% if page.title %}
-            <div class="hed">{{ page.title }}</div>
+	    <div><br /></div>
+            <div class="hed">{{ page.title|safe }}</div>
         {% endif %}
         {% comment %}
         {% if page.date %}

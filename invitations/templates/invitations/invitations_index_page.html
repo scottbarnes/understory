@@ -17,7 +17,7 @@
     <div class="featured-stories row">
 
     {% for invitations in invitationspages %}
-        {% with invitations=invitations.specific %}
+        {% with invitations=invitations.specific title=invitations.title|upper %}
 
             {% if invitations.language == "English" %}
                 <div class="col-md-4">
@@ -25,7 +25,7 @@
                     {% image invitations.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
                 </figure>
                 <h3>
-                    <a href="{% pageurl invitations %}">{{ invitations.title|upper }}</a>
+                    <a href="{% pageurl invitations %}">{{ title|safe }}</a>
                     {% with num_of_authors=invitations.authors.count %}
                         {% if num_of_authors == 1%}
                             <br />by {{ invitations.authors.first.author.name }}

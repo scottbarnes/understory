@@ -17,7 +17,7 @@
     <div class="featured-stories row">
 
     {% for article in articlepages %}
-        {% with article=article.specific %}
+        {% with article=article.specific title=article.title|upper %}
 
             {% if article.language == "English" %}
                 <div class="col-md-4">
@@ -25,7 +25,7 @@
                     {% image article.lead_image fill-430x254-c100 alt=article.lead_image_alt_text %}
                 </figure>
                 <h3>
-                    <a href="{% pageurl article %}">{{ article.title|upper }}</a>
+                    <a href="{% pageurl article %}">{{ title|safe }}</a>
                     {% with num_of_authors=article.authors.count %}
                         {% if num_of_authors == 1%}
                             <br />by {{ article.authors.first.author.name }}

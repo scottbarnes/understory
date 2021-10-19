@@ -33,7 +33,8 @@
             <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
         {% endif %}
         {% if page.title and not page.is_flipbook %}
-            <div class="hed">{{ page.title }}</div>
+	  <div><br /></div>
+            <div class="hed">{{ page.title|safe }}</div>
         {% endif %}
         {% comment %}
         {% if page.date %}
@@ -135,3 +136,5 @@
     </div>
     </main>
 {% endblock %}
+
+
