@@ -35,16 +35,16 @@ class HomePage(RoutablePageMixin, Page):
         # issuepages = IssuePage.objects.live().order_by('-first_published_at')[:3]
         # issuepages = reversed(issuepages)
         # context['issuepages'] = issuepages
-        articlepages = ArticlePage.objects.live().order_by('-first_published_at').filter(language='English')[:3]
+        articlepages = ArticlePage.objects.live().public().order_by('-first_published_at').filter(language='English')[:3]
         articlepages = reversed(articlepages)
         context['articlepages'] = articlepages
-        resourcepages = ResourcePage.objects.live().order_by('-first_published_at')[:3]
+        resourcepages = ResourcePage.objects.live().public().order_by('-first_published_at')[:3]
         resourcepages = reversed(resourcepages)
         context['resourcepages'] = resourcepages
-        five_questionspages = FiveQuestionsPage.objects.live().order_by('-first_published_at')[:1]
+        five_questionspages = FiveQuestionsPage.objects.live().public().order_by('-first_published_at')[:1]
         five_questionspages = reversed(five_questionspages)
         context['five_questionspages'] = five_questionspages
-        invitationspages = InvitationsPage.objects.live().order_by('-first_published_at')[:1]
+        invitationspages = InvitationsPage.objects.live().public().order_by('-first_published_at')[:1]
         invitationspages = reversed(invitationspages)
         context['invitationspages'] = invitationspages
 
