@@ -87,9 +87,9 @@ a:visited {
     text-decoration: none;
 }
 
-i {
-    color: #000;
-}
+/* i { */
+/*     color: #000; */
+/* } */
 
 p {
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
