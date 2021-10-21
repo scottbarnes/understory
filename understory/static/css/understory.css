@@ -1,7 +1,7 @@
 
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
-  /* padding-top: 4.5rem; /1* this was 3.1, or 3.5 *1/ */
+  padding-top: 4.5rem; /* this was 3.1, or 3.5 */
   font-family: "garamond-premier-pro", "Cochin", "Baskerville", Palatino, "Times New Roman", serif;
   font-size: 100%;
   background: rgba(254, 254, 250, 1);
