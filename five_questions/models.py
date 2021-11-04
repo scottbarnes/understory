@@ -220,6 +220,8 @@ class FiveQuestionsPage(Page):
     )
     # Toggle FlipBook support for the Five Questions
     is_flipbook = models.BooleanField(default=False)
+    # Toggle support for suppressing an article from the index page
+    is_suppressed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -247,6 +249,7 @@ class FiveQuestionsPage(Page):
         ], heading='Lead'),
         FieldPanel('tags'),
         FieldPanel('is_flipbook'),
+        FieldPanel('is_suppressed'),
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),

@@ -18,8 +18,7 @@
 
     {% for five_questions in five_questionspages %}
         {% with five_questions=five_questions.specific title=five_questions.title|upper %}
-
-            {% if five_questions.language == "English" %}
+            {% if five_questions.language == "English" and five_questions.is_suppressed == False %}
                 <div class="col-md-4">
                 <figure>
                     {% image five_questions.lead_image fill-430x254-c100 alt=five_questions.lead_image_alt_text %}
