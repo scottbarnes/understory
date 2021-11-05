@@ -8,12 +8,14 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
+from wagtail.contrib.sitemaps.views import sitemap
 
 from article import views as fail_views
 
 from search import views as search_views
 
 urlpatterns = [
+    path('sitemap.xml', sitemap),
     url(r'^django-admin/', admin.site.urls),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
