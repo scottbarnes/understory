@@ -265,18 +265,28 @@ h5 {
 }
 
 /* Background images */
-.jumbotron {
- background: url("../img/understory-bg-blank.jpg") fixed center no-repeat;
+.no-webp .jumbotron {
+ background: url("../img/understory-bg-blank-v3-1.jpg") fixed center no-repeat;
  background-size: 100% 100%;
  border-radius: 0 !important;
 }
 
+.webp .jumbotron {
+ background: url("../img/understory-bg-blank-v3-1.webp") fixed center no-repeat;
+ background-size: 100% 100%;
+ border-radius: 0 !important;
+}
 /* Nav background */
-#main-nav {
+.no-webp #main-nav {
+  background: url("../img/understory-bg-blank-v3-1.jpg") fixed center no-repeat;
+  background-size: 100% 100%;
+  border-radius: 0 !important;
+}
 
-    background: url("../img/understory-bg-blank.jpg") fixed center no-repeat;
-    background-size: 100% 100%;
-    border-radius: 0 !important;
+.webp #main-nav {
+  background: url("../img/understory-bg-blank-v3-1.webp") fixed center no-repeat;
+  background-size: 100% 100%;
+  border-radius: 0 !important;
 }
 
 /* social media icons */

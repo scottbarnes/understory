@@ -14,16 +14,11 @@
     <!-- Main jumbotron -->
     <div class="jumbotron">
       <div class="container" style="text-align: center;">
-	{% comment %}
-	  <div class="col-md-6">
-	    <img src="../../static/img/understory-logo.png" class="img-fluid">
-	  </div>
-	{% endcomment %}
-	{% comment %}
-	  <h2 class="display-5">UNDERSTORY</h2>
-	  <h5 class="display-5">Stories without a home</h5>
-	{% endcomment %}
-	<img src="../../static/img/understory-logo-text-v2.png" class="img-fluid" alt="Understory: Stories Without A Home">
+	<picture>
+	  <source srcset="../../static/img/understory-logo-text-v3.avif" type="image/avif">
+	  <source srcset="../../static/img/understory-logo-text-v3.webp" type="image/webp">
+	  <img src="../../static/img/understory-logo-text-v3.png" class="img-fluid" alt="Understory: Stories Without A Home">
+	</picture>
       </div>
     </div>
 
@@ -206,4 +201,6 @@
 
   </main>
 {% endblock %}
+
+
 
