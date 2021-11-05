@@ -211,3 +211,7 @@ GOOGLE_ANALYTICS_CODE = 'UA-192845932-1'
 SLACK_TOKEN = env('DJANGO_SLACK_TOKEN')
 SLACK_CHANNEL = env('DJANGO_SLACK_CHANNEL')
 SLACK_BACKEND_FOR_QUEUE = 'django_slack.backends.UrllibBackend'
+
+# django 3.2 and auto-created primary keys.
+# See https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
