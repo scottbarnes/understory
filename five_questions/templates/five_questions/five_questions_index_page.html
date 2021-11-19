@@ -26,27 +26,28 @@
 		  </figure>
 		  <h3>
 		    <span class="line-spacing">
-		      {{ title|safe }}</a>
+		      {{ title|safe }}
 		    </span>
-		    {% with num_of_authors=five_questions.authors.count %}
-		      {% if num_of_authors == 1%}
-			<br />by {{ five_questions.authors.first.author.name }}
-		      {% elif num_of_authors == 2 %}
-			<br />by {{ five_questions.authors.all.0.author.name }}
-			and
-			{{ five_questions.authors.all.1.author.name }}
-		      {% elif num_of_authors > 2 %}
-			<br />by
-			{% for iter in five_questions.authors.all %}
-			  {% if iter == five_questions.authors.last %}
-			    and {{ iter.author.name }}
-			  {% else %}
-			    {{ iter.author.name }},&nbsp;
-			  {% endif %}
-			{% endfor %}
+		</a>
+		{% with num_of_authors=five_questions.authors.count %}
+		  {% if num_of_authors == 1%}
+		    <br />by {{ five_questions.authors.first.author.name }}
+		  {% elif num_of_authors == 2 %}
+		    <br />by {{ five_questions.authors.all.0.author.name }}
+		    and
+		    {{ five_questions.authors.all.1.author.name }}
+		  {% elif num_of_authors > 2 %}
+		    <br />by
+		    {% for iter in five_questions.authors.all %}
+		      {% if iter == five_questions.authors.last %}
+			and {{ iter.author.name }}
+		      {% else %}
+			{{ iter.author.name }},&nbsp;
 		      {% endif %}
+		    {% endfor %}
+		  {% endif %}
 
-		    {% endwith %}
+		{% endwith %}
 
 		  </h3>
 		  {% comment %}
