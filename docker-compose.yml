@@ -21,7 +21,7 @@ services:
     restart: always  # Don't enable while originally configuring.
     volumes:
       - ./static:/code/static  # Ensure UID 1000 on the local system has r/w on ./static.
-      - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
+    #   - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
     ports:
       - "8004:8000"
     command: bash -c "sleep 20 && /code/start"
@@ -38,7 +38,7 @@ services:
       - "traefik.http.routers.understory-rtr.rule=Host(`www.$DOMAINNAME1`) || Host(`$DOMAINNAME1`)"
       - "traefik.http.routers.understory-rtr.priority=1"  # low priority
       - "traefik.http.routers.understory-rtr.tls=true"
-      - "traefik.http.routers.understory-rtr.tls.certresolver=dns-godaddy" # Comment out this line after first run of traefik to force the use of wildcard certs
+      # - "traefik.http.routers.understory-rtr.tls.certresolver=dns-godaddy" # Comment out this line after first run of traefik to force the use of wildcard certs
       # - "traefik.http.routers.understory-rtr.tls.domains[1].main=$DOMAINNAME1"
       # - "traefik.http.routers.understory-rtr.tls.domains[1].sans=*.$DOMAINNAME1"
       ## HTTP Services
