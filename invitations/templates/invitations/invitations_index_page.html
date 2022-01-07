@@ -5,98 +5,99 @@
 {% block body_class %}template-invitationsindexpage{% endblock %}
 
 {% block content %}
-    <main role="main">
+  <main role="main">
     <div class="container">
-    <h1>{{ page.title }}</h1>
+      <h1>{{ page.title }}</h1>
 
-    {% comment %}
-    <div class="intro">{{ page.intro|richtext }}</div>
-    {% endcomment %}
-    <br />
+      {% comment %}
+	<div class="intro">{{ page.intro|richtext }}</div>
+      {% endcomment %}
+      <br />
 
-    <div class="featured-stories row">
+      <div class="featured-stories row">
 
-    {% for invitations in invitationspages %}
-        {% with invitations=invitations.specific title=invitations.title|upper %}
+	{% for invitations in invitationspages %}
+	  {% with invitations=invitations.specific title=invitations.title|upper %}
+	    {% if invitations.language == "English" %}
+	      <div class="col-md-4">
+		<a href="{% pageurl invitations %}">
+		  <figure>
+		    {% image invitations.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
+		  </figure>
+		  <h3>{{ title|safe }}
+		</a>
+		{% with num_of_authors=invitations.authors.count %}
+		  {% if num_of_authors == 1%}
+		    <br />by {{ invitations.authors.first.author.name }}
+		  {% elif num_of_authors == 2 %}
+		    <br />by {{ invitations.authors.all.0.author.name }}
+		    and
+		    {{ invitations.authors.all.1.author.name }}
+		  {% elif num_of_authors > 2 %}
+		    <br />by
+		    {% for iter in invitations.authors.all %}
+		      {% if iter == invitations.authors.last %}
+			and {{ iter.author.name }}
+		      {% else %}
+			{{ iter.author.name }},&nbsp;
+		      {% endif %}
+		    {% endfor %}
+		  {% endif %}
 
-            {% if invitations.language == "English" %}
-                <div class="col-md-4">
-                <figure>
-                    {% image invitations.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
-                </figure>
-                <h3>
-                    <a href="{% pageurl invitations %}">{{ title|safe }}</a>
-                    {% with num_of_authors=invitations.authors.count %}
-                        {% if num_of_authors == 1%}
-                            <br />by {{ invitations.authors.first.author.name }}
-                        {% elif num_of_authors == 2 %}
-                            <br />by {{ invitations.authors.all.0.author.name }}
-                            and
-                            {{ invitations.authors.all.1.author.name }}
-                        {% elif num_of_authors > 2 %}
-                            <br />by
-                            {% for iter in invitations.authors.all %}
-                                {% if iter == invitations.authors.last %}
-                                    and {{ iter.author.name }}
-                                {% else %}
-                                    {{ iter.author.name }},&nbsp;
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
+		{% endwith %}
+		  </h3>
+		  {% comment %}
+		    Go through the translation queryset and for each translation make a link
+		    to the translated invitations. But if there are no translations output a
+		    linebreak (in place of <p> which would have done that if there were
+		    a translation).
+		  {% endcomment %}
+		  {% if invitations.translations.all %} {# .all filters out empty querysets #}
+		    {% with num_of_translations=invitations.translations.count %}
+		      <p style="text-align: center">Also available in
+		      {# When there is one translation just link it. #}
+		      {% if num_of_translations == 1 %}
+			{% with translation=invitations.translations.all.0 %} {# get first index #}
+			  <a href="{% pageurl translation %}">{{ translation.language }}</a>
+			{% endwith %}
+			{# With two translations link both joined with a conjunction. #}
+		      {% elif num_of_translations == 2 %}
+			{% with translation=invitations.translations.all %}
+			  <a href="{% pageurl translation.0 %}">{{ translation.0.language }}</a>
+			  and
+			  <a href="{% pageurl translation.1 %}">{{ translation.1.language }}</a>
+			{% endwith %}
+		      {% else %}
+			{% comment %}
+			  For all of the translations, if the element is the last of the translations, print:
+			  "and <language>". Otherwise, print "<language>,"
+			{% endcomment %}
+			{% for translation in invitations.translations.all %}
+			  {% with translation=translation.specific %}
+			    {% if translation == invitations.translations.all.last %}
+			      and <a href="{% pageurl translation %}">{{ translation.language }}</a>
+			    {% else  %}
+			      <a href="{% pageurl translation %}">{{ translation.language }}</a>, {# comma #}
+			    {% endif %}
+			  {% endwith %}
+			{% endfor %}
+		      {% endif %}
+		      </p>
+		      <br /> {# Add lines between stories with translations. #}
+		    {% endwith %}
+		  {% else %} {# If no invitationss in invitations.translations.all, enter a linebreak in place of <p> #}
+		    <br />
+		    <br /> {# Add lines between stories with no translations. #}
+		  {% endif %}
+		  <br />
+	      </div>
+	    {% endif %}
+	  {% endwith %}
+	{% endfor %}
 
-                    {% endwith %}
-
-                </h3>
-                {% comment %}
-                    Go through the translation queryset and for each translation make a link
-                    to the translated invitations. But if there are no translations output a
-                    linebreak (in place of <p> which would have done that if there were
-                    a translation).
-                {% endcomment %}
-                {% if invitations.translations.all %} {# .all filters out empty querysets #}
-                    {% with num_of_translations=invitations.translations.count %}
-                        <p style="text-align: center">Also available in
-                            {# When there is one translation just link it. #}
-                            {% if num_of_translations == 1 %}
-                                {% with translation=invitations.translations.all.0 %} {# get first index #}
-                                    <a href="{% pageurl translation %}">{{ translation.language }}</a>
-                                {% endwith %}
-                                {# With two translations link both joined with a conjunction. #}
-                            {% elif num_of_translations == 2 %}
-                                {% with translation=invitations.translations.all %}
-                                    <a href="{% pageurl translation.0 %}">{{ translation.0.language }}</a>
-                                    and
-                                    <a href="{% pageurl translation.1 %}">{{ translation.1.language }}</a>
-                                {% endwith %}
-                            {% else %}
-                                {% comment %}
-                                For all of the translations, if the element is the last of the translations, print:
-                                "and <language>". Otherwise, print "<language>,"
-                                {% endcomment %}
-                                {% for translation in invitations.translations.all %}
-                                    {% with translation=translation.specific %}
-                                        {% if translation == invitations.translations.all.last %}
-                                            and <a href="{% pageurl translation %}">{{ translation.language }}</a>
-                                        {% else  %}
-                                            <a href="{% pageurl translation %}">{{ translation.language }}</a>, {# comma #}
-                                        {% endif %}
-                                    {% endwith %}
-                                {% endfor %}
-                            {% endif %}
-                        </p>
-                        <br /> {# Add lines between stories with translations. #}
-                    {% endwith %}
-                {% else %} {# If no invitationss in invitations.translations.all, enter a linebreak in place of <p> #}
-                    <br />
-                    <br /> {# Add lines between stories with no translations. #}
-                {% endif %}
-                <br />
-                </div>
-            {% endif %}
-        {% endwith %}
-    {% endfor %}
-
+      </div>
     </div>
-    </div>
-    </main>
+  </main>
 {% endblock %}
+
+
