@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.conf.urls import include, url
+# from django.conf.urls import include, url
+from django.urls import include, re_path
 from django.contrib import admin
 from django.urls import re_path
 from django.urls import path
@@ -16,14 +17,14 @@ from search import views as search_views
 
 urlpatterns = [
     path('sitemap.xml', sitemap),
-    url(r'^django-admin/', admin.site.urls),
-    url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^documents/', include(wagtaildocs_urls)),
+    re_path(r'^django-admin/', admin.site.urls),
+    re_path(r'^admin/', include(wagtailadmin_urls)),
+    re_path(r'^documents/', include(wagtaildocs_urls)),
     # Serve from wagtail
     # url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
     # Redirect for images served elsewhere
-    url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
-    url(r'^search/$', search_views.search, name='search'),
+    re_path(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
+    re_path(r'^search/$', search_views.search, name='search'),
     re_path('djga/', include('google_analytics.urls')),
     path('fail/', fail_views.error_500_test_view),
 ]
@@ -41,7 +42,7 @@ urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
-    url(r"", include(wagtail_urls)),
+    re_path(r"", include(wagtail_urls)),
 
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:

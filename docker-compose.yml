@@ -27,7 +27,7 @@ services:
     # command: tail -f /dev/null  # Keep container running when diagnosing gunicorn crash issues.
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
     # image: launcher.gcr.io/google/elasticsearch2
     expose:
       - "9200"

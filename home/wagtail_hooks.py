@@ -1,7 +1,6 @@
 """ understory/home/wagtail_hooks.py """
 
-from django.conf.urls import url
-from django.urls import reverse
+from django.urls import re_path, reverse
 
 from wagtail.admin.menu import AdminOnlyMenuItem
 from wagtail.core import hooks
@@ -16,7 +15,7 @@ def register_unpublished_changes_report_menu_item():
 @hooks.register('register_admin_urls')
 def register_unpublished_changes_report_url():
     return [
-        url(r'^reports/unpublished-changes/$', UnpublishedChangesReportView.as_view(),
+        re_path(r'^reports/unpublished-changes/$', UnpublishedChangesReportView.as_view(),
             name='unpublished_changes_report'),
     ]
 
