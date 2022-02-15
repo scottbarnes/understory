@@ -21,7 +21,7 @@ services:
     restart: always  # Don't enable while originally configuring.
     volumes:
       - ./static:/code/static  # Ensure UID 1000 on the local system has r/w on ./static.
-    #   - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
+      - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
     ports:
       - "8004:8000"
     command: bash -c "sleep 20 && /code/start"

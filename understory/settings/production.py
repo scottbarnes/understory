@@ -95,3 +95,7 @@ DATABASES = {
 		'PORT': env('db_port'),
 	}
 }
+
+# Changed for Django 4.0
+# "Origin header checking isn’t performed in older versions."
+CSRF_TRUSTED_ORIGINS = ['https://*.understory.in','https://*.127.0.0.1']   
