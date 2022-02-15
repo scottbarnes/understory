@@ -46,7 +46,7 @@ services:
       - "traefik.http.services.understory-svc.loadbalancer.server.port=8000"
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
     # image: launcher.gcr.io/google/elasticsearch2
     expose:
       - "9200"
