@@ -53,6 +53,9 @@ services:
       - "9300"
     volumes:
       - esdata:/usr/share/elasticsearch/data
+    mem_limit: 2G
+    mem_reservation: 1G
+    cpus: 0.5
     environment:
      - discovery.type=single-node  # Bypass checks and just run a single node.
 #      - network.host=0.0.0.0  # Allow connections from all host.
