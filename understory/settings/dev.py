@@ -14,15 +14,23 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Search
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch7',
-        'URLS': ['http://localhost:9200'],
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
-        'AUTO_UPDATE': True,
-    }
+        'BACKEND': 'wagtail.search.backends.database',
+        'SEARCH_CONFIG': 'english',
+    },
 }
+
+# Search
+# WAGTAILSEARCH_BACKENDS = {
+#     'default': {
+#         'BACKEND': 'wagtail.search.backends.elasticsearch7',
+#         'URLS': ['http://localhost:9200'],
+#         'INDEX': 'wagtail',
+#         'TIMEOUT': 5,
+#         'OPTIONS': {},
+#         'INDEX_SETTINGS': {},
+#         'AUTO_UPDATE': True,
+#     }
+# }
 
 # LOGGING
 LOGGING = {

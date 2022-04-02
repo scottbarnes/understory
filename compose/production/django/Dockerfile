@@ -1,37 +1,59 @@
-FROM python:3.7
 # Use an official Python runtime as a parent image
+FROM python:3.9-alpine
 LABEL maintainer="hello@wagtail.io"
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_ENV dev
+# ENV DJANGO_ENV dev
 
-COPY ./requirements.txt /code/requirements.txt
-RUN pip install --upgrade pip
-# Install any needed packages specified in requirements.txt
-RUN pip install -r /code/requirements.txt
-RUN pip install gunicorn
+# Add user that will be used in the container.
+# RUN useradd wagtail
+RUN addgroup -S wagtail && adduser -S wagtail -G wagtail
 
-# Copy the current directory contents into the container at /code/
-COPY . /code/
-# COPY ./static/ /code/understory/static/
-RUN sed -i 's/\r$//g' /code/start
-RUN chmod +x /code/start
+# # Install system packages required by Wagtail and Django.
+RUN apk update && \
+    apk add \
+    libpq-dev \
+    mysql-client \
+    libjpeg-turbo-dev \
+    zlib-dev \
+    libwebp-dev && \
+    apk add --virtual build-dependencies \
+    build-base \
+    git
 
-# Set environment such that the understory/settings/production.py is used.
-ENV DJANGO_SETTINGS_MODULE=understory.settings.production
+# # Install system packages required by Wagtail and Django.
+# RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+#     build-essential \
+#     libpq-dev \
+#     default-libmysqlclient-dev \
+#     git \
+#     libjpeg62-turbo-dev \
+#     zlib1g-dev \
+#     libwebp-dev \
+#  && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory to /code/
-WORKDIR /code/
+# Install the application server.
+RUN pip install "gunicorn==20.0.4"
 
-# RUN python manage.py migrate
-# RUN python manage.py collectstatic --noinput
+# Install the project requirements.
+COPY requirements.txt /
+RUN pip install -r /requirements.txt
 
-RUN useradd wagtail
-RUN chown -R wagtail /code
+RUN apk del build-dependencies
+
+# Use /code folder as a directory where the source code is stored.
+WORKDIR /code
+
+# Set this directory to be owned by the "wagtail" user.
+RUN chown wagtail:wagtail /code
+
+# Copy the source code of the project into the container.
+COPY --chown=wagtail:wagtail . .
+RUN sed -i 's/\r$//g' ./start && chmod +x ./start
+
+# Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
-
-# Handle from docker-compose.yml and 'start'
-# EXPOSE 8000
-# CMD exec gunicorn understory.wsgi:application --bind 0.0.0.0:8004 --workers 3
+# Collect static files.
+RUN python manage.py collectstatic --noinput --clear

@@ -11,7 +11,7 @@ except ImportError:
 environ.Env.read_env()
 
 # Environment variables
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='aVtheUot32d-_&<>PBT<R')
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 #ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["understory-staging.fishcracker.net"])
 ALLOWED_HOSTS = ['understory-staging.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
 
@@ -19,21 +19,10 @@ ALLOWED_HOSTS = ['understory-staging.fishcracker.net', 'localhost', '.fishcracke
 # Search
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'BACKEND': 'wagtail.search.backends.database',
         'SEARCH_CONFIG': 'english',
     },
 }
-# WAGTAILSEARCH_BACKENDS = {
-#     'default': {
-#         'BACKEND': 'wagtail.search.backends.elasticsearch7',
-#         'URLS': ['http://elasticsearch:9200'],
-#         'INDEX': 'wagtail',
-#         'TIMEOUT': 5,
-#         'OPTIONS': {},
-#         'INDEX_SETTINGS': {},
-#         'AUTO_UPDATE': True,
-#     }
-# }
 
 # Logging
 LOGGING = {

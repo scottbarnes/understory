@@ -1,5 +1,5 @@
+FROM python:3.7
 # Use an official Python runtime as a parent image
-FROM python:3.9
 LABEL maintainer="hello@wagtail.io"
 
 # Set environment varibles
@@ -24,7 +24,7 @@ ENV DJANGO_SETTINGS_MODULE=understory.settings.production
 # Set the working directory to /code/
 WORKDIR /code/
 
-RUN python manage.py migrate
+# RUN python manage.py migrate
 # RUN python manage.py collectstatic --noinput
 
 RUN useradd wagtail
