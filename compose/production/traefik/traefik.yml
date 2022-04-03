@@ -45,6 +45,16 @@ http:
         - csrf
       service: ojs
 
+    web-smart-router:
+      rule: "Host(`smart.innovation.ncku.edu.tw`, `smart.fishcracker.net`)"
+      
+      entryPoints:
+        - web
+      middlewares:
+        - redirect
+        - csrf
+      service: smart
+
     web-secure-router:
       rule: "Host(`us-test.fishcracker.net`)"
       
@@ -74,6 +84,16 @@ http:
       middlewares:
         - csrf
       service: ojs
+      tls:
+        certResolver: letsencrypt
+
+    web-secure-smart-router:
+      rule: "Host(`smart.innovation.ncku.edu.tw`, `smart.fishcracker.net`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: smart
       tls:
         certResolver: letsencrypt
 
@@ -108,6 +128,11 @@ http:
       loadBalancer:
         servers:
           - url: http://nginx:80
+
+    smart:
+      loadBalancer:
+        servers:
+          - url: http://172.31.34.26:8082
 
     ojs:
       loadBalancer:
