@@ -20,7 +20,7 @@ django-treebeard==4.5.1
 django-google-analytics-app==5.0.5
 # git+https://github.com/praekeltfoundation/django-google-analytics@f9fd66a
 # django-model-utils==4.1.1  # https://github.com/jazzband/django-model-utils
-# django-compressor==2.4.1  # https://github.com/django-compressor/django-compressor
+django-compressor==3.1  # https://github.com/django-compressor/django-compressor
 
 # Wagtail
 # ------------------------------------------------------------------------------

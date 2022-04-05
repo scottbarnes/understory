@@ -2,11 +2,14 @@
 
 {% load static wagtailimages_tags wagtailcore_tags %}
 {% load footer_tags %}
+{% load compress %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
+  {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
+  {% endcompress %}
 {% endblock %}
 {% block content %}
   <main role="main">
