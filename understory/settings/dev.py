@@ -4,7 +4,7 @@ from .base import *
 DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xi62o-virfe&r-i=9*b&oq3)(#jn)-vrod^an5^_pfx&wp_n$='
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ['*']
@@ -18,19 +18,6 @@ WAGTAILSEARCH_BACKENDS = {
         'SEARCH_CONFIG': 'english',
     },
 }
-
-# Search
-# WAGTAILSEARCH_BACKENDS = {
-#     'default': {
-#         'BACKEND': 'wagtail.search.backends.elasticsearch7',
-#         'URLS': ['http://localhost:9200'],
-#         'INDEX': 'wagtail',
-#         'TIMEOUT': 5,
-#         'OPTIONS': {},
-#         'INDEX_SETTINGS': {},
-#         'AUTO_UPDATE': True,
-#     }
-# }
 
 # LOGGING
 LOGGING = {
@@ -76,11 +63,11 @@ LOGGING = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('db_name'),
-        'USER': env('db_user'),
-        'PASSWORD': env('db_pass'),
-        'HOST': env('db_host'),
-        'PORT': env('db_port'),
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT'),
     }
 }
 

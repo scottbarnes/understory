@@ -12,8 +12,7 @@ environ.Env.read_env()
 
 # Environment variables
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-#ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["understory-staging.fishcracker.net"])
-ALLOWED_HOSTS = ['understory-staging.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
+ALLOWED_HOSTS = ['us-test.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
 
 
 # Search
@@ -75,14 +74,14 @@ LOGGING = {
 # DATABASES
 # ------------------------------------------------------------------------------
 DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': env('db_name'),
-		'USER': env('db_user'),
-		'PASSWORD': env('db_pass'),
-		'HOST': env('db_host'),
-		'PORT': env('db_port'),
-	}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT'),
+    }
 }
 
 # Changed for Django 4.0

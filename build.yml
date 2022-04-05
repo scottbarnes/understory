@@ -3,6 +3,9 @@ version: '3'
 services:
 
   django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
     image: public.ecr.aws/i4c2l4g3/understory:${DJANGO_VERSION}
     depends_on:
       - postgres
@@ -18,18 +21,11 @@ services:
     ports:
       - "8000:5000"
     command: /start
-    restart: unless-stopped  # Don't enable while originally configuring.
-
-  nginx:
-    image: nginx:${NGINX_VERSION}
-    depends_on:
-      - django
-    volumes:
-      - ./media:/usr/share/nginx/media:ro
-      - ./compose/production/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      # - ./production_django_ojs:/usr/share/nginx/ojs:ro
 
   postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
     image: public.ecr.aws/i4c2l4g3/understory:${POSTGRES_VERSION}
     volumes:
       - ./production_postgres_data:/var/lib/postgresql/data:Z
@@ -38,21 +34,3 @@ services:
       - ./.envs/.production/.postgres
     ports:
       - "5432:5432"
-
-  traefik:
-    image: traefik:${TRAEFIK_VERSION}
-    depends_on:
-      - django
-    volumes:
-      - ./production_traefik:/etc/traefik/acme:z
-      - ./compose/production/traefik/traefik.yml:/etc/traefik/traefik.yml
-    # Enable gzip compression (maybe?)
-    labels:
-      - "traefik.http.middlewares.test-compress.compress=true"
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-      # - "0.0.0.0:5555:5555"
-      # - "0.0.0.0:8080:8080"
-    # command: --api.insecure=true --providers.docker
-  

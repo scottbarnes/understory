@@ -1,1 +1,68 @@
-docker-compose.yml
+version: '3'
+
+networks:
+  t2_proxy:
+    external:
+      name: t2_proxy
+  default:
+    driver: bridge
+
+services:
+  understory-staging: &django
+    container_name: understory-staging
+    depends_on:
+      - elasticsearch
+    build:
+      context: .
+      dockerfile: ./Dockerfile-turtle
+    image: understory-staging
+    env_file:
+      - ./.env
+    restart: always  # Don't enable while originally configuring.
+    volumes:
+      - ./static:/code/static  # Ensure UID 1000 on the local system has r/w on ./static.
+      - ./media:/code/media  # Ensure UID 1000 on the local system has r/w on ./static.
+    ports:
+      - "8004:8000"
+    command: bash -c "sleep 20 && /code/start"
+    # command: tail -f /dev/null  # Keep container running when diagnosing gunicorn crash issues.
+    # environment:
+    #   - GODADDY_API_KEY=$GODADDY_API_KEY
+    #   - GODADDY_API_SECRET=$GODADDY_API_SECRET
+    networks:
+      - t2_proxy
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.understory-rtr.entrypoints=https"
+      - "traefik.http.routers.understory-rtr.rule=Host(`www.$DOMAINNAME1`) || Host(`$DOMAINNAME1`)"
+      - "traefik.http.routers.understory-rtr.priority=1"  # low priority
+      - "traefik.http.routers.understory-rtr.tls=true"
+      # - "traefik.http.routers.understory-rtr.tls.certresolver=dns-godaddy" # Comment out this line after first run of traefik to force the use of wildcard certs
+      # - "traefik.http.routers.understory-rtr.tls.domains[1].main=$DOMAINNAME1"
+      # - "traefik.http.routers.understory-rtr.tls.domains[1].sans=*.$DOMAINNAME1"
+      ## HTTP Services
+      - "traefik.http.routers.understory-rtr.service=understory-svc"
+      - "traefik.http.services.understory-svc.loadbalancer.server.port=8000"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    # image: launcher.gcr.io/google/elasticsearch2
+    expose:
+      - "9200"
+      - "9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    mem_limit: 2G
+    mem_reservation: 1G
+    cpus: 0.5
+    environment:
+     - discovery.type=single-node  # Bypass checks and just run a single node.
+#      - network.host=0.0.0.0  # Allow connections from all host.
+#      - network.bind_host=localhost
+#      - network.publish_host=0.0.0.0
+
+volumes:
+  esdata:
+    driver: local
+
