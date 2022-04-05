@@ -27,5 +27,4 @@ if compress_enabled; then
   python /code/manage.py compress
 fi
 
-/usr/local/bin/gunicorn config.wsgi --bind 0.0.0.0:5000 --chdir=/code
-
+/usr/local/bin/gunicorn understory.wsgi:application --bind 0.0.0.0:5000 --chdir=/code
