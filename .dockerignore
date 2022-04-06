@@ -1,0 +1,6 @@
+# Directories with big assets.
+static
+media
+
+# Test DB in occasional use.
+db.sqlite3
