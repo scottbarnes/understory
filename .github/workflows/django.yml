@@ -2,7 +2,9 @@ name: Understory CI
 
 on:
   push:
-    branches: [ testing ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 env:
   IMAGE: public.ecr.aws/i4c2l4g3/understory
