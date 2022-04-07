@@ -8,9 +8,9 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  IMAGE: public.ecr.aws/i4c2l4g3/understory
-  DJANGO_IMAGE: $IMAGE:django
-  POSTGRESQL_IMAGE: $IMAGE:postgresql
+  # IMAGE: public.ecr.aws/i4c2l4g3/understory
+  DJANGO_IMAGE: django
+  POSTGRESQL_IMAGE: postgresql
 
 jobs:
   build:
