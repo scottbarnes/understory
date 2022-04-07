@@ -37,7 +37,7 @@ jobs:
             docker build -f ./compose/production/django/Dockerfile -t public.ecr.aws/i4c2l4g3/understory:django_latest .
             echo "Pushing image to ECR..."
             # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-            docker push -all-tags public.ecr.aws/i4c2l4g3/understory
+            docker push --all-tags public.ecr.aws/i4c2l4g3/understory
             # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
             echo "::set-output name=image::public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG"
 
