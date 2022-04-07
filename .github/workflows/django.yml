@@ -35,9 +35,9 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: public.ecr.aws/i4c2l4g3
+          ECR_REPOSITORY: i4c2l4g3
           # IMAGE_TAG: ${{ github.sha }}
-          IMAGE_TAG: $DJANGO_IMAGE
+          IMAGE_TAG: ${{ DJANGO_IMAGE }}
         run: |
           docker build -f ./compose/production/django/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
