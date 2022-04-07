@@ -36,13 +36,10 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: understory
-          # IMAGE_TAG: ${{ github.sha }}
-          IMAGE_TAG: django  # ${{ env.DJANGO_IMAGE }}
+          IMAGE_TAG: 1
         run: |
-          docker build -f ./compose/production/django/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          # Build a docker container and push it to ECR 
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      # - name: Build, tag, and push the Understory image
-      #   run: docker build . --file ./compose/production/django/Dockerfile --tag $IMAGE:DJANGO_IMAGE 
-      #   run: docker push $IMAGE:DJANGO_IMAGE
-      # Test after build.
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
