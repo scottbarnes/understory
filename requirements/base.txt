@@ -18,9 +18,9 @@ django-social-share==2.0.0
 django-taggit==2.1.0
 django-treebeard==4.5.1
 django-google-analytics-app==5.0.5
+django-compressor==3.1  # https://github.com/django-compressor/django-compressor
 # git+https://github.com/praekeltfoundation/django-google-analytics@f9fd66a
 # django-model-utils==4.1.1  # https://github.com/jazzband/django-model-utils
-django-compressor==3.1  # https://github.com/django-compressor/django-compressor
 
 # Wagtail
 # ------------------------------------------------------------------------------
