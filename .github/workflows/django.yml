@@ -35,7 +35,7 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: i4c2l4g3
+          ECR_REPOSITORY: understory
           # IMAGE_TAG: ${{ github.sha }}
           IMAGE_TAG: django  # ${{ env.DJANGO_IMAGE }}
         run: |
