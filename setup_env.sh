@@ -5,3 +5,5 @@ echo POSTGRES_HOST=$POSTGRES_HOST >> .envs/.production/.postgres
 echo POSTGRES_PORT=$POSTGRES_PORT >> .envs/.production/.postgres
 echo DJANGO_VERSION=$DJANGO_VERSION >> .env
 echo TEST_ENV=$TEST_ENV >> .envs/.production/.django
+echo DJANGO_SLACK_TOKEN=$DJANGO_SLACK_TOKEN >> .envs/.production/.django
+echo DJANGO_SLACK_CHANNEL=$DJANGO_SLACK_CHANNEL >> .envs/.production/.django
