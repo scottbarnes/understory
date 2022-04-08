@@ -1,4 +1,4 @@
-name: Understory CI
+# name: Understory CI
 
 on:
   push:
@@ -11,6 +11,7 @@ env:
   # IMAGE: public.ecr.aws/i4c2l4g3/understory
   DJANGO_IMAGE: django
   POSTGRESQL_IMAGE: postgresql
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   build:
@@ -30,8 +31,8 @@ jobs:
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Build docker images
-        env:
-          IMAGE_TAG: ${{ github.sha }}
+        # env:
+        #   IMAGE_TAG: ${{ github.sha }}
         run: |
             docker build -f ./compose/production/django/Dockerfile -t understory_production_django .
             docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
