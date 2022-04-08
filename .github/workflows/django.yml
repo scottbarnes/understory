@@ -39,8 +39,8 @@ jobs:
       - name: Run tests
         run: |
           mkdir -p .envs/.local
-          touch .envs/.local/.django
-          touch .envs/.local/.postgres
+          touch .envs/.production/.django
+          touch .envs/.production/.postgres
           bash ./setup_env.sh
           docker-compose -f production.yml run django python manage.py test
 
