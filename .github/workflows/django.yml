@@ -46,7 +46,7 @@ jobs:
           bash ./setup_env.sh
           docker images
           # docker-compose -f production.yml run --no-deps django python manage.py test
-          docker-compose -f production.yml django python manage.py test
+          docker-compose -f production.yml exec django python manage.py test
 
       - name: Push docker images to ECR
         run: |
