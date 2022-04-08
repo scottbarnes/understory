@@ -34,8 +34,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
             docker build -f ./compose/production/django/Dockerfile -t understory_production_django .
-            docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG .
-            docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:django_latest .
+            docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
+            docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:django_latest
 
       - name: Run tests
         run: |
