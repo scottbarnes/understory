@@ -38,7 +38,7 @@ jobs:
 
       - name: Run tests
         run: |
-          mkdir -p .envs/.local
+          mkdir -p .envs/.production
           touch .envs/.production/.django
           touch .envs/.production/.postgres
           bash ./setup_env.sh
