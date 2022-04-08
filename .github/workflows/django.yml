@@ -39,7 +39,8 @@ jobs:
       - name: Run tests
         run: |
           mkdir -p .envs/.local
-          touch .envs/.local/{.django, .postgres}
+          touch .envs/.local/.django
+          touch .envs/.local/.postgres
           docker-compose -f local.yml run django python manage.py test
 
       - name: Push docker images to ECR
