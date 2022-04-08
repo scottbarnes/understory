@@ -45,11 +45,11 @@ jobs:
           touch .envs/.production/.postgres
           bash ./setup_env.sh
           docker images
-          # docker-compose -f production.yml run --no-deps django python manage.py test
-      - name: Run docker-compose
-        run: |
-          # docker-compose -f production.yml exec django python manage.py test
-          bash ./a.sh
+          docker-compose -f production.yml run --no-deps django python manage.py test
+      # - name: Run docker-compose
+      #   run: |
+      #     # docker-compose -f production.yml exec django python manage.py test
+      #     bash ./a.sh
 
       - name: Push docker images to ECR
         run: |
