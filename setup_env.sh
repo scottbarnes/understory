@@ -7,3 +7,5 @@ echo DJANGO_VERSION=$DJANGO_VERSION >> .env
 echo TEST_ENV=$TEST_ENV >> .envs/.production/.django
 echo DJANGO_SLACK_TOKEN=$DJANGO_SLACK_TOKEN >> .envs/.production/.django
 echo DJANGO_SLACK_CHANNEL=$DJANGO_SLACK_CHANNEL >> .envs/.production/.django
+echo DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE >> .envs/.production/.django
+echo DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY >> .envs/.production/.django
