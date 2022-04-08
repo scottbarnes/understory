@@ -48,8 +48,8 @@ jobs:
           # docker-compose -f production.yml run --no-deps django python manage.py test
       - name: Run docker-compose
         run: |
-          set -x
-          docker-compose -f production.yml exec django python manage.py test
+          # docker-compose -f production.yml exec django python manage.py test
+          bash ./a.sh
 
       - name: Push docker images to ECR
         run: |
