@@ -3,7 +3,8 @@ version: '3'
 services:
 
   django: &django
-    image: public.ecr.aws/i4c2l4g3/understory:${DJANGO_VERSION}
+    # image: public.ecr.aws/i4c2l4g3/understory:${DJANGO_VERSION}
+    image: public.ecr.aws/i4c2l4g3/understory:django_latest
     depends_on:
       - postgres
     env_file:
