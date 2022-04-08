@@ -44,6 +44,7 @@ jobs:
           touch .envs/.production/.django
           touch .envs/.production/.postgres
           bash ./setup_env.sh
+          echo "docker images"
           docker-compose -f production.yml run --no-deps django python manage.py test
 
       - name: Push docker images to ECR
