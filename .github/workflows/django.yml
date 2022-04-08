@@ -37,7 +37,7 @@ jobs:
             docker build -f ./compose/production/django/Dockerfile -t public.ecr.aws/i4c2l4g3/understory:django_latest .
 
       - name: Run tests
-        run: docker-compose -f production.yml exec django python manage.py test
+        run: docker-compose -f production.yml run django python manage.py test
 
       - name: Push docker images to ECR
         run: |
