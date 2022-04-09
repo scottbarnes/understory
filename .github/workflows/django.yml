@@ -52,6 +52,7 @@ jobs:
           sudo systemctl start postgresql.service
           sudo -u postgres createuser -s test
           sudo -u postgres psql -f create_psql_user.sql -v password=$POSTGRES_PASSWORD -v username=$POSTGRES_USER
+          netstat -a | grep 5432 | xargs echo
           # echo `cat .pgpass`
           pip install psycopg2
           bash ./compose/production/django/entrypoint
