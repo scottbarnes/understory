@@ -51,7 +51,7 @@ jobs:
 
       - name: Bring up PostgreSQL
         run: |
-          sudo systemctl start postresql.service
+          sudo systemctl start postgresql.service
           sudo -u postgres -s test
 
       - name: Run tests
