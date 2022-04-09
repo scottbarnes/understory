@@ -52,7 +52,8 @@ jobs:
       - name: Bring up PostgreSQL
         run: |
           sudo systemctl start postgresql.service
-          sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
+          sudo -u postgres createuser -s test
+          # sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
 
       - name: Run tests
         run: |

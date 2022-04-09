@@ -9,3 +9,5 @@ echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .envs/.production/.postgres
 echo POSTGRES_PORT=$POSTGRES_PORT >> .envs/.production/.postgres
 echo POSTGRES_USER=$POSTGRES_USER >> .envs/.production/.postgres
 echo TEST_ENV=$TEST_ENV >> .envs/.production/.django
+# hostname:port:database:username:password
+echo $POSTGRES_HOST:$POSTGRES_PORT:$POSTGRES_DB:$POSTGRES_USER: >> .pgpass
