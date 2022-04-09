@@ -58,7 +58,7 @@ jobs:
         run: |
           sudo systemctl start postgresql.service
           sudo -u postgres createuser -s test
-          sudo -u postgres -f create_psql_user.sql -v password=$POSTGRES_PASSWORD -v username=$POSTGRES_USER
+          sudo -u postgres psql -f create_psql_user.sql -v password=$POSTGRES_PASSWORD -v username=$POSTGRES_USER
           echo `cat .pgpass`
           # sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
 
