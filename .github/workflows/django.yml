@@ -18,7 +18,7 @@ env:
   IMAGE_TAG: ${{ github.sha }}
   POSTGRESQL_IMAGE: postgresql
   POSTGRES_DB: postgres
-  POSTGRES_HOST: localhost
+  POSTGRES_HOST: host.docker.internal
   POSTGRES_PASSWORD: testing
   POSTGRES_PORT: 5432
   POSTGRES_USER: testing
