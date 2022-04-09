@@ -53,6 +53,7 @@ jobs:
         run: |
           sudo systemctl start postgresql.service
           sudo -u postgres createuser -s test
+          echo `cat .pgpass`
           # sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
 
       - name: Run tests
