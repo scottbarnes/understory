@@ -7,11 +7,22 @@ on:
     branches: [ testing ]
 
 env:
-  AWS_REGION: us-east-1
   # IMAGE: public.ecr.aws/i4c2l4g3/understory
+  AWS_REGION: us-east-1
   DJANGO_IMAGE: django
-  POSTGRESQL_IMAGE: postgresql
+  DJANGO_SECRET_KEY: $${{ secrets.DJANGO_SECRET_KEY }}
+  DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+  DJANGO_SLACK_CHANNEL: ${{ secrets.DJANGO_SLACK_CHANNEL }}
+  DJANGO_SLACK_TOKEN: ${{ secrets.DJANGO_SLACK_TOKEN }}
+  DJANGO_VERSION: django_latest
   IMAGE_TAG: ${{ github.sha }}
+  POSTGRESQL_IMAGE: postgresql
+  POSTGRES_DB: test
+  POSTGRES_HOST: localhost
+  POSTGRES_PASSWORD: ''
+  POSTGRES_PORT: 5432
+  POSTGRES_USER: test
+  TEST_ENV: true
 
 jobs:
   build:
@@ -37,6 +48,11 @@ jobs:
           docker build -f ./compose/production/django/Dockerfile -t understory_production_django .
           docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
           docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:django_latest
+
+      - name: Bring up PostgreSQL
+        run: |
+          sudo systemctl start postresql.service
+          sudo -u postgres -s test
 
       - name: Run tests
         run: |

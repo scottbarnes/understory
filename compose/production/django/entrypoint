@@ -32,8 +32,8 @@ sys.exit(0)
 END
 }
 
-# Skip DB readiness check if in a testing environment.
-[ -n $TEST_ENV ] && exec "$@"
+# # Skip DB readiness check if in a testing environment.
+# [ -n $TEST_ENV ] && exec "$@"
 
 until postgres_ready; do
   >&2 echo 'Waiting for PostgreSQL to become available...'
