@@ -40,6 +40,7 @@ until postgres_ready; do
   echo $POSTGRES_HOST
   echo $POSTGRES_PASSWORD
   echo $POSTGRES_USER
+  echo $POSTGRES_PORT
   >&2 echo 'Waiting for PostgreSQL to become available...'
   sleep 1
 done
