@@ -10,7 +10,7 @@ env:
   # IMAGE: public.ecr.aws/i4c2l4g3/understory
   AWS_REGION: us-east-1
   DJANGO_IMAGE: django
-  DJANGO_SECRET_KEY: $${{ secrets.DJANGO_SECRET_KEY }}
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
   DJANGO_SLACK_CHANNEL: ${{ secrets.DJANGO_SLACK_CHANNEL }}
   DJANGO_SLACK_TOKEN: ${{ secrets.DJANGO_SLACK_TOKEN }}
@@ -52,7 +52,7 @@ jobs:
       - name: Bring up PostgreSQL
         run: |
           sudo systemctl start postgresql.service
-          sudo -u postgres -s test
+          sudo -u postgres createuser -s test
 
       - name: Run tests
         run: |
