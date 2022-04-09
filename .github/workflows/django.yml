@@ -48,6 +48,7 @@ jobs:
           docker build -f ./compose/production/django/Dockerfile -t understory_production_django .
           docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
           docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:django_latest
+          bash ./setup_env.sh
 
       - name: Bring up PostgreSQL
         run: |
@@ -61,7 +62,7 @@ jobs:
           mkdir -p .envs/.production
           touch .envs/.production/.django
           touch .envs/.production/.postgres
-          bash ./setup_env.sh
+          # bash ./setup_env.sh
           docker images
           docker-compose -f production.yml run --no-deps django python manage.py test
       # - name: Run docker-compose
