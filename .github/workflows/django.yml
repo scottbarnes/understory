@@ -19,9 +19,9 @@ env:
   POSTGRESQL_IMAGE: postgresql
   POSTGRES_DB: postgres
   POSTGRES_HOST: localhost
-  POSTGRES_PASSWORD: test
+  POSTGRES_PASSWORD: testing
   POSTGRES_PORT: 5432
-  POSTGRES_USER: test
+  POSTGRES_USER: testing
   TEST_ENV: true
 
 jobs:

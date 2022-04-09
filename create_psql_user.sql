@@ -1,4 +1,4 @@
 CREATE USER :username WITH
 	LOGIN
 	SUPERUSER
-	PASSWORD ':password';
+	PASSWORD 'testing';
