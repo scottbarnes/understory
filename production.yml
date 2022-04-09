@@ -20,6 +20,8 @@ services:
       - "8000:5000"
     command: /start
     restart: unless-stopped  # Don't enable while originally configuring.
+    extra_hosts:
+      - "hosts.docker.internal:host-gateway"
 
   nginx:
     image: nginx:${NGINX_VERSION}
