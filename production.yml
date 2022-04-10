@@ -31,7 +31,8 @@ services:
       # - ./production_django_ojs:/usr/share/nginx/ojs:ro
 
   postgres:
-    image: public.ecr.aws/i4c2l4g3/understory:${POSTGRES_VERSION}
+    # image: public.ecr.aws/i4c2l4g3/understory:${POSTGRES_VERSION}
+    image: public.ecr.aws/i4c2l4g3/understory:postgres_latest
     volumes:
       - ./production_postgres_data:/var/lib/postgresql/data:Z
       - ./production_postgres_data_backups:/backups:z

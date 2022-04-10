@@ -17,8 +17,8 @@ env:
   DJANGO_VERSION: django_latest
   IMAGE_TAG: ${{ github.sha }}
   POSTGRESQL_IMAGE: postgresql
-  POSTGRES_DB: postgres
-  POSTGRES_HOST: 172.17.0.1
+  POSTGRES_DB: testing
+  POSTGRES_HOST: postgres
   # POSTGRES_HOST: localhost
   POSTGRES_PASSWORD: testing
   POSTGRES_PORT: 5432
