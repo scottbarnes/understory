@@ -47,16 +47,16 @@ jobs:
           mkdir -p .envs/.production
           bash ./setup_env.sh
 
-      - name: Bring up PostgreSQL
-        run: |
-          sudo systemctl start postgresql.service
-          sudo -u postgres createuser -s test
-          sudo -u postgres psql -f create_psql_user.sql -v password=$POSTGRES_PASSWORD -v username=$POSTGRES_USER
-          netstat -a | grep 5432 | xargs echo
-          # echo `cat .pgpass`
-          pip install psycopg2
-          bash ./compose/production/django/entrypoint
-          # sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
+      # - name: Bring up PostgreSQL
+      #   run: |
+      #     sudo systemctl start postgresql.service
+      #     sudo -u postgres createuser -s test
+      #     sudo -u postgres psql -f create_psql_user.sql -v password=$POSTGRES_PASSWORD -v username=$POSTGRES_USER
+      #     netstat -a | grep 5432 | xargs echo
+      #     # echo `cat .pgpass`
+      #     pip install psycopg2
+      #     bash ./compose/production/django/entrypoint
+      #     # sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
 
       - name: Build docker images
         # env:
@@ -73,7 +73,8 @@ jobs:
           # touch .envs/.production/.postgres
           # bash ./setup_env.sh
           docker images
-          docker-compose -f production.yml run --no-deps django python manage.py test
+          docker-compose -f production.yml run django python manage.py test
+          # docker-compose -f production.yml run --no-deps django python manage.py test
       # - name: Run docker-compose
       #   run: |
       #     # docker-compose -f production.yml exec django python manage.py test
