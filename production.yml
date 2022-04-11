@@ -23,7 +23,7 @@ services:
     restart: unless-stopped  # Don't enable while originally configuring.
 
   nginx:
-    image: nginx:${NGINX_VERSION}
+    image: nginx:1.21.6-alpine
     depends_on:
       - django
     volumes:
@@ -44,7 +44,7 @@ services:
       - "5432:5432"
 
   traefik:
-    image: traefik:${TRAEFIK_VERSION}
+    image: traefik:v2.6.3
     depends_on:
       - django
     volumes:

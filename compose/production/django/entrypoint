@@ -36,12 +36,6 @@ END
 # [ -n $TEST_ENV ] && exec "$@"
 
 until postgres_ready; do
-  # ping -c 1 $POSTGRES_HOST | xargs echo
-  echo $POSTGRES_DB
-  echo $POSTGRES_HOST
-  echo $POSTGRES_PASSWORD
-  echo $POSTGRES_USER
-  echo $POSTGRES_PORT
   >&2 echo 'Waiting for PostgreSQL to become available...'
   sleep 1
 done
