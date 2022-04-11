@@ -57,6 +57,8 @@ jobs:
           ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
 
       - name: Deploy to AWS
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           scp -o StrictHostKeyChecking=no -r ./.env ./.envs production.yml ubuntu@${{ secrets.AWS_IP_ADDRESS }}:./understory
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_IP_ADDRESS }} << 'ENDSSH'
