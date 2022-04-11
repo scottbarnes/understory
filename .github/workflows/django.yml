@@ -74,13 +74,13 @@ jobs:
         run : |
           mkdir -p ~/.ssh/
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-keyscan amazonaws.com >> ~/.ssh/known_hosts
+          ssh-keyscan 54.219.122.144 >> ~/.ssh/known_hosts
           ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
 
       - name: Deploy to AWS
         run: |
-          scp -o StrictHostKeyChecking=no -r ./.env ./.envs production.yml ubuntu@{{ secrets.AWS_IP_ADDRESS }}
-          ssh -o StrictHostKeyChecking=no root@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
+          scp -o StrictHostKeyChecking=no -r ./.env ./.envs production.yml ubuntu@${{ secrets.AWS_IP_ADDRESS }}
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_IP_ADDRESS }} << 'ENDSSH'
             cd /understory
             source .env
             # docker login ghcr.io -u $NAMESPACE -p $PERSONAL_ACCESS_TOKEN
