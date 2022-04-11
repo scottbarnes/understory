@@ -17,13 +17,13 @@ env:
   DJANGO_VERSION: django_latest
   IMAGE_TAG: ${{ github.sha }}
   POSTGRESQL_IMAGE: postgresql
-  POSTGRES_DB: testing
-  POSTGRES_HOST: postgres
+  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
   # POSTGRES_HOST: localhost
-  POSTGRES_PASSWORD: testing
-  POSTGRES_PORT: 5432
-  POSTGRES_USER: testing
-  TEST_ENV: true
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  # TEST_ENV: true
   DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
 
 jobs:
