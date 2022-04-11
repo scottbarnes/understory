@@ -5,7 +5,7 @@ set -o pipefail
 set -o nounset
 
 
-python /code/manage.py collectstatic --noinput
+# python /code/manage.py collectstatic --noinput
 
 compress_enabled() {
 python << END
