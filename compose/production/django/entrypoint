@@ -32,8 +32,7 @@ sys.exit(0)
 END
 }
 
-# # Skip DB readiness check if in a testing environment.
-# [ -n $TEST_ENV ] && exec "$@"
+# This is started via docker-compose and /start, and "python manage.py collectstatic --no-input" is run there.
 
 until postgres_ready; do
   >&2 echo 'Waiting for PostgreSQL to become available...'

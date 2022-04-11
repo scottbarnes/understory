@@ -1,5 +1,5 @@
 # Directories with big assets.
-# static/
+static/
 media/
 
 # Test DB in occasional use.
