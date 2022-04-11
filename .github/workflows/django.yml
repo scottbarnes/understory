@@ -79,7 +79,7 @@ jobs:
 
       - name: Deploy to AWS
         run: |
-          scp -o StrictHostKeyChecking=no -r ./.env ./.envs production.yml ubuntu@${{ secrets.AWS_IP_ADDRESS }}
+          scp -o StrictHostKeyChecking=no -r ./.env ./.envs production.yml ubuntu@${{ secrets.AWS_IP_ADDRESS }}:./understory
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_IP_ADDRESS }} << 'ENDSSH'
             cd ./understory
             source .env
