@@ -24,6 +24,7 @@ env:
   POSTGRES_PORT: 5432
   POSTGRES_USER: testing
   TEST_ENV: true
+  DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
 
 jobs:
   build:
