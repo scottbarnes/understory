@@ -47,17 +47,6 @@ jobs:
           mkdir -p .envs/.production
           bash ./setup_env.sh
 
-      # - name: Bring up PostgreSQL
-      #   run: |
-      #     sudo systemctl start postgresql.service
-      #     sudo -u postgres createuser -s test
-      #     sudo -u postgres psql -f create_psql_user.sql -v password=$POSTGRES_PASSWORD -v username=$POSTGRES_USER
-      #     netstat -a | grep 5432 | xargs echo
-      #     # echo `cat .pgpass`
-      #     pip install psycopg2
-      #     bash ./compose/production/django/entrypoint
-      #     # sudo -u postgres createuser -s -p 5432 -h localhost -w -e test
-
       - name: Build docker images
         # env:
         #   IMAGE_TAG: ${{ github.sha }}
@@ -68,17 +57,8 @@ jobs:
 
       - name: Run tests
         run: |
-          # mkdir -p .envs/.production
-          # touch .envs/.production/.django
-          # touch .envs/.production/.postgres
-          # bash ./setup_env.sh
           docker images
           docker-compose -f production.yml run django python manage.py test
-          # docker-compose -f production.yml run --no-deps django python manage.py test
-      # - name: Run docker-compose
-      #   run: |
-      #     # docker-compose -f production.yml exec django python manage.py test
-      #     bash ./a.sh
 
       - name: Push docker images to ECR
         run: |
@@ -88,17 +68,28 @@ jobs:
           # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           # echo "::set-output name=image::public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG"
 
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ env.AWS_REGION }}
-      #     # role-to-assume: arn:aws:iam::570577215317:role/scottbarnes
+      - name: Add key to ssh-agent.
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run : |
+          mkdir -p ~/.ssh/
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-keyscan aws.com >> ~/.ssh/known_hosts
+          ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
 
-      # - name: Login to Amazon ECR
-      #   id: login-ecr
-      #   uses: aws-actions/amazon-ecr-login@v1
+      - name: Deploy to AWS
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./.env ./.envs production.yml ubuntu@{{ secrets.AWS_IP_ADDRESS }}
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
+            cd /understory
+            source .env
+            # docker login ghcr.io -u $NAMESPACE -p $PERSONAL_ACCESS_TOKEN
+            # docker pull $WEB_IMAGE
+            # docker pull $NGINX_IMAGE
+            docker-compose -f production.yml pull
+            docker-compose -f production.yml up -d
+        ENDSSH
+
 
       # - name: Build, tag, and push image to Amazon ECR
       #   env:

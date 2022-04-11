@@ -8,8 +8,9 @@ services:
     depends_on:
       - postgres
     env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
+      - .env
+      # - ./.envs/.production/.django
+      # - ./.envs/.production/.postgres
     environment:
       - DJANGO_SETTINGS_MODULE=understory.settings.production
     container_name: understory_production_django
@@ -37,7 +38,8 @@ services:
       - ./production_postgres_data:/var/lib/postgresql/data:Z
       - ./production_postgres_data_backups:/backups:z
     env_file:
-      - ./.envs/.production/.postgres
+      - .env
+      # - ./.envs/.production/.postgres
     ports:
       - "5432:5432"
 

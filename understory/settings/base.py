@@ -25,8 +25,7 @@ environ.Env.read_env()
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".django"))
-    env.read_env(str(ROOT_DIR / ".postgres"))
+    env.read_env(str(ROOT_DIR / ".env"))
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
