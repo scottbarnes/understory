@@ -47,6 +47,27 @@ jobs:
           mkdir -p .envs/.production
           bash ./setup_env.sh
 
+      - name: Build docker images
+        # env:
+        #   IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -f ./compose/production/django/Dockerfile -t understory_production_django .
+          docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
+          docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:django_latest
+
+      - name: Run tests
+        run: |
+          docker images
+          docker-compose -f production.yml run django python manage.py test
+
+      - name: Push docker images to ECR
+        run: |
+          echo "Pushing image to ECR..."
+          # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push --all-tags public.ecr.aws/i4c2l4g3/understory
+          # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          # echo "::set-output name=image::public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG"
+
       - name: Add key to ssh-agent.
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -70,27 +91,6 @@ jobs:
             docker-compose -f production.yml pull
             docker-compose -f production.yml up -d
           ENDSSH
-
-      - name: Build docker images
-        # env:
-        #   IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -f ./compose/production/django/Dockerfile -t understory_production_django .
-          docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
-          docker tag understory_production_django:latest public.ecr.aws/i4c2l4g3/understory:django_latest
-
-      - name: Run tests
-        run: |
-          docker images
-          docker-compose -f production.yml run django python manage.py test
-
-      - name: Push docker images to ECR
-        run: |
-          echo "Pushing image to ECR..."
-          # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push --all-tags public.ecr.aws/i4c2l4g3/understory
-          # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          # echo "::set-output name=image::public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG"
 
 
       # - name: Build, tag, and push image to Amazon ECR
