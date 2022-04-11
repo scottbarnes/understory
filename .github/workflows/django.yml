@@ -88,7 +88,7 @@ jobs:
             # docker pull $NGINX_IMAGE
             docker-compose -f production.yml pull
             docker-compose -f production.yml up -d
-        ENDSSH
+          ENDSSH
 
 
       # - name: Build, tag, and push image to Amazon ECR
