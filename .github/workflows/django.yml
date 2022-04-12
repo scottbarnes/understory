@@ -59,6 +59,24 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - name: Build and export to Docker
+        env:
+          IMAGE_TAG: test
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          load: true
+          file: ./compose/production/django/Dockerfile
+          tags: |
+            public.ecr.aws/i4c2l4g3/understory:IMAGE_TAG
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      - name: Run tests
+        run: |
+          docker-compose -f production.yml run django python manage.py test
+            
       - name: Build and push
         env:
           IMAGE_TAG: ${{ github.sha }}
@@ -72,7 +90,7 @@ jobs:
             public.ecr.aws/i4c2l4g3/understory:IMAGE_TAG
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
-            
+
       - # Temp fix
         # https://github.com/docker/build-push-action/issues/252
         # https://github.com/moby/buildkit/issues/1896
