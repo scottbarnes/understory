@@ -1,19 +1,21 @@
-from .base import *
+from .base import *  # noqa
+from .base import env
 
-# Read the environment variables
-environ.Env.read_env()
+# # Read the environment variables
+# environ.Env.read_env()
 
 # DEBUG = False
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
-try:
-    from .local import *
-except ImportError:
-    pass
+# try:
+#     from .local import *
+# except ImportError:
+#     pass
 
 # Environment variables
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-ALLOWED_HOSTS = ['localhost', '.fishcracker.net', '.understory.in', '18.182.9.76']
+# ALLOWED_HOSTS = ['localhost', '.fishcracker.net', '.understory.in', '18.182.9.76']
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[".fishcracker.net", ".understory.in", "localhost", "18.182.9.76",])
 
 
 # Search
@@ -87,7 +89,7 @@ DATABASES = {
 
 # Changed for Django 4.0
 # "Origin header checking isn’t performed in older versions."
-CSRF_TRUSTED_ORIGINS = ['https://*.understory.in','https://*.127.0.0.1']   
+CSRF_TRUSTED_ORIGINS = ['https://*.understory.in','https://*.127.0.0.1', 'https://*.fishcracker.net']
 
 # STATIC
 # ------------------------
