@@ -3,14 +3,11 @@ version: '3'
 services:
 
   django: &django
-    # image: public.ecr.aws/i4c2l4g3/understory:${DJANGO_VERSION}
     image: public.ecr.aws/i4c2l4g3/understory:django_latest
     depends_on:
       - postgres
     env_file:
       - .env
-      # - ./.envs/.production/.django
-      # - ./.envs/.production/.postgres
     environment:
       - DJANGO_SETTINGS_MODULE=understory.settings.production
     container_name: understory_production_django
@@ -24,27 +21,28 @@ services:
 
   nginx:
     image: nginx:1.21.6-alpine
+    restart: unless-stopped  # Don't enable while originally configuring.
     depends_on:
       - django
     volumes:
       - ./media:/usr/share/nginx/media:ro
       - ./compose/production/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      # - ./production_django_ojs:/usr/share/nginx/ojs:ro
 
   postgres:
     # image: public.ecr.aws/i4c2l4g3/understory:${POSTGRES_VERSION}
     image: public.ecr.aws/i4c2l4g3/understory:postgres_latest
+    restart: unless-stopped  # Don't enable while originally configuring.
     volumes:
       - ./production_postgres_data:/var/lib/postgresql/data:Z
       - ./production_postgres_data_backups:/backups:z
     env_file:
       - .env
-      # - ./.envs/.production/.postgres
     ports:
       - "5432:5432"
 
   traefik:
     image: traefik:v2.6.3
+    restart: unless-stopped  # Don't enable while originally configuring.
     depends_on:
       - django
     volumes:
