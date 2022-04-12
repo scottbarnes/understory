@@ -8,3 +8,6 @@ db.sqlite3
 # Secrets
 .envs/
 .env
+
+# Production volumes used by docker-compose's production.yml
+production_*/

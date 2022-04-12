@@ -61,7 +61,7 @@ jobs:
 
       - name: Build and export to Docker
         env:
-          IMAGE_TAG: test
+          IMAGE_TAG: ${{ github.sha }}
         uses: docker/build-push-action@v2
         with:
           context: .
