@@ -1,6 +1,7 @@
 from .base import *
 
-DEBUG = False
+# DEBUG = False
+DEBUG = env('DJANGO_DEBUG')
 
 try:
     from .local import *
@@ -12,7 +13,8 @@ environ.Env.read_env()
 
 # Environment variables
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-ALLOWED_HOSTS = ['us-test.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
+# ALLOWED_HOSTS = ['us-test.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
+ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 
 
 # Search
