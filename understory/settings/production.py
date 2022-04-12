@@ -1,5 +1,8 @@
 from .base import *
 
+# Read the environment variables
+environ.Env.read_env()
+
 # DEBUG = False
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
@@ -7,9 +10,6 @@ try:
     from .local import *
 except ImportError:
     pass
-
-# Read the environment variables
-environ.Env.read_env()
 
 # Environment variables
 SECRET_KEY = env('DJANGO_SECRET_KEY')
