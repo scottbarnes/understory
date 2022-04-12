@@ -9,6 +9,7 @@ echo POSTGRES_HOST=$POSTGRES_HOST >> .env
 echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env
 echo POSTGRES_PORT=$POSTGRES_PORT >> .env
 echo POSTGRES_USER=$POSTGRES_USER >> .env
+echo DJANGO_DEBUG=$DJANGO_DEBUG >> .env
 # echo TEST_ENV=$TEST_ENV >> .env
 # echo DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY >> .envs/.production/.django
 # echo DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE >> .envs/.production/.django
