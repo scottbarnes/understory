@@ -1,22 +1,10 @@
 from .base import *  # noqa
 from .base import env
 
-# # Read the environment variables
-# environ.Env.read_env()
-
-# DEBUG = False
-DEBUG = env.bool("DJANGO_DEBUG", default=False)
-
-# try:
-#     from .local import *
-# except ImportError:
-#     pass
-
 # Environment variables
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-# ALLOWED_HOSTS = ['localhost', '.fishcracker.net', '.understory.in', '18.182.9.76']
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[".fishcracker.net", ".understory.in", "localhost", "18.182.9.76",])
-
 
 # Search
 WAGTAILSEARCH_BACKENDS = {
