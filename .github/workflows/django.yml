@@ -69,7 +69,8 @@ jobs:
           load: true
           file: ./compose/production/django/Dockerfile
           tags: |
-            public.ecr.aws/i4c2l4g3/understory:IMAGE_TAG
+            public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
+            public.ecr.aws/i4c2l4g3/understory:django_latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -86,8 +87,8 @@ jobs:
           push: true
           file: ./compose/production/django/Dockerfile
           tags: |
-            public.ecr.aws/i4c2l4g3/understory:latest
-            public.ecr.aws/i4c2l4g3/understory:IMAGE_TAG
+            public.ecr.aws/i4c2l4g3/understory:django_latest
+            public.ecr.aws/i4c2l4g3/understory:$IMAGE_TAG
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
