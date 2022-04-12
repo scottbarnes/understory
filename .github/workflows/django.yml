@@ -21,7 +21,8 @@ env:
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
   POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
   POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-  DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+  # DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+  DJANGO_ALLOWED_HOSTS: ['us-test.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in', '18.182.9.76']
   DJANGO_DEBUG: False
 
 jobs:
@@ -33,6 +34,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # Copy environment variables from Github secrets to .env, which is excluded from the container
+      # and copied via scp to AWS EC2
       - name: Setup environment
         run: |
           mkdir -p .envs/.production
