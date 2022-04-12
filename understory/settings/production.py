@@ -13,7 +13,7 @@ environ.Env.read_env()
 
 # Environment variables
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-# ALLOWED_HOSTS = ['us-test.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in']
+# ALLOWED_HOSTS = ['us-test.fishcracker.net', 'localhost', '.fishcracker.net', 'understory.in', 'www.understory.in', '18.182.9.76']
 ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 
 
