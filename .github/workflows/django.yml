@@ -30,14 +30,6 @@ jobs:
     
     steps:
 
-      - uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,action,eventName,ref,job,took,pullRequest # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -66,6 +58,14 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,action,eventName,ref,job,took,pullRequest # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
+
       - name: Build and export to Docker
         uses: docker/build-push-action@v2
         with:
@@ -78,6 +78,14 @@ jobs:
             public.ecr.aws/i4c2l4g3/understory:${{ env.IMAGE_TAG }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,action,eventName,ref,job,took,pullRequest # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
 
       - name: Run Django tests inside Docker  # This requires bringing up the Postgres container.
         run: |
