@@ -2,9 +2,9 @@
 
 on:
   push:
-    branches: [ testing ]
+    branches: [ main ]
   pull_request:
-    branches: [ testing ]
+    branches: [ main ]
 
 env:
   AWS_REGION: us-east-1
@@ -145,7 +145,7 @@ jobs:
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ env.WORKFLOW_CONCLUSION }} # neutral, success, skipped, cancelled, timed_out, action_required, failure
-          fields: repo,message,commit,job
+          fields: repo,message,commit,ref,author
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
