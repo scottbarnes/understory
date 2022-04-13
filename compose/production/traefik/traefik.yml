@@ -26,7 +26,7 @@ certificatesResolvers:
 http:
   routers:
     web-router:
-      rule: "Host(`us-test.fishcracker.net`)"
+      rule: "Host(`understory.in`, `www.understory.in`)"
       
       entryPoints:
         - web
@@ -56,7 +56,7 @@ http:
       service: smart
 
     web-secure-router:
-      rule: "Host(`us-test.fishcracker.net`)"
+      rule: "Host(`understory.in`, `www.understory.in`)"
       
       entryPoints:
         - web-secure
@@ -68,7 +68,7 @@ http:
         certResolver: letsencrypt
 
     web-media-router:
-      rule: "Host(`us-test.fishcracker.net`) && PathPrefix(`/media/`)"
+      rule: "Host(`understory.in`, `www.understory.in`) && PathPrefix(`/media/`)"
       entryPoints:
         - web-secure
       middlewares:
