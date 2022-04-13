@@ -25,9 +25,7 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
 
       - name: Checkout
@@ -58,14 +56,6 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,action,eventName,ref,job,took,pullRequest # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
-
       - name: Build and export to Docker
         uses: docker/build-push-action@v2
         with:
@@ -79,18 +69,18 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-      - uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,action,eventName,ref,job,took,pullRequest # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
+  test:
+    runs-on: ubuntu-latest
+    steps:
 
       - name: Run Django tests inside Docker  # This requires bringing up the Postgres container.
         run: |
           docker-compose -f production.yml run django python manage.py test
             
+  push:
+    runs-on: ubuntu-latest
+    steps:
+
       - name: Build and push  # Relies on cache from previous build + export step.
         uses: docker/build-push-action@v2
         with:
