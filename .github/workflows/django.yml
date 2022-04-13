@@ -24,8 +24,10 @@ env:
   DJANGO_ALLOWED_HOSTS: '${{ secrets.DJANGO_ALLOWED_HOSTS }}'
 
 jobs:
-  build:
+  build-and-push:
+
     runs-on: ubuntu-latest
+    
     steps:
 
       - name: Checkout
@@ -69,18 +71,10 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-
       - name: Run Django tests inside Docker  # This requires bringing up the Postgres container.
         run: |
           docker-compose -f production.yml run django python manage.py test
             
-  push:
-    runs-on: ubuntu-latest
-    steps:
-
       - name: Build and push  # Relies on cache from previous build + export step.
         uses: docker/build-push-action@v2
         with:
@@ -100,6 +94,21 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Copy environment variables from Github secrets to .env, which is excluded from the container
+      # and copied via scp to AWS EC2
+      - name: Setup environment
+        run: |
+          mkdir -p .envs/.production
+          bash ./setup_env.sh
 
       - name: Add key to ssh-agent
         env:
@@ -122,3 +131,21 @@ jobs:
             docker-compose -f production.yml pull
             docker-compose -f production.yml up -d
           ENDSSH
+
+  slack:
+    name: Slack
+    needs: [build, deploy] # set needs only last job except this job
+    runs-on: ubuntu-latest
+    if: always() # set always
+    steps:
+        # run this action to get workflow conclusion
+        # You can get conclusion via env (env.WORKFLOW_CONCLUSION)
+      - uses: technote-space/workflow-conclusion-action@v2
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ env.WORKFLOW_CONCLUSION }} # neutral, success, skipped, cancelled, timed_out, action_required, failure
+          # status: failure
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: env.WORKFLOW_CONCLUSION == 'failure' # notify only if failure
