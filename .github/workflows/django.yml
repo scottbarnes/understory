@@ -134,7 +134,7 @@ jobs:
 
   slack:
     name: Slack
-    needs: [build, deploy] # set needs only last job except this job
+    needs: [build-and-push, deploy] # set needs only last job except this job
     runs-on: ubuntu-latest
     if: always() # set always
     steps:
