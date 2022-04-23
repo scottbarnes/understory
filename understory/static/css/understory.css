@@ -357,11 +357,12 @@ h5 {
 
 /* css for blockquote within RichTextBlock */
 blockquote {
+  color: #000;
+  font-size: 150%;
+  font-style: normal;
+  line-height: 145%;
   margin-top: 0px;
   padding-left: 20px;
-  font-size: 165%;
-  font-style: normal;
-  color: #000;
 }
 
 /* css for quote block, as distinct from the blockquote in the RichTextBlock */
