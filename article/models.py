@@ -158,7 +158,16 @@ class ArticlePage(Page):
     # body = RichTextField(blank=True)
     body = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
+        ('paragraph', blocks.RichTextBlock(features=['redact', 'h1', 'h2',
+                                                     'h3', 'h4',
+                                                     'h5', 'h6', 'bold',
+                                                     'italic', 'ol', 'ul',
+                                                     'hr', 'embed', 'link',
+                                                     'document-link', 'image',
+                                                    'code', 'superscript',
+                                                     'subscript',
+                                                     'strikethrough',
+                                                     'blockquote'])),
         ('quote', blocks.BlockQuoteBlock()),
         ('image_with_alt_text', blocks.StructBlock([
             ('image', ImageChooserBlock()),

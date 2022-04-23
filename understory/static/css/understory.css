@@ -355,22 +355,32 @@ h5 {
 
 /* css for the StreamField blocks */
 
-/* css for quotations */
+/* css for blockquote within RichTextBlock */
 blockquote {
-  color: #000;
+  margin-top: 0px;
+  padding-left: 20px;
   font-size: 165%;
+  font-style: normal;
+  color: #000;
 }
 
-blockquote:before {
+/* css for quote block, as distinct from the blockquote in the RichTextBlock */
+p.quote {
+  color: #000;
+  font-size: 165%;
+  font-style: italic;
+}
+
+p.quote:before {
   color: #000;
   font-size: 4em;
   line-height: 0.1em;
   margin-right: 0.25em;
 }
-blockquote p {
-  display: inline;
-  color: #000;
-}
+/* blockquote p { */
+/*   display: inline; */
+/*   color: #000; */
+/* } */
 
 .quote {
   -webkit-transition: all 900ms cubic-bezier(0.165, 0.84, 0.44, 1);
