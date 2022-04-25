@@ -116,6 +116,8 @@ IMAGE_FORMATTING_CHOICES = [
 ]
 
 
+# The clean_title method is monkeypatched via
+# commun/util/clean_title_monkeypatch.py and FiveQuestionsPage
 class ArticlePage(Page):
     """
     Article page model. Formed from form input from ArticleSubmitPage and ArticleSubmitForm.

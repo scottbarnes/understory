@@ -21,6 +21,8 @@ import re
 from django import template
 from django.utils.text import slugify
 from wagtail.core.rich_text import RichText
+from common.util.parse_search_fields import parse_search_fields
+from common.util.clean_title_monkeypatch import clean_titler
 
 # We'll be wrapping the original RichText.__html__(), so make
 # sure we have a reference to it that we can call.
@@ -137,6 +139,7 @@ class FiveQuestionsIndexPage(Page):
     ]
 
 
+@clean_titler
 class FiveQuestionsPage(Page):
     """
     FiveQuestions page model. Formed from form input from FiveQuestionsSubmitPage and FiveQuestionsSubmitForm.
@@ -236,10 +239,7 @@ class FiveQuestionsPage(Page):
         return self.title
 
     search_fields = Page.search_fields + [
-        # index.SearchField('title'),  # This is redundant and causes an error.
         index.SearchField('body'),
-        # index.SearchField('authors'),
-        # index.SearchField('email'),
     ]
 
     content_panels = Page.content_panels + [

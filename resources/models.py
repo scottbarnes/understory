@@ -48,6 +48,8 @@ class ResourceIndexPage(Page):
     ]
 
 
+# The clean_title method is monkeypatched via
+# commun/util/clean_title_monkeypatch.py and FiveQuestionsPage
 class ResourcePage(Page):
     """
     Resource page model.

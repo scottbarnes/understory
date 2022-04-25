@@ -83,6 +83,8 @@ class InvitationsIndexPage(Page):
     ]
 
 
+# The clean_title method is monkeypatched via
+# commun/util/clean_title_monkeypatch.py and FiveQuestionsPage
 class InvitationsPage(Page):
     """
     Invitations page model. Formed from form input from InvitationsSubmitPage and InvitationsSubmitForm.

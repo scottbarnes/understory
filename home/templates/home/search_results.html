@@ -4,36 +4,36 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-    <main role="main">
-        <div class="container">
+  <main role="main">
+    <div class="container">
+      <br />
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q"
+                                                                                                 value="{{ search_query }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <br />
+      {% if search_results %}
+        <ul>
+          {% for result in search_results %}
+            <li>
+              <h4><a href="{% pageurl result %}">{{ result.clean_title }}</a></h4>
+              {% if result.search_description %}
+                {{ result.search_description|safe }}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% elif search_query %}
+        No results found.
         <br />
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q"
-                value="{{ search_query }}">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <br />
-            {% if search_results %}
-                <ul>
-                    {% for result in search_results %}
-                        <li>
-                            <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                            {% if result.search_description %}
-                                {{ result.search_description|safe }}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% elif search_query %}
-                No results found.
-                <br />
-                <br />
-            {% else %}
-                Please type something into the search box
-                <br />
-                <br />
-            {% endif %}
-        </div>
-    </main>
+        <br />
+      {% else %}
+        Please type something into the search box
+        <br />
+        <br />
+      {% endif %}
+    </div>
+  </main>
 {% endblock %}
 
