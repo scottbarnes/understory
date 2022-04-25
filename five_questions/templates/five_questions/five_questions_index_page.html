@@ -58,7 +58,7 @@
                   {% endcomment %}
                   {% if five_questions.translations.all %} {# .all filters out empty querysets #}
                     {% with num_of_translations=five_questions.translations.count %}
-                      <p style="text-align: center">Also available in
+                      <p style="text-align: center">Read in
                       {# When there is one translation just link it. #}
                       {% if num_of_translations == 1 %}
                         {% with translation=five_questions.translations.all.0 %} {# get first index #}

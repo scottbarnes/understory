@@ -39,7 +39,7 @@
                     {% endcomment %}
                     {% if article.translations.all %} {# .all filters out empty querysets #}
                         {% with num_of_translations=article.translations.count %}
-                        <p style="text-align: center">Also available in
+                        <p style="text-align: center">Read in
                         {# When there is one translation just link it. #}
                         {% if num_of_translations == 1 %}
                             {% with translation=article.translations.all.0 %} {# get first index #}
