@@ -14,16 +14,14 @@
       </form>
       <br />
       {% if search_results %}
-        <ul>
+        <ol style="padding:0;margin-left:0px;">
           {% for result in search_results %}
-            <li>
-              <h4><a href="{% pageurl result %}">{{ result.clean_title }}</a></h4>
+            <li><a href="{% pageurl result %}">{{ result.clean_title }}</a></li>
               {% if result.search_description %}
                 {{ result.search_description|safe }}
               {% endif %}
-            </li>
           {% endfor %}
-        </ul>
+        </ol>
       {% elif search_query %}
         No results found.
         <br />
