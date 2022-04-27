@@ -8,121 +8,121 @@
 {% block body_class %}template-invitationspage{% endblock %}
 
 {% block content %}
-    <main role="main">
+  <main role="main">
     <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
-    <div style="text-align: center;">
+      <div style="text-align: center;">
         {# Lead with the lead image which is rendered by the template and not the StreamField #}
         {% if page.lead_image %}
-            {% if page.lead_image_formatting_options == '25_PERCENT_WIDTH' %}
-                {% image page.lead_image class="img-fluid-m" width-150 alt=page.lead_image_alt_text %}
-            {% elif page.lead_image_formatting_options == '50_PERCENT_WIDTH' %}
-                {% image page.lead_image class="img-fluid-m" width-300 alt=page.lead_image_alt_text %}
-            {% elif page.lead_image_formatting_options == '75_PERCENT_WIDTH' %}
-                {% image page.lead_image class="img-fluid-m" width-450 alt=page.lead_image_alt_text %}
-            {% elif page.lead_image_formatting_options == '90_PERCENT_WIDTH' %}
-                {% image page.lead_image class="img-fluid-m" width-540 alt=page.lead_image_alt_text %}
-            {% else %}
-                {% image page.lead_image width-600 class="img-fluid" alt=page.lead_image_alt_text %}
-            {% endif %}
+          {% if page.lead_image_formatting_options == '25_PERCENT_WIDTH' %}
+            {% image page.lead_image class="img-fluid-m" width-150 alt=page.lead_image_alt_text %}
+          {% elif page.lead_image_formatting_options == '50_PERCENT_WIDTH' %}
+            {% image page.lead_image class="img-fluid-m" width-300 alt=page.lead_image_alt_text %}
+          {% elif page.lead_image_formatting_options == '75_PERCENT_WIDTH' %}
+            {% image page.lead_image class="img-fluid-m" width-450 alt=page.lead_image_alt_text %}
+          {% elif page.lead_image_formatting_options == '90_PERCENT_WIDTH' %}
+            {% image page.lead_image class="img-fluid-m" width-540 alt=page.lead_image_alt_text %}
+          {% else %}
+            {% image page.lead_image width-600 class="img-fluid" alt=page.lead_image_alt_text %}
+          {% endif %}
         {% endif %}
         {% if page.lead_image_caption %}
-            <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
+          <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
         {% endif %}
         {% if page.title %}
-	    <div><br /></div>
-            <div class="hed">{{ page.title|safe }}</div>
+          <div><br /></div>
+          <div class="hed">{{ page.title|safe }}</div>
         {% endif %}
         {% comment %}
-        {% if page.date %}
+          {% if page.date %}
             <p class="meta">{{ page.date }}</p>
-        {% endif %}
+          {% endif %}
         {% endcomment %}
 
         {% comment %}
-        {% if page.name %}
+          {% if page.name %}
             <div class="byline">{{ page.name }}</div>
-        {% endif %}
+          {% endif %}
         {% endcomment %}
         {% for iter in self.authors.all %}
-            <div class="byline">{{ iter.author.name }}</div>
+          <div class="byline">{{ iter.author.name }}</div>
         {% endfor %}
-    </div>
+      </div>
 
-    {% comment %}
-    {{ page.body|richtext }}
-    {% endcomment %}
+      {% comment %}
+        {{ page.body|richtext }}
+      {% endcomment %}
 
-    {% comment %}
-    {% include_block page.body %}
-    {% endcomment %}
-    {% for block in page.body %}
+      {% comment %}
+        {% include_block page.body %}
+      {% endcomment %}
+      {% for block in page.body %}
         {% if block.block_type == 'image_with_alt_text' %}
-            <div style="text-align: center;">
-                {% if block.value.formatting_options == '25_PERCENT_WIDTH' %}
-                    {% image block.value.image class="img-fluid-m" width-150 alt=block.value.alt_text %}
-                {% elif block.value.formatting_options == '50_PERCENT_WIDTH' %}
-                    {% image block.value.image class="img-fluid-m" width-300 alt=block.value.alt_text %}
-                {% elif block.value.formatting_options == '75_PERCENT_WIDTH' %}
-                    {% image block.value.image class="img-fluid-m" width-450 alt=block.value.alt_text %}
-                {% elif block.value.formatting_options == '90_PERCENT_WIDTH' %}
-                    {% image block.value.image class="img-fluid-m" width-540 alt=block.value.alt_text %}
-                {% else %}
-                    {% image block.value.image width-600 class="img-fluid" alt=block.value.alt_text %}
-                {% endif %}
+          <div style="text-align: center;">
+            {% if block.value.formatting_options == '25_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-150 alt=block.value.alt_text %}
+            {% elif block.value.formatting_options == '50_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-300 alt=block.value.alt_text %}
+            {% elif block.value.formatting_options == '75_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-450 alt=block.value.alt_text %}
+            {% elif block.value.formatting_options == '90_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-540 alt=block.value.alt_text %}
+            {% else %}
+              {% image block.value.image width-600 class="img-fluid" alt=block.value.alt_text %}
+            {% endif %}
 
-                {% if block.value.caption_text %}
-                    <p><small><i>{{ block.value.caption_text }}</i></small></p>
-                {% endif %}
-            </div>
+            {% if block.value.caption_text %}
+              <p><small><i>{{ block.value.caption_text }}</i></small></p>
+            {% endif %}
+          </div>
         {% elif block.block_type == 'paragraph' %}
-            <p>{{ block.value }}</p>
+          <p>{{ block.value }}</p>
         {% elif block.block_type == 'heading' %}
-            <h2>{{ block.value }}</h2>
+          <h2>{{ block.value }}</h2>
         {% elif block.block_type == 'quote' %}
-            <div class="quote">
-                <div class="line"></div>
-                <p class="quote">{{ block.value }}</p>
-                <div class="line"></div>
-            </div>
+          <div class="quote">
+            <div class="line"></div>
+            <p class="quote">{{ block.value }}</p>
+            <div class="line"></div>
+          </div>
         {% elif block.block_type == 'embeded_item' %}
-            <p><div style="text-align: center;">{{ block.value }}</div></p>
+          <p><div style="text-align: center;">{{ block.value }}</div></p>
         {% endif %}
-    {% endfor %}
+      {% endfor %}
 
 
 
-    {% comment %}
-    <p><a href="{{ page.get_parent_url }}">Return to the Understory invitations</a></p>
-    {% endcomment %}
-    <br />
-    {# Social media sharing via django_social_share #}
-    <div style="text-align: center;"><h3>
-        {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
-        {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
-        {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
-        {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
-        {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
-        {% comment %}
-        {% post_to_linkedin object_or_url %}
-        {% endcomment %}
-    </h3></div>
-    <br />
-    {% if page.tags.all.count %}
-        <div class="tags">
+      {% comment %}
+        <p><a href="{{ page.get_parent_url }}">Return to the Understory invitations</a></p>
+      {% endcomment %}
+      <br />
+      {# Social media sharing via django_social_share #}
+      <div style="text-align: center;"><h3>
+          {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
+          {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
+          {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
+          {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
+          {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
+          {% comment %}
+            {% post_to_linkedin object_or_url %}
+          {% endcomment %}
+        </h3></div>
+        <br />
+        {% if page.tags.all.count %}
+          <div class="tags">
             <div style="text-align: center;">
-                {% for tag in page.tags.all %}
-                    <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
-                {% endfor %}
+              {% for tag in page.tags.all %}
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
+              {% endfor %}
             </div>
-        </div>
-    {% endif %}
+          </div>
+        {% endif %}
         <div class="row justify-content-center">
-                <h4>
-                    <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
-                </h4>
+          <h4>
+            <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
+          </h4>
         </div>
-    <br />
-    <p><a href="../">Return to the Understory Invitations list</a></p>
+        <br />
+        <p style="text-align: center;"><a href="../">Return to the Understory Invitations list</a></p>
     </div>
-    </main>
+  </main>
 {% endblock %}
