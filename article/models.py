@@ -212,17 +212,16 @@ class ArticlePage(Page):
         related_name='articles',
         help_text="This field is historical and not currently used. It may be removed in the future.")
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
-    associated_English_article = models.ForeignKey('wagtailcore.Page', on_delete=models.SET_NULL,
+    associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
-                                                   # related_name='translations',
-                                                   related_name='+',
-                                                   help_text='If this article is not in English, and there exists an '
-                                                             'English translation of the article, select it here. '
+                                                   related_name='translations',
+                                                   help_text='If this Story is not in English, and there exists an '
+                                                             'English translation of the Story, select it here. '
                                                              'This will enable automatic linking of the various '
                                                              'translations.'
                                                    )
     language = models.CharField(
-        help_text="Specify the language in which the article is written. Note: the language must start with a"
+        help_text="Specify the language in which the Story is written. Note: the language must start with a"
                   " capital letter.",
         max_length=255
     )
@@ -258,7 +257,6 @@ class ArticlePage(Page):
             FieldPanel('issue'),
             FieldPanel('status'),
             FieldPanel('language'),
-            # FieldPanel('associated_English_article'),
             PageChooserPanel('associated_English_article', 'article.ArticlePage'),
         ], heading='Editorial information'),
     ]

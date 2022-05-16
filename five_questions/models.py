@@ -14,6 +14,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.search import index
 # For creating anchors based on Header tags
 # See https://stackoverflow.com/questions/49415788/fragment-id-linking-in-wagtails-rich-text-content
@@ -220,13 +221,13 @@ class FiveQuestionsPage(Page):
     associated_English_five_questions = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                           null=True, blank=True,
                                                           related_name='translations',
-                                                          help_text = 'If this article is not in English, and there exists an '
-                                                          'English translation of the article, select it here. '
+                                                          help_text = 'If this Five Questions is not in English, and there exists an '
+                                                          'English translation of the Five Questions , select it here. '
                                                           'This will enable automatic linking of the various '
                                                           'translations.',
                                                          )
     language = models.CharField(
-        help_text="Specify the language in which the article is written. Note: the language must start with a"
+        help_text="Specify the language in which the Five Questions is written. Note: the language must start with a"
         " capital letter.",
         max_length=255
     )
@@ -264,7 +265,7 @@ class FiveQuestionsPage(Page):
             FieldPanel('date'),
             FieldPanel('status'),
             FieldPanel('language'),
-            FieldPanel('associated_English_five_questions'),
+            PageChooserPanel('associated_English_five_questions', 'five_questions.FiveQuestionsPage')
         ], heading='Editorial information'),
     ]
 
