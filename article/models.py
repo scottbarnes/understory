@@ -19,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -211,9 +212,10 @@ class ArticlePage(Page):
         related_name='articles',
         help_text="This field is historical and not currently used. It may be removed in the future.")
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
-    associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
+    associated_English_article = models.ForeignKey('wagtailcore.Page', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
-                                                   related_name='translations',
+                                                   # related_name='translations',
+                                                   related_name='+',
                                                    help_text='If this article is not in English, and there exists an '
                                                              'English translation of the article, select it here. '
                                                              'This will enable automatic linking of the various '
@@ -256,7 +258,8 @@ class ArticlePage(Page):
             FieldPanel('issue'),
             FieldPanel('status'),
             FieldPanel('language'),
-            FieldPanel('associated_English_article'),
+            # FieldPanel('associated_English_article'),
+            PageChooserPanel('associated_English_article', 'article.ArticlePage'),
         ], heading='Editorial information'),
     ]
 
