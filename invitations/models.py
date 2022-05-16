@@ -14,6 +14,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.search import index
 # from article.models import Author  # No, circular imports.
 
@@ -165,13 +166,13 @@ class InvitationsPage(Page):
     associated_English_invitations = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                         null=True, blank=True,
                                                         related_name='translations',
-                                                        help_text = 'If this article is not in English, and there exists an '
-                                                                    'English translation of the article, select it here. '
+                                                        help_text = 'If this Invitation is not in English, and there exists an '
+                                                                    'English translation of the Invitation, select it here. '
                                                                     'This will enable automatic linking of the various '
                                                                     'translations.',
                                                         )
     language = models.CharField(
-        help_text="Specify the language in which the article is written. Note: the language must start with a"
+        help_text="Specify the language in which the Invitation is written. Note: the language must start with a"
                   " capital letter.",
         max_length=255
     )
@@ -189,10 +190,6 @@ class InvitationsPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             InlinePanel("authors", label="Author", min_num=0, max_num=10)
-            # FieldPanel('name'),
-            # FieldPanel('email'),
-            # FieldPanel('twitter'),
-            # FieldPanel('website'),
         ], heading='Author(s)'),
         MultiFieldPanel([
             ImageChooserPanel('lead_image'),
@@ -206,7 +203,7 @@ class InvitationsPage(Page):
             FieldPanel('date'),
             FieldPanel('status'),
             FieldPanel('language'),
-            FieldPanel('associated_English_invitations'),
+            PageChooserPanel('associated_English_invitations', 'invitations.InvitationsPage')
         ], heading='Editorial information'),
     ]
 

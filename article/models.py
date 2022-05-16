@@ -19,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -204,13 +205,13 @@ class ArticlePage(Page):
     associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
                                                    related_name='translations',
-                                                   help_text='If this article is not in English, and there exists an '
-                                                             'English translation of the article, select it here. '
+                                                   help_text='If this Story is not in English, and there exists an '
+                                                             'English translation of the Story, select it here. '
                                                              'This will enable automatic linking of the various '
                                                              'translations.'
                                                    )
     language = models.CharField(
-        help_text="Specify the language in which the article is written. Note: the language must start with a"
+        help_text="Specify the language in which the Story is written. Note: the language must start with a"
                   " capital letter.",
         max_length=255
     )
@@ -245,7 +246,7 @@ class ArticlePage(Page):
             FieldPanel('date'),
             FieldPanel('status'),
             FieldPanel('language'),
-            FieldPanel('associated_English_article'),
+            PageChooserPanel('associated_English_article', 'article.ArticlePage'),
         ], heading='Editorial information'),
     ]
 
