@@ -23,7 +23,6 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from home.models import HomePage
-from issue.models import IssuePage
 from five_questions.models import FiveQuestionsPage
 
 
@@ -201,15 +200,6 @@ class ArticlePage(Page):
     intro = RichTextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # issue = ParentalKey(IssuePage, on_delete=models.SET_NULL, related_name='articles',
-    #                     blank=True, null=True)
-    issue = models.ForeignKey(
-        IssuePage,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='articles',
-        help_text="This field is historical and not currently used. It may be removed in the future.")
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
     associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                    null=True, blank=True,
@@ -253,7 +243,6 @@ class ArticlePage(Page):
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),
-            FieldPanel('issue'),
             FieldPanel('status'),
             FieldPanel('language'),
             FieldPanel('associated_English_article'),
