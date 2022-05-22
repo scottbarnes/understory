@@ -1,3 +1,4 @@
+/* understory/static/css/understory.css */
 
 /* Move down content because we have a fixed navbar that is 3.5rem tall. Or sometimes we do. */
 body {
@@ -96,6 +97,12 @@ p {
   font-size: 150%;
   line-height: 145%;
   color: #000;
+}
+
+p.readInArticle {
+  padding-top: 10px;
+  text-align: left;
+  font-style: italic;
 }
 
 /*

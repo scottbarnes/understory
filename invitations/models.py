@@ -17,6 +17,7 @@ from wagtail.snippets.edit_handlers import FieldPanel
 from wagtail.admin.panels import PageChooserPanel
 from wagtail.search import index
 # from article.models import Author  # No, circular imports.
+from common.util.language_field import LanguageField
 
 BYLINE_CHOICES = (
     ('name', 'Name'),
@@ -84,8 +85,8 @@ class InvitationsIndexPage(Page):
     ]
 
 
-# The clean_title method is monkeypatched via
-# commun/util/clean_title_monkeypatch.py and FiveQuestionsPage
+# The clean_title method is monkeypatched via the FiveQuestions model and
+# common/util/clean_title_monkeypatch.py
 class InvitationsPage(Page):
     """
     Invitations page model. Formed from form input from InvitationsSubmitPage and InvitationsSubmitForm.
@@ -171,9 +172,8 @@ class InvitationsPage(Page):
                                                                     'This will enable automatic linking of the various '
                                                                     'translations.',
                                                         )
-    language = models.CharField(
-        help_text="Specify the language in which the Invitation is written. Note: the language must start with a"
-                  " capital letter.",
+    language = LanguageField(
+        help_text="Specify the language in which the Invitation is written.",
         max_length=255
     )
 

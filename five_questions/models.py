@@ -23,7 +23,8 @@ from django import template
 from django.utils.text import slugify
 from wagtail.rich_text import RichText
 from common.util.parse_search_fields import parse_search_fields
-from common.util.clean_title_monkeypatch import clean_titler
+from common.util.page_model_monkeypatch import monkey_patcher
+from common.util.language_field import LanguageField
 
 # We'll be wrapping the original RichText.__html__(), so make
 # sure we have a reference to it that we can call.
@@ -140,7 +141,7 @@ class FiveQuestionsIndexPage(Page):
     ]
 
 
-@clean_titler
+@monkey_patcher
 class FiveQuestionsPage(Page):
     """
     FiveQuestions page model. Formed from form input from FiveQuestionsSubmitPage and FiveQuestionsSubmitForm.
@@ -226,9 +227,9 @@ class FiveQuestionsPage(Page):
                                                           'This will enable automatic linking of the various '
                                                           'translations.',
                                                          )
-    language = models.CharField(
-        help_text="Specify the language in which the Five Questions is written. Note: the language must start with a"
-        " capital letter.",
+    language = LanguageField(
+        help_text="Specify the language in which the Five Questions is"
+        "written.",
         max_length=255
     )
     # Toggle FlipBook support for the Five Questions

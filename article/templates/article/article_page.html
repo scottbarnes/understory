@@ -37,6 +37,35 @@
         {% endfor %}
       </div>
 
+      {# Handle any translations. #}
+      {% if page.get_all_translations %}
+        {% with translations=page.get_all_translations %}
+          <p class="readInArticle">Read in
+          {# When there is one translation just link it. #}
+          {% if translations|length == 1 %}
+            <a href="{% pageurl translations.0 %}">{{ translations.0.language }}</a>
+            {# With two translations link both joined with a conjunction. #}
+          {% elif translations|length == 2 %}
+            <a href="{% pageurl translations.0 %}">{{ translations.0.language }}</a>
+            and
+            <a href="{% pageurl translations.1 %}">{{ translations.1.language }}</a>
+          {% else %}
+            {% comment %}
+              For all of the translations, if the element is the last of the translations, print:
+              "and <language>". Otherwise, print "<language>,"
+            {% endcomment %}
+            {% for translation in translations %}
+              {% if translation == translations|last %}
+                and <a href="{% pageurl translation %}">{{ translation.language }}</a>
+              {% else  %}
+                <a href="{% pageurl translation %}">{{ translation.language }}</a>, {# comma #}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          </p>
+        {% endwith %}
+      {% endif %}
+
       {% for block in page.body %}
         {% if block.block_type == 'image_with_alt_text' %}
           <div style="text-align: center;">

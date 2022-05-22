@@ -11,105 +11,106 @@
   <main role="main">
     {% if page.is_flipbook %}
       <div class="container-fluid flipbook"> {# used in conjunction with .container-fluid in understory.css #}
-    {% else %}
-      <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
-    {% endif %}
-    <div style="text-align: center;">
-      {# Lead with the lead image which is rendered by the template and not the StreamField #}
-      {% if page.lead_image %}
-        {% if page.lead_image_formatting_options == '25_PERCENT_WIDTH' %}
-          {% image page.lead_image class="img-fluid-m" width-150 alt=page.lead_image_alt_text %}
-        {% elif page.lead_image_formatting_options == '50_PERCENT_WIDTH' %}
-          {% image page.lead_image class="img-fluid-m" width-300 alt=page.lead_image_alt_text %}
-        {% elif page.lead_image_formatting_options == '75_PERCENT_WIDTH' %}
-          {% image page.lead_image class="img-fluid-m" width-450 alt=page.lead_image_alt_text %}
-        {% elif page.lead_image_formatting_options == '90_PERCENT_WIDTH' %}
-          {% image page.lead_image class="img-fluid-m" width-540 alt=page.lead_image_alt_text %}
-        {% else %}
-          {% image page.lead_image width-600 class="img-fluid" alt=page.lead_image_alt_text %}
+      {% else %}
+        <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
         {% endif %}
-      {% endif %}
-      {% if page.lead_image_caption %}
-        <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
-      {% endif %}
-      {% if page.title and not page.is_flipbook %}
-        <div><br /></div>
-        <div class="hed">{{ page.title|safe }}</div>
-      {% endif %}
-      {% for iter in self.authors.all %}
-        <div class="byline">{{ iter.author.name }}</div>
-      {% endfor %}
-    </div>
-
-    {# Load the FlipBook js if it's a flip book, even though this is sub optimal #}
-    {% if page.is_flipbook %}
-      <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
-      <script type="text/javascript" src="{% static 'js/flipbook.js' %}"></script>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/flipbook.css' %}">
-    {% endif %}
-    {% for block in page.body %}
-      {% if block.block_type == 'image_with_alt_text' %}
         <div style="text-align: center;">
-          {% if block.value.formatting_options == '25_PERCENT_WIDTH' %}
-            {% image block.value.image class="img-fluid-m" width-150 alt=block.value.alt_text %}
-          {% elif block.value.formatting_options == '50_PERCENT_WIDTH' %}
-            {% image block.value.image class="img-fluid-m" width-300 alt=block.value.alt_text %}
-          {% elif block.value.formatting_options == '75_PERCENT_WIDTH' %}
-            {% image block.value.image class="img-fluid-m" width-450 alt=block.value.alt_text %}
-          {% elif block.value.formatting_options == '90_PERCENT_WIDTH' %}
-            {% image block.value.image class="img-fluid-m" width-540 alt=block.value.alt_text %}
-          {% else %}
-            {% image block.value.image width-600 class="img-fluid" alt=block.value.alt_text %}
+          {# Lead with the lead image which is rendered by the template and not the StreamField #}
+          {% if page.lead_image %}
+            {% if page.lead_image_formatting_options == '25_PERCENT_WIDTH' %}
+              {% image page.lead_image class="img-fluid-m" width-150 alt=page.lead_image_alt_text %}
+            {% elif page.lead_image_formatting_options == '50_PERCENT_WIDTH' %}
+              {% image page.lead_image class="img-fluid-m" width-300 alt=page.lead_image_alt_text %}
+            {% elif page.lead_image_formatting_options == '75_PERCENT_WIDTH' %}
+              {% image page.lead_image class="img-fluid-m" width-450 alt=page.lead_image_alt_text %}
+            {% elif page.lead_image_formatting_options == '90_PERCENT_WIDTH' %}
+              {% image page.lead_image class="img-fluid-m" width-540 alt=page.lead_image_alt_text %}
+            {% else %}
+              {% image page.lead_image width-600 class="img-fluid" alt=page.lead_image_alt_text %}
+            {% endif %}
           {% endif %}
-
-          {% if block.value.caption_text %}
-            <p><small><i>{{ block.value.caption_text }}</i></small></p>
+          {% if page.lead_image_caption %}
+            <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
           {% endif %}
+          {% if page.title and not page.is_flipbook %}
+            <div><br /></div>
+            <div class="hed">{{ page.title|safe }}</div>
+          {% endif %}
+          {% for iter in self.authors.all %}
+            <div class="byline">{{ iter.author.name }}</div>
+          {% endfor %}
         </div>
-      {% elif block.block_type == 'paragraph' %}
-        <p>{{ block.value }}</p>
-      {% elif block.block_type == 'heading' %}
-        <h2>{{ block.value }}</h2>
-      {% elif block.block_type == 'quote' %}
-        <div class="quote">
-          <div class="line"></div>
-          <p class="quote">{{ block.value }}</p>
-          <div class="line"></div>
-        </div>
-      {% elif block.block_type == 'embeded_item' %}
-        <p><div style="text-align: center;">{{ block.value }}</div></p>
-      {% endif %}
-    {% endfor %}
 
-    <br />
-    {# Social media sharing via django_social_share #}
-    <div style="text-align: center;"><h3>
-        {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
-        {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
-        {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
-        {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
-        {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
-        {% comment %}
-          {% post_to_linkedin object_or_url %}
-        {% endcomment %}
-      </h3></div>
-      <br />
-      {% if page.tags.all.count %}
-        <div class="tags">
+        {# Load the FlipBook js if it's a flip book, even though this is sub optimal #}
+        {% if page.is_flipbook %}
+          <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+          <script type="text/javascript" src="{% static 'js/flipbook.js' %}"></script>
+          <link rel="stylesheet" type="text/css" href="{% static 'css/flipbook.css' %}">
+        {% endif %}
+
+      {% for block in page.body %}
+        {% if block.block_type == 'image_with_alt_text' %}
           <div style="text-align: center;">
-            {% for tag in page.tags.all %}
-              <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
-            {% endfor %}
+            {% if block.value.formatting_options == '25_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-150 alt=block.value.alt_text %}
+            {% elif block.value.formatting_options == '50_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-300 alt=block.value.alt_text %}
+            {% elif block.value.formatting_options == '75_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-450 alt=block.value.alt_text %}
+            {% elif block.value.formatting_options == '90_PERCENT_WIDTH' %}
+              {% image block.value.image class="img-fluid-m" width-540 alt=block.value.alt_text %}
+            {% else %}
+              {% image block.value.image width-600 class="img-fluid" alt=block.value.alt_text %}
+            {% endif %}
+
+            {% if block.value.caption_text %}
+              <p><small><i>{{ block.value.caption_text }}</i></small></p>
+            {% endif %}
           </div>
-        </div>
-      {% endif %}
-      <div class="row justify-content-center">
-        <h4>
-          <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
-        </h4>
-      </div>
+        {% elif block.block_type == 'paragraph' %}
+          <p>{{ block.value }}</p>
+        {% elif block.block_type == 'heading' %}
+          <h2>{{ block.value }}</h2>
+        {% elif block.block_type == 'quote' %}
+          <div class="quote">
+            <div class="line"></div>
+            <p class="quote">{{ block.value }}</p>
+            <div class="line"></div>
+          </div>
+        {% elif block.block_type == 'embeded_item' %}
+          <p><div style="text-align: center;">{{ block.value }}</div></p>
+        {% endif %}
+      {% endfor %}
+
       <br />
-      <p style="text-align: center;"><a href="../">Return to the Understory Five Questions list</a></p>
-    </div>
+      {# Social media sharing via django_social_share #}
+      <div style="text-align: center;"><h3>
+          {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
+          {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
+          {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
+          {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
+          {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
+          {% comment %}
+            {% post_to_linkedin object_or_url %}
+          {% endcomment %}
+        </h3></div>
+        <br />
+        {% if page.tags.all.count %}
+          <div class="tags">
+            <div style="text-align: center;">
+              {% for tag in page.tags.all %}
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+        <div class="row justify-content-center">
+          <h4>
+            <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
+          </h4>
+        </div>
+        <br />
+        <p style="text-align: center;"><a href="../">Return to the Understory Five Questions list</a></p>
+        </div>
   </main>
 {% endblock %}

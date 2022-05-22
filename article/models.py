@@ -25,7 +25,8 @@ from wagtail.snippets.models import register_snippet
 
 from home.models import HomePage
 from five_questions.models import FiveQuestionsPage
-
+# from common.util.clean_title_monkeypatch import monkey_patcher
+from common.util.language_field import LanguageField
 
 BYLINE_CHOICES = (
     ('name', 'Name'),
@@ -116,8 +117,10 @@ IMAGE_FORMATTING_CHOICES = [
 ]
 
 
+
+
 # The clean_title method is monkeypatched via
-# commun/util/clean_title_monkeypatch.py and FiveQuestionsPage
+# commun/util/clean_title_monkeypatch.py and FiveQuestionsPage model.
 class ArticlePage(Page):
     """
     Article page model. Formed from form input from ArticleSubmitPage and ArticleSubmitForm.
@@ -210,9 +213,8 @@ class ArticlePage(Page):
                                                              'This will enable automatic linking of the various '
                                                              'translations.'
                                                    )
-    language = models.CharField(
-        help_text="Specify the language in which the Story is written. Note: the language must start with a"
-                  " capital letter.",
+    language = LanguageField(
+        help_text="Specify the language in which the Story is written.",
         max_length=255
     )
 
