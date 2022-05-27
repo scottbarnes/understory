@@ -5,7 +5,7 @@ Home of the various custom reports.
 """
 
 from wagtail.admin.views.reports import PageReportView
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class UnpublishedChangesReportView(PageReportView):

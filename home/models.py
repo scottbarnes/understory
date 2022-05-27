@@ -2,12 +2,12 @@ from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
 
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import Page
+from wagtail.admin.panels import FieldPanel
+from wagtail.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.fields import RichTextField
+from wagtail.fields import RichTextField
 from wagtail.search.models import Query
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
 
 

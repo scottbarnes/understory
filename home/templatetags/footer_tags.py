@@ -1,7 +1,7 @@
 """ Template tags for the footer. """
 
 from django import template
-from wagtail.core.templatetags.wagtailcore_tags import pageurl
+from wagtail.templatetags.wagtailcore_tags import pageurl
 from home.models import Copyright, PrivacyPolicy, TermsOfUse, Subscribe
 
 register = template.Library()

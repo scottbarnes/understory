@@ -2,26 +2,26 @@
 """ understory/five_questions/models.py. """
 from django.db import models
 from django.shortcuts import render
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldPanel
+from wagtail import blocks
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.edit_handlers import FieldPanel
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.admin.edit_handlers import PageChooserPanel
+from wagtail.snippets.edit_handlers import FieldPanel
+from wagtail.admin.panels import PageChooserPanel
 from wagtail.search import index
 # For creating anchors based on Header tags
 # See https://stackoverflow.com/questions/49415788/fragment-id-linking-in-wagtails-rich-text-content
 import re
 from django import template
 from django.utils.text import slugify
-from wagtail.core.rich_text import RichText
+from wagtail.rich_text import RichText
 from common.util.parse_search_fields import parse_search_fields
 from common.util.clean_title_monkeypatch import clean_titler
 
@@ -252,7 +252,7 @@ class FiveQuestionsPage(Page):
             # FieldPanel('website'),
         ], heading='Author(s)'),
         MultiFieldPanel([
-            ImageChooserPanel('lead_image'),
+            FieldPanel('lead_image'),
             FieldPanel('lead_image_caption'),
             FieldPanel('lead_image_alt_text'),
             FieldPanel('lead_image_formatting_options'),
@@ -260,7 +260,7 @@ class FiveQuestionsPage(Page):
         FieldPanel('tags'),
         FieldPanel('is_flipbook'),
         FieldPanel('is_suppressed'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('status'),

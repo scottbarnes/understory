@@ -5,21 +5,21 @@ from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
-    StreamFieldPanel,
+    FieldPanel,
 )
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core import blocks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.snippets.edit_handlers import FieldPanel
+from wagtail import blocks
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.admin.edit_handlers import PageChooserPanel
+from wagtail.images.edit_handlers import FieldPanel
+from wagtail.admin.panels import PageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -235,13 +235,13 @@ class ArticlePage(Page):
             # FieldPanel('website'),
         ], heading='Author(s)'),
         MultiFieldPanel([
-            ImageChooserPanel('lead_image'),
+            FieldPanel('lead_image'),
             FieldPanel('lead_image_caption'),
             FieldPanel('lead_image_alt_text'),
             FieldPanel('lead_image_formatting_options'),
         ], heading='Lead'),
         FieldPanel('tags'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('status'),
@@ -321,7 +321,7 @@ class AuthorOrderable(Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("author")
+        FieldPanel("author")
     ]
 
 
@@ -336,7 +336,7 @@ class InvitationsAuthorOrderable(Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("author")
+        FieldPanel("author")
     ]
 
 
@@ -351,7 +351,7 @@ class FiveQuestionsAuthorOrderable(Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("author")
+        FieldPanel("author")
     ]
 
 
@@ -383,7 +383,7 @@ class Author(models.Model):
         MultiFieldPanel(
             [
                 FieldPanel("name"),
-                ImageChooserPanel("image"),
+                FieldPanel("image"),
                 FieldPanel("biography"),
             ],
             heading="Biographical information"
