@@ -1,6 +1,6 @@
 """ understory/blog/tests/models.py """
 
-from wagtail.tests.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTests
 from blog.models import (
     BlogIndexPage, BlogPage,
 )

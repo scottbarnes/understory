@@ -1,18 +1,18 @@
 """ understory/resources/models.py. This is plural because 'resource' was a django conflict. """
 from django.db import models
 from django.shortcuts import render
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldPanel
+from wagtail import blocks
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.edit_handlers import FieldPanel
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.edit_handlers import FieldPanel
 from wagtail.search import index
 from article.models import Author, IMAGE_FORMATTING_CHOICES
 from wagtail.snippets.models import register_snippet
@@ -120,7 +120,7 @@ class ResourcePage(Page):
          ),
         ('image_text', blocks.RichTextBlock()),
         ('embeded_item', blocks.RawHTMLBlock()),
-    ])
+    ], use_json_field=True)
     date = models.DateField('Post date', null=True, blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -130,11 +130,11 @@ class ResourcePage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            ImageChooserPanel('lead_image'),
+            FieldPanel('lead_image'),
             FieldPanel('lead_image_text'),  # Remove post migration
             FieldPanel('lead_image_caption'),
             FieldPanel('lead_image_alt_text'),
             FieldPanel('lead_image_formatting_options'),
         ], heading='Lead'),
-        StreamFieldPanel('body')
+        FieldPanel('body')
     ]

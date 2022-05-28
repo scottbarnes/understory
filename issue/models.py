@@ -1,10 +1,10 @@
 """ understory/issue/models.py """
 from django.db import models
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.images.edit_handlers import FieldPanel
 from wagtail.search import index
 
 
@@ -78,7 +78,7 @@ class IssuePage(Page):
             FieldPanel('date')
         ], heading='Issue information'),
         FieldPanel('intro'),
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('body'),
         # InlinePanel('articles', label='Issue articles'),
     ]

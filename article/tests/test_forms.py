@@ -2,7 +2,7 @@
 from django.test import Client, TestCase
 from django.shortcuts import reverse
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from ..forms import ArticleSubmitForm
 from ..models import ArticlePage, ArticleSubmitPage, ArticleIndexPage

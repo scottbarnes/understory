@@ -2,19 +2,19 @@
 """ understory/invitations/models.py. """
 from django.db import models
 from django.shortcuts import render
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldPanel
+from wagtail import blocks
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import Image
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.edit_handlers import FieldPanel
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.admin.edit_handlers import PageChooserPanel
+from wagtail.snippets.edit_handlers import FieldPanel
+from wagtail.admin.panels import PageChooserPanel
 from wagtail.search import index
 # from article.models import Author  # No, circular imports.
 
@@ -154,7 +154,7 @@ class InvitationsPage(Page):
             icon='image', )
          ),
         ('embeded_item', blocks.RawHTMLBlock()),
-    ])
+    ], use_json_field=True)
     # Not displayed on the submission form.
     tags = ClusterTaggableManager(through=InvitationsTagPage, blank=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)
@@ -192,13 +192,13 @@ class InvitationsPage(Page):
             InlinePanel("authors", label="Author", min_num=0, max_num=10)
         ], heading='Author(s)'),
         MultiFieldPanel([
-            ImageChooserPanel('lead_image'),
+            FieldPanel('lead_image'),
             FieldPanel('lead_image_caption'),
             FieldPanel('lead_image_alt_text'),
             FieldPanel('lead_image_formatting_options'),
         ], heading='Lead'),
         FieldPanel('tags'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('status'),

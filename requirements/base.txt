@@ -12,7 +12,7 @@ Django==4.0.4
 django-crispy-forms==1.13.0
 django-environ==0.8.1
 django-extensions==3.1.3
-django-modelcluster==5.2
+django-modelcluster==6.0
 django-slack==5.17.6  # https://github.com/lamby/django-slack
 django-social-share==2.0.0
 django-taggit==2.1.0
@@ -24,5 +24,6 @@ django-compressor==3.1  # https://github.com/django-compressor/django-compressor
 
 # Wagtail
 # ------------------------------------------------------------------------------
-wagtail>=2.16,<2.17
+# git+https://github.com/scottbarnes/wagtail.git@v3.0
+wagtail>=3.0,<3.1
 wagtailfontawesome==1.2.1

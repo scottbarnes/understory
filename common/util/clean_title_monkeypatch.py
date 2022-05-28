@@ -1,4 +1,4 @@
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 def clean_title(self) -> str:
     """
