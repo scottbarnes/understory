@@ -209,7 +209,7 @@ class FiveQuestionsPage(Page):
             icon='image', )
         ),
         ('embeded_item', blocks.RawHTMLBlock()),
-    ])
+    ], use_json_field=True)
     # Not displayed on the submission form.
     tags = ClusterTaggableManager(through=FiveQuestionsTagPage, blank=True)
     status = models.CharField(max_length=255, default='not_reviewed', choices=ARTICLE_STATUS)

@@ -120,7 +120,7 @@ class ResourcePage(Page):
          ),
         ('image_text', blocks.RichTextBlock()),
         ('embeded_item', blocks.RawHTMLBlock()),
-    ])
+    ], use_json_field=True)
     date = models.DateField('Post date', null=True, blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
