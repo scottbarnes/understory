@@ -7,6 +7,8 @@ from wagtail import hooks
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 
+from wagtail.models import Page
+
 from .views import UnpublishedChangesReportView
 
 @hooks.register('register_reports_menu_item')
@@ -18,7 +20,7 @@ def register_unpublished_changes_report_menu_item():
 def register_unpublished_changes_report_url():
     return [
         re_path(r'^reports/unpublished-changes/$', UnpublishedChangesReportView.as_view(),
-            name='unpublished_changes_report'),
+                name='unpublished_changes_report'),
     ]
 
 # 1. Use the register_rich_text_features hook.
@@ -67,3 +69,26 @@ def register_mark_feature(features):
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append('redact')
+
+@hooks.register('construct_explorer_page_queryset')
+def add_translations_to_children_queryset(parent_page, pages, request):
+    """
+    When viewing individual Stories, FiveQuestions, and Invitations in the
+    explorer, create a union Create a union between items with children and
+    those with translations.
+    """
+
+    # Only do this for explorer QuerySets that have translations.
+    if not hasattr(parent_page, 'translations'):
+        return pages
+
+    # The 'page' QuerySet is of type: <PageQuerySet [<Page: title >]. But an
+    # An ArticlePage QS returns a PageQuerySet with [<ArticlePage: title>].
+    # Because Page and ArticlePage are different base models, QuerySet
+    # union isn't possible. The query+filter below returns a QS based on the
+    # Page model, so union is possible.
+    # Specifically, filter by id on Pages that have IDs in this parent_page's
+    # translations.values.
+    children = pages
+    translations = Page.objects.filter(id__in=parent_page.translations.values('id'))
+    return children | translations
