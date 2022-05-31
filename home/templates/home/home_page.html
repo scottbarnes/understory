@@ -3,12 +3,13 @@
 {% load static wagtailimages_tags wagtailcore_tags %}
 {% load footer_tags %}
 {% load compress %}
+{% load translation_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
   {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
   {% endcompress %}
 {% endblock %}
 {% block content %}
@@ -79,52 +80,16 @@
                   {% endif %}
 
                 {% endwith %}
-
                   </h3>
-                  {% comment %}
-                    Go through the translation queryset and for each translation make a link
-                    to the translated article. But if there are no translations output a
-                    linebreak (in place of <p> which would have done that if there were
-                    a translation).
-                  {% endcomment %}
-                  {% if article.translations.all %} {# .all filters out empty querysets #}
-                    {% with num_of_translations=article.translations.count %}
-                      <p style="text-align: center">Read in
-                      {# When there is one translation just link it. #}
-                      {% if num_of_translations == 1 %}
-                        {% with translation=article.translations.all.0 %} {# get first index #}
-                          <a href="{% pageurl translation %}">{{ translation.language }}</a>
-                        {% endwith %}
-                        {# With two translations link both joined with a conjunction. #}
-                      {% elif num_of_translations == 2 %}
-                        {% with translation=article.translations.all %}
-                          <a href="{% pageurl translation.0 %}">{{ translation.0.language }}</a>
-                          and
-                          <a href="{% pageurl translation.1 %}">{{ translation.1.language }}</a>
-                        {% endwith %}
-                      {% else %}
-                        {% comment %}
-                          For all of the translations, if the element is the last of the translations, print:
-                          "and <language>". Otherwise, print "<language>,"
-                        {% endcomment %}
-                        {% for translation in article.translations.all %}
-                          {% with translation=translation.specific %}
-                            {% if translation == article.translations.all.last %}
-                              and <a href="{% pageurl translation %}">{{ translation.language }}</a>
-                            {% else  %}
-                              <a href="{% pageurl translation %}">{{ translation.language }}</a>, {# comma #}
-                            {% endif %}
-                          {% endwith %}
-                        {% endfor %}
-                      {% endif %}
-                      </p>
-                      <br /> {# Add lines between stories with translations. #}
-                    {% endwith %}
+
+                  {# Handle any translations. #}
+                  {% if article.get_all_translations %}
+                    <p style="text-align:center">Read in {% link_translations article.get_all_translations %}</p>
+                    <br /> {# Add lines between stories with translations. #}
                   {% else %} {# If no articles in article.translations.all, enter a linebreak in place of <p> #}
                     <br />
                     <br /> {# Add lines between stories with no translations. #}
                   {% endif %}
-                  <br />
               </div>
             {% endif %}
           {% endwith %}

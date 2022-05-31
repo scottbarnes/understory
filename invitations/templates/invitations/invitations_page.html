@@ -4,6 +4,7 @@
 {% load wagtailuserbar %}
 {% load social_share %}
 {% load footer_tags %}
+{% load translation_tags %}
 
 {% block body_class %}template-invitationspage{% endblock %}
 
@@ -48,13 +49,11 @@
         {% endfor %}
       </div>
 
-      {% comment %}
-        {{ page.body|richtext }}
-      {% endcomment %}
+      {# Handle any translations. #}
+      {% if page.get_all_translations %}
+        <p class="readInArticle">Read in {% link_translations page.get_all_translations %}.</p>
+      {% endif %}
 
-      {% comment %}
-        {% include_block page.body %}
-      {% endcomment %}
       {% for block in page.body %}
         {% if block.block_type == 'image_with_alt_text' %}
           <div style="text-align: center;">

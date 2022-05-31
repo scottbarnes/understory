@@ -164,7 +164,7 @@ class InvitationsPage(Page):
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
-    associated_English_invitations = models.ForeignKey('self', on_delete=models.SET_NULL,
+    associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                         null=True, blank=True,
                                                         related_name='translations',
                                                         help_text = 'If this Invitation is not in English, and there exists an '
@@ -203,7 +203,7 @@ class InvitationsPage(Page):
             FieldPanel('date'),
             FieldPanel('status'),
             FieldPanel('language'),
-            PageChooserPanel('associated_English_invitations', 'invitations.InvitationsPage')
+            PageChooserPanel('associated_English_article', 'invitations.InvitationsPage')
         ], heading='Editorial information'),
     ]
 

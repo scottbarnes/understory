@@ -219,7 +219,7 @@ class FiveQuestionsPage(Page):
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # https://stackoverflow.com/questions/40554215/wagtail-filter-results-of-an-inlinepanel-foreignkey
-    associated_English_five_questions = models.ForeignKey('self', on_delete=models.SET_NULL,
+    associated_English_article = models.ForeignKey('self', on_delete=models.SET_NULL,
                                                           null=True, blank=True,
                                                           related_name='translations',
                                                           help_text = 'If this Five Questions is not in English, and there exists an '
@@ -266,7 +266,7 @@ class FiveQuestionsPage(Page):
             FieldPanel('date'),
             FieldPanel('status'),
             FieldPanel('language'),
-            PageChooserPanel('associated_English_five_questions', 'five_questions.FiveQuestionsPage')
+            PageChooserPanel('associated_English_article', 'five_questions.FiveQuestionsPage')
         ], heading='Editorial information'),
     ]
 

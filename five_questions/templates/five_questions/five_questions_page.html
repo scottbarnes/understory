@@ -4,6 +4,7 @@
 {% load static wagtailuserbar %}
 {% load social_share %}
 {% load footer_tags %}
+{% load translation_tags %}
 
 {% block body_class %}template-five_questionspage{% endblock %}
 
@@ -47,6 +48,12 @@
           <script type="text/javascript" src="{% static 'js/flipbook.js' %}"></script>
           <link rel="stylesheet" type="text/css" href="{% static 'css/flipbook.css' %}">
         {% endif %}
+
+        <p>
+          {% if page.get_all_translations %}
+            <p class="readInArticle">Read in {% link_translations page.get_all_translations %}.</p>
+          {% endif %}
+        </p>
 
       {% for block in page.body %}
         {% if block.block_type == 'image_with_alt_text' %}

@@ -21,6 +21,12 @@ def get_all_translations(self) -> list:
     with the French and Spanish articles, and if run from the Spanish article,
     it would return a QS of the English and French articles.
     """
+
+    # Return an empty list if the requisite attributes are missing.
+    if not hasattr(self, 'associated_English_article') \
+       or not hasattr(self, 'translations'):
+        return []
+
     # For English articles (i.e. no associated English article, because the
     # article itself is in English)
     if not self.associated_English_article:
