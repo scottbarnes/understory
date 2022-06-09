@@ -221,6 +221,12 @@ class ArticlePage(Page):
     def __str__(self):
         return self.title
 
+    subpage_types = []
+
+    parent_page_type = [
+        'article.ArticlePage',
+    ]
+
     search_fields = Page.search_fields + [
         # index.SearchField('title'),  # This is redundant and causes an error.
         index.SearchField('body'),

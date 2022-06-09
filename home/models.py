@@ -3,12 +3,17 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from wagtail.admin.panels import FieldPanel
+from wagtail import blocks
 from wagtail.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.models import Image
 from wagtail.search.models import Query
 from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.search import index
 
 
 class HomePage(RoutablePageMixin, Page):
@@ -69,11 +74,86 @@ class HomePage(RoutablePageMixin, Page):
 
 
 class AboutPage(Page):
-    """ The About page. Currently used as a generic blank page. Should come up with another strategy with a
-     Streamfield or something. """
+    """
+    The About page. Currently used as a generic blank page for About,
+    Privacy Policy, Conntact us, etc.
+    """
     body = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('body', classname='full'),
+    ]
+
+
+# Image formatting choices.
+IMAGE_FORMATTING_CHOICES = [
+    ('25_PERCENT_WIDTH', '25% width'),
+    ('50_PERCENT_WIDTH', '50% width'),
+    ('75_PERCENT_WIDTH', '75% width'),
+    ('90_PERCENT_WIDTH', '90% width'),
+    ('100_PERCENT_WIDTH', '100% width'),
+]
+
+
+class GenericPageIndex(Page):
+    """
+    GenericPageIndex just holds GenericPage(s) within the admin panel. There is
+    no associted template and it's not for displaying anything on the front
+    end.
+    """
+    subpage_types = ['home.GenericPage',]
+    parent_page_type = ['wagtailcore.page',]
+
+class GenericPage(Page):
+    """ A generic page for one-off pages. """
+    body = StreamField([
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock(features=['redact', 'h1', 'h2',
+                                                     'h3', 'h4',
+                                                     'h5', 'h6', 'bold',
+                                                     'italic', 'ol', 'ul',
+                                                     'hr', 'embed', 'link',
+                                                     'document-link', 'image',
+                                                    'code', 'superscript',
+                                                     'subscript',
+                                                     'strikethrough',
+                                                     'blockquote'])),
+        ('quote', blocks.BlockQuoteBlock()),
+        ('image_with_alt_text', blocks.StructBlock([
+            ('image', ImageChooserBlock()),
+            ('caption_text', blocks.RichTextBlock(required=False)),
+            ('alt_text', blocks.TextBlock(
+                help_text='Specify the alt text to improve site accessibility. This should be '
+                          ' descriptive of the image and not merely a recitation of the caption'
+                          ' text. Nor should it be duplicative of information in the caption.'
+                          ' But it should be pithy. Perhaps no more than 125 characters.'
+                          ' See best practices at https://axesslab.com/alt-texts/.'
+            )),
+            ('formatting_options', blocks.ChoiceBlock(
+                required=False,
+                choices=IMAGE_FORMATTING_CHOICES,
+                help_text='Select the formatting rules that apply this image. By default, images'
+                          ' will span 100% of the width of the text column. Selecting 50% would'
+                          ' render the image so that the width occupied 50% of the text column.'
+                          ' Aspect ratios will be preserved. For a somewhat technical explanation'
+                          ' of how images work in Wagtail, see https://docs.wagtail.io/en/v2.12.3/topics/images.html'
+            ))],
+            icon='image', )
+         ),
+        ('embeded_item', blocks.RawHTMLBlock()),
+    ], use_json_field=True)
+
+    subpage_types = []
+
+    parent_page_type = [
+        'home.GenericIndexPage',
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body'),
     ]
 
 
