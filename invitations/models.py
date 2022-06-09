@@ -180,6 +180,13 @@ class InvitationsPage(Page):
     def __str__(self):
         return self.title
 
+    subpage_types = [
+        'invitations.InvitationsPage',
+    ]
+
+    parent_page_type = [
+        'invitations.InvitationsPage',
+    ]
     search_fields = Page.search_fields + [
         # index.SearchField('title'),  # This is redundant and causes an error.
             index.SearchField('body'),

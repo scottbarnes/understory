@@ -10,8 +10,66 @@
 
 {% block content %}
   <main role="main">
+    {# When an Invitation has children, show an index of its children rather than the content #}
+    {% if page.get_children_count > 0 %}
+      <div class="container">
+        <h1>{{ page.title }}</h1>
+
+        <div class="featured-stories row">
+          {% for child in page.get_children %}
+            {% with child=child.specific title=child.title|upper %}
+              {% if child.language == "English" %}
+                <div class="col-md-4">
+                  <a href="{% pageurl child %}">
+                    <figure>
+                      {% image child.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
+                    </figure>
+                    <h3>{{ title|safe }}
+                  </a>
+
+                  {# Authors #}
+                  {% with num_of_authors=child.authors.count %}
+                    {% if num_of_authors == 1%}
+                      <br />by {{ child.authors.first.author.name }}
+                    {% elif num_of_authors == 2 %}
+                      <br />by {{ child.authors.all.0.author.name }}
+                      and
+                      {{ child.authors.all.1.author.name }}
+                    {% elif num_of_authors > 2 %}
+                      <br />by
+                      {% for iter in child.authors.all %}
+                        {% if iter == child.authors.last %}
+                          and {{ iter.author.name }}
+                        {% else %}
+                          {{ iter.author.name }},&nbsp;
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                    </h3>
+
+                    {# Handle any translations. #}
+                    {% if child.get_all_translations %}
+                      <p style="text-align:center">Read in {% link_translations child.get_all_translations %}</p>
+                      <br /> {# Add lines between stories with translations. #}
+                    {% else %} {# If no articles in article.translations.all, enter a linebreak in place of <p> #}
+                      <br />
+                      <br /> {# Add lines between stories with no translations. #}
+                    {% endif %}
+
+                </div>
+              {% endif %}
+            {% endwith %}
+          {% endfor %}
+        </div>
+      </div>
+
+    {# Handle Invitations with no children by rendering the page content. #}
+  {% else %}
     <div class="container-fluid"> {# used in conjunction with .container-fluid in understory.css #}
       <div style="text-align: center;">
+
+        {# Handle all the Invitations without children #}
         {# Lead with the lead image which is rendered by the template and not the StreamField #}
         {% if page.lead_image %}
           {% if page.lead_image_formatting_options == '25_PERCENT_WIDTH' %}
@@ -87,41 +145,37 @@
           <p><div style="text-align: center;">{{ block.value }}</div></p>
         {% endif %}
       {% endfor %}
+    {% endif %}
 
-
-
-      {% comment %}
-        <p><a href="{{ page.get_parent_url }}">Return to the Understory invitations</a></p>
-      {% endcomment %}
+    <br />
+    {# Social media sharing via django_social_share #}
+    <div style="text-align: center;"><h3>
+        {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
+        {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
+        {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
+        {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
+        {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
+        {% comment %}
+          {% post_to_linkedin object_or_url %}
+        {% endcomment %}
+      </h3></div>
       <br />
-      {# Social media sharing via django_social_share #}
-      <div style="text-align: center;"><h3>
-          {% post_to_facebook object_or_url '<i class="fa fa-facebook-square aria-hidden="true"></i>' %}
-          {% post_to_twitter "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-twitter-square aria-hidden="true"></i>' %}
-          {% send_email object.title "Shared from Understory: {{ page.title }}." object_or_url '<i class="fa fa-envelope-square aria-hidden="true"></i>' %}
-          {% post_to_telegram "Shared from Understory: {{ page.title }}" object_or_url '<i class="fa fa-telegram aria-hidden="true"></i>' %}
-          {% post_to_whatsapp object_or_url '<i class="fa fa-whatsapp aria-hidden="true"></i>' %}
-          {% comment %}
-            {% post_to_linkedin object_or_url %}
-          {% endcomment %}
-        </h3></div>
-        <br />
-        {% if page.tags.all.count %}
-          <div class="tags">
-            <div style="text-align: center;">
-              {% for tag in page.tags.all %}
-                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
-              {% endfor %}
-            </div>
+      {% if page.tags.all.count %}
+        <div class="tags">
+          <div style="text-align: center;">
+            {% for tag in page.tags.all %}
+              <a href="{% slugurl 'tags' %}?tag={{ tag }}"><u>{{ tag }}</u></a>&nbsp;
+            {% endfor %}
           </div>
-        {% endif %}
-        <div class="row justify-content-center">
-          <h4>
-            <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
-          </h4>
         </div>
-        <br />
-        <p style="text-align: center;"><a href="../">Return to the Understory Invitations list</a></p>
+      {% endif %}
+      <div class="row justify-content-center">
+        <h4>
+          <a href="{{ 'url'|subscribe_text }}">{{ 'text'|subscribe_text }}</a>
+        </h4>
+      </div>
+      <br />
+      <p style="text-align: center;"><a href="../">Return to the Understory Invitations list</a></p>
     </div>
   </main>
 {% endblock %}
