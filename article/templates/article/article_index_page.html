@@ -24,7 +24,7 @@
               <div class="col-md-4">
                 <a href="{% pageurl article %}">
                   <figure>
-                    {% image article.lead_image fill-430x254-c100 alt=article.lead_image_alt_text %}
+                    {% image article.lead_image fill-300x300-c100 alt=article.lead_image_alt_text %}
                   </figure>
                   <h3>{{ title|safe }}
                 </a>
@@ -57,21 +57,6 @@
                     <br /> {# Add lines between stories with no translations. #}
                   {% endif %}
 
-                  {% comment %}
-                    {% with post.main_page as main_image %}
-                      {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
-                    {% endwith %}
-                  {% endcomment %}
-
-                  {% comment %}
-                    {% if article.date %}
-                      <p class="meta">{{ article.date }}</p>
-                    {% endif %}
-                    {% if article.name %}
-                      <p class="meta">By: {{ article.name }}</p>
-                    {% endif %}
-                    {{ article.intro | richtext }}
-                  {% endcomment %}
                   <br />
               </div>
             {% endif %}

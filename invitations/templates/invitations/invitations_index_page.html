@@ -10,20 +10,14 @@
     <div class="container">
       <h1>{{ page.title }}</h1>
 
-      {% comment %}
-        <div class="intro">{{ page.intro|richtext }}</div>
-      {% endcomment %}
-      <br />
-
       <div class="featured-stories row">
-
         {% for invitations in invitationspages %}
           {% with invitations=invitations.specific title=invitations.title|upper %}
             {% if invitations.language == "English" %}
               <div class="col-md-4">
                 <a href="{% pageurl invitations %}">
                   <figure>
-                    {% image invitations.lead_image fill-430x254-c100 alt=invitations.lead_image_alt_text %}
+                    {% image invitations.lead_image fill-300x300-c100 alt=invitations.lead_image_alt_text %}
                   </figure>
                   <h3>{{ title|safe }}
                 </a>

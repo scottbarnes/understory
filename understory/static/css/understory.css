@@ -244,21 +244,21 @@ h5 {
 
 .featured-stories figure {
     text-align: center;
-    background-color: #eb7400;
+    /* background-color: #eb7400; */
     margin: 20px;
     overflow: hidden;
 }
 
 .featured-issues figure {
   text-align: center;
-  background-color: #eb7400;
+  /* background-color: #eb7400; */
   margin: 20px;
   overflow: hidden;
 }
 
 .featured-resources figure {
     text-align: center;
-    background-color: #eb7400;
+    /* background-color: #eb7400; */
     margin: 20px;
     overflow: hidden;
 }
