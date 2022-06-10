@@ -49,7 +49,7 @@ class HomePage(RoutablePageMixin, Page):
         five_questionspages = FiveQuestionsPage.objects.live().public().order_by('-first_published_at').filter(models.Q(is_suppressed=False))[:1]
         five_questionspages = reversed(five_questionspages)
         context['five_questionspages'] = five_questionspages
-        invitationspages = InvitationsPage.objects.live().public().order_by('-first_published_at')[:1]
+        invitationspages = InvitationsPage.objects.live().public().filter(depth=4).order_by('-first_published_at')[:1]
         invitationspages = reversed(invitationspages)
         context['invitationspages'] = invitationspages
 
