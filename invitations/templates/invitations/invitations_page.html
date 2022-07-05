@@ -85,7 +85,7 @@
           {% endif %}
         {% endif %}
         {% if page.lead_image_caption %}
-          <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption }}</div>
+          <div class="lead-image" style="text-align: left;">{{ page.lead_image_caption|safe }}</div>
         {% endif %}
         {% if page.title %}
           <div><br /></div>
