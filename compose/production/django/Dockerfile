@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster as client-builder
+FROM python:3.10-slim-bullseye as client-builder
 
 ARG APP_HOME=/code
 WORKDIR ${APP_HOME}
@@ -11,7 +11,7 @@ COPY . ${APP_HOME}
 # ARG PYTHON_VERSION=3.9-slim-buster
 
 # define an alias for the specfic python version used in this file.
-FROM python:3.9-slim-buster as python
+FROM python:3.10-slim-bullseye as python
 
 # Python build stage
 FROM python as python-build-stage
