@@ -26,5 +26,5 @@ django-extensions==3.2.1  # https://github.com/django-extensions/django-extensio
 # Wagtail
 # ------------------------------------------------------------------------------
 # git+https://github.com/scottbarnes/wagtail.git@v3.0
-wagtail>=4.0,<4.1
+wagtail>=4.1,<4.2
 wagtailfontawesome==1.2.1  # https://pypi.org/project/wagtailfontawesome/
