@@ -21,6 +21,7 @@ django-compressor==4.1  # https://github.com/django-compressor/django-compressor
 # git+https://github.com/praekeltfoundation/django-google-analytics@f9fd66a
 git+https://github.com/scottbarnes/django-google-analytics
 # django-model-utils==4.2.0  # https://github.com/jazzband/django-model-utils
+django-extensions==3.2.1  # https://github.com/django-extensions/django-extensions
 
 # Wagtail
 # ------------------------------------------------------------------------------
